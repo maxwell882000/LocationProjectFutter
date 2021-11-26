@@ -9,7 +9,7 @@ class CommentLocation extends Comment {
   }
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = super.toJson();
-    map['location'] = this.location.toJson();
+    map['location'] = this.location.id;
     return map;
   }
 }

@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/static/file_handler.dart';
 
-
-
-
 class TranslationService extends GetxService {
   final translations = Map<String, Map<String, String>>().obs;
   // fallbackLocale saves the day when the locale gets in trouble
@@ -41,7 +38,8 @@ class TranslationService extends GetxService {
   Locale fromStringToLocale(String _locale) {
     if (_locale.contains('_')) {
       // en_US
-      return Locale(_locale.split('_').elementAt(0), _locale.split('_').elementAt(1));
+      return Locale(
+          _locale.split('_').elementAt(0), _locale.split('_').elementAt(1));
     } else {
       // en
       return Locale(_locale);

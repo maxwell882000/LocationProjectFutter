@@ -1,6 +1,10 @@
+import 'package:location_specialist/helpers/models/base/base_model.dart';
+import 'package:location_specialist/helpers/models/category/category.dart';
+import 'package:location_specialist/helpers/models/comment/comment_location.dart';
 import 'package:location_specialist/helpers/models/image/image.dart';
+import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 
-class Location {
+class Location extends BaseModel {
   late String country;
   late String city;
   late String district;
@@ -8,24 +12,44 @@ class Location {
   late double latitude;
   late double longitude;
   late List<Image> images;
-  Location.fromJson(Map<String, dynamic> map) {
+  late bool parking;
+  late String comfort;
+  late bool functionLess;
+  late List<CommentLocation> comments;
+  late double reviewAvg;
+  late List<Category> category;
+  List<Specialist> specialist = [];
+
+  
+  Location.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.country = map['country'];
     this.city = map['city'];
+    this.parking = map['parking'];
+    this.comfort = map['comfort'];
+    this.functionLess = map['function_less'];
     this.district = map['district'];
+    this.reviewAvg = map['review_avg'] ?? 0.0;
     this.description = map['description'];
     this.latitude = map['latitude'];
     this.longitude = map['longitude'];
-    this.images = map['images'].map((e) => Image.fromJson(e)).toList();
+    this.images = map['images'].map<Image>((e) => Image.fromJson(e)).toList();
+    this.category =
+        map['category'].map<Category>((e) => Category.fromJson(e)).toList();
+  }
+  String get name => "${this.country}, ${this.city}, ${this.district}";
+
+  void setSpecialist(List<Specialist> specialist) {
+    this.specialist = specialist;
   }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'country':this.country, 
-      'city' :this.city, 
-      'district':this.district,
-      'description':this.description,
+      'country': this.country,
+      'city': this.city,
+      'district': this.district,
+      'description': this.description,
       'latitude': this.latitude,
-      'longitude' : this.longitude,
+      'longitude': this.longitude,
     };
   }
 }

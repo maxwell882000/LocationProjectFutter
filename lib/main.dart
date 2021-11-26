@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -39,6 +38,10 @@ class MyApp extends StatelessWidget {
               button: TextStyle(
                 color: Colors.white,
               ),
+              headline1: TextStyle(
+                  color: Color.fromRGBO(29, 24, 24, 1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
               headline6: TextStyle(
                   color: Color.fromRGBO(70, 67, 67, 1),
                   fontSize: 14,

@@ -10,13 +10,22 @@ class BaseTextField extends StatelessWidget {
   final String Function(String?)? validatator;
   final String? sufixText;
   final bool isPassword;
+  final bool autofocus;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final Function? onTap;
   final SufixContainer? sufixContainer;
+
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
   const BaseTextField(
       {Key? key,
       this.maxLines = 1,
+      this.onTap,
+      this.controller,
+      this.autofocus = false,
       this.inputFormatters,
+      this.focusNode,
       this.isPassword = false,
       this.sufixContainer,
       this.sufixText,
@@ -33,7 +42,13 @@ class BaseTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(StyleHandler.borderRadius),
             color: StyleHandler.backColor),
         child: TextFormField(
+          controller: controller,
+          autofocus:autofocus ,
+            onTap: () {
+              if (onTap != null) onTap!();
+            },
             inputFormatters: inputFormatters,
+            focusNode: this.focusNode,
             cursorColor: Colors.grey.shade500,
             obscureText: isPassword,
             validator: validatator,
@@ -45,7 +60,7 @@ class BaseTextField extends StatelessWidget {
                     : EdgeInsets.zero,
                 suffixIcon: sufixContainer,
                 suffixIconConstraints: BoxConstraints(maxWidth: 100),
-                hintText: hintText!.tr,
+                hintText: hintText?.tr,
                 hintStyle: Theme.of(context).textTheme.bodyText1,
                 border: InputBorder.none)));
   }
