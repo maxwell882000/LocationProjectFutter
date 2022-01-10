@@ -12,14 +12,14 @@ class FutureWidget extends StatelessWidget {
     return FutureBuilder(
         future: this.request,
         builder: (context, snapshot) {
+          print(snapshot.error);
           if (snapshot.hasError) {
-            return Text("ERROR");
+            return Text(snapshot.error.toString());
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return child;
           }
-          return Center(
-              child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator());
         });
   }
 }

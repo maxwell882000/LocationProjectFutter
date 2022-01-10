@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:location_specialist/helpers/models/media/media.dart';
+
 class ImagePickerCustom extends StatefulWidget {
   final Function(dynamic) onSelect;
-  const ImagePickerCustom({Key? key, required this.onSelect}) : super(key: key);
+  final Image? initialImage;
+  const ImagePickerCustom({Key? key, required this.onSelect, this.initialImage})
+      : super(key: key);
 
   @override
   _ImagePickerCustomState createState() => _ImagePickerCustomState();
 }
-
 
 class _ImagePickerCustomState extends State<ImagePickerCustom> {
   final ImagePicker _picker = ImagePicker();
@@ -16,15 +21,23 @@ class _ImagePickerCustomState extends State<ImagePickerCustom> {
   void pickImage() async {
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-
-      var imageFile = await image.readAsBytes();
-        http.MultipartFile.fromBytes("asd", imageFile);
+      var imagePath = image.path;
       setState(() {
-        _image = Image.memory(
-          imageFile,
+        _image = Image.file(
+          File.fromUri(Uri.file(imagePath)),
           fit: BoxFit.cover,
         );
-        widget.onSelect(imageFile);
+        widget.onSelect(Media(path: imagePath, name: ""));
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialImage != null) {
+      setState(() {
+        _image = widget.initialImage!;
       });
     }
   }

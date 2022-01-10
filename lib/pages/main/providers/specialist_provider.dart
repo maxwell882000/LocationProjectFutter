@@ -22,6 +22,10 @@ class SpecialistProvider extends BaseProvider implements AbstractPaginator {
     this.paginate = await SpecialistRepository().specialistList();
   }
 
+  Future refresh() async {
+    this._paginate = await SpecialistRepository().specialistList();
+  }
+
   @override
   bool get loading => this.paginate.loading;
 

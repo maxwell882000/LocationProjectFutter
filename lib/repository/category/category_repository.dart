@@ -12,6 +12,8 @@ class CategoryRepository with ApiBaseMethods {
   CategoryRepository._internal();
 
   static const String prefix = "specialist/category/";
+
+  
   Future<CategoryPaginate> categoryList() async {
     Map<String, dynamic> response =
         await this.get(new Request(prefix + "list/"));

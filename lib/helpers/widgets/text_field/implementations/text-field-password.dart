@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
 import 'package:location_specialist/helpers/widgets/text_field/helper/sufix-container.dart';
 
 class TextFieldPassword extends StatefulWidget {
   final Function(String?)? onSaved;
-  final String Function(String?)? validatator;
   final String? hintText;
-  const TextFieldPassword(
-      {Key? key, this.onSaved, this.validatator, this.hintText = "Пароль"})
+  final String? initialValue;
+  const TextFieldPassword({Key? key, this.onSaved, this.hintText = "Пароль", this.initialValue})
       : super(key: key);
   @override
   _TextFieldPasswordState createState() => _TextFieldPasswordState();
@@ -19,7 +19,9 @@ class _TextFieldPasswordState extends State<TextFieldPassword> {
   Widget build(BuildContext context) {
     return BaseTextField(
       onSaved: widget.onSaved,
-      validatator: widget.validatator,
+      validatator: (text) {
+        return text != null && text != "" ? null : "Пароль обязателен".tr;
+      },
       isPassword: show,
       hintText: widget.hintText,
       sufixContainer: SufixContainer(

@@ -9,7 +9,12 @@ import 'package:location_specialist/helpers/widgets/text/text-lang.dart';
 class PrDropDown extends StatelessWidget {
   final String hintText;
   final Map<int, String> items;
-  const PrDropDown({Key? key, required this.hintText, required this.items})
+  final Function(int) onChange;
+  
+  const PrDropDown({Key? key, 
+  required this.hintText,
+   required this.items,
+  required this.onChange})
       : super(key: key);
 
   @override
@@ -18,7 +23,7 @@ class PrDropDown extends StatelessWidget {
         child: TextLang(
           hintText,
         ),
-        onChange: (Map<int, String> value, int index) => print(value),
+        onChange: (Map<int, String> value, int index) => onChange(value.entries.first.key),
         dropdownButtonStyle: DropdownButtonStyle(
           width: double.infinity,
           padding: EdgeInsets.all(StyleHandler.padding),

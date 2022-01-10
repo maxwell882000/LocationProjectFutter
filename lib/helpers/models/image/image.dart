@@ -6,8 +6,8 @@ class Image extends BaseModel{
     this.images = map['images'];
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
+  Map<String, String> toJson() {
+    return <String, String>{
       'images': this.images
     };
   }

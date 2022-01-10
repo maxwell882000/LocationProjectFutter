@@ -12,4 +12,8 @@ class Path {
   static const LOCATION_PROFILE = '/location-profile';
   static const CATEGORY_LIST = "/category-list";
   static const CATEGORY_PROFILE = "/category-profile";
+  static const LOCATION_COMMENT = "/comment-location";
+  static const PHONE_VALIDATION = "/phone-validation";
+  static const LOCATION_FORM = "/location-create";
+  
 }

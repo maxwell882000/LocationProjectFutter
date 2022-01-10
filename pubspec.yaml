@@ -23,11 +23,13 @@ environment:
 dependencies:
   get:
   provider:
+  path_provider:
   shared_preferences:
   geolocator:
   image_picker:
   responsive_framework:
   http:
+  pin_code_fields: ^7.3.0
   google_maps_flutter: 
   carousel_slider: ^4.0.0
   flutter_localizations:
@@ -62,6 +64,7 @@ flutter:
    - assets/locale/
    - assets/icons/
    - assets/images/
+   - assets/review/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

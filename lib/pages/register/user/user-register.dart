@@ -3,38 +3,77 @@ import 'package:get/get.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_auth.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
+import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-password.dart';
+import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-phone.dart';
+import 'package:location_specialist/pages/register/providers/user_provider.dart';
 import 'package:location_specialist/routes/path.dart';
+import 'package:provider/provider.dart';
 
 class UserRegister extends StatelessWidget {
-  const UserRegister({Key? key}) : super(key: key);
-
+  UserRegister({Key? key}) : super(key: key);
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return ScaffoldAuth(children: [
-      BaseTextField(
-          hintText: "Имя",
-          validatator: (text) {
-            return text!;
-          },
-          onSaved: (text) {}),
-      BaseTextField(
-          hintText: "Фамилия",
-          validatator: (text) {
-            return text!;
-          },
-          onSaved: (text) {}),
-      BaseTextField(
-          hintText: "Номер телефона",
-          validatator: (text) {
-            return text!;
-          },
-          onSaved: (text) {}),
-      BlackButton(
-        text: "ЗАРЕГИСТРИРОВАТЬСЯ",
-        onPressed: () {
-          Get.offAllNamed(Path.MAIN);
-        },
-      )
-    ]);
+    return ChangeNotifierProvider<UserProvider>(
+      create: (_) => UserProvider(),
+      child: Form(
+        key: _formkey,
+        child: ScaffoldAuth<UserProvider>(children: [
+          Consumer<UserProvider>(builder: (context, provider, child) {
+            return BaseTextField(
+                hintText: "Имя",
+                initialValue: provider.user.firstname,
+                validatator: (text) {
+                  return text != null || text == ""
+                      ? null
+                      : "Имя обязательное поле";
+                },
+                onSaved: (text) {
+                  provider.name = text!;
+                });
+          }),
+          Consumer<UserProvider>(builder: (context, provider, child) {
+            return BaseTextField(
+                hintText: "Фамилия",
+                initialValue: provider.user.lastname,
+                validatator: (text) {
+                  return text != null || text == ""
+                      ? null
+                      : "Фамилия обязательное поле";
+                },
+                onSaved: (text) {
+                  provider.lastname = text!;
+                });
+          }),
+          Consumer<UserProvider>(builder: (context, provider, child) {
+            return TextFieldPhone(
+                initialValue: provider.user.phone,
+                onSaved: (text) {
+                  provider.phone = text!;
+                });
+          }),
+          Consumer<UserProvider>(builder: (context, provider, child) {
+            return TextFieldPassword(
+                initialValue: provider.user.password,
+                onSaved: (text) {
+                  provider.password = text!;
+                });
+          }),
+          Builder(builder: (context) {
+            return BlackButton(
+              text: "ЗАРЕГИСТРИРОВАТЬСЯ",
+              onPressed: () {
+                if (_formkey.currentState!.validate()) {
+                  _formkey.currentState!.save();
+                  final provider =
+                      Provider.of<UserProvider>(context, listen: false);
+                  provider.registerUser();
+                }
+              },
+            );
+          })
+        ]),
+      ),
+    );
   }
 }

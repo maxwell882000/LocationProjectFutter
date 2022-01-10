@@ -18,15 +18,21 @@ class CategoryList extends StatelessWidget {
       child: FutureProviderCustom<CategoryProvider>(
         create: new CategoryProvider(),
         child: Consumer<CategoryProvider>(
-            builder: (context, provider, child) => ListViewPaginate(
-                paginator: provider,
-                itemBuilder: (context, index) {
-                  return CategoryItem(category: provider.categories[index]);
-                },
-                separatorBuilder: (context, index) {
-                  return StyleHandler.y_margin;
-                },
-                itemCount: provider.categories.length)),
+            builder: (context, provider, child) => RefreshIndicator(
+                  onRefresh: () async {
+                    await provider.refresh();
+                  },
+                  child: ListViewPaginate(
+                      paginator: provider,
+                      itemBuilder: (context, index) {
+                        return CategoryItem(
+                            category: provider.categories[index]);
+                      },
+                      separatorBuilder: (context, index) {
+                        return StyleHandler.y_margin;
+                      },
+                      itemCount: provider.categories.length),
+                )),
       ),
     );
   }

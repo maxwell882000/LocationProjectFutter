@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
+import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/comment/comment_form.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
 import 'package:location_specialist/helpers/widgets/image/image_add.dart';
@@ -13,6 +15,7 @@ import 'package:location_specialist/helpers/widgets/text/text_title.dart';
 import 'package:location_specialist/pages/category/helper_widgets/category_list_item.dart';
 import 'package:location_specialist/pages/location/provider/location_view_provider.dart';
 import 'package:location_specialist/pages/specialist/helper_widgets/specialist_future_list.dart';
+import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
 
 class LocationView extends StatelessWidget {
@@ -44,11 +47,12 @@ class LocationView extends StatelessWidget {
                 textAlign: TextAlign.left,
               )),
           StyleHandler.y_margin,
-          LabelWidget(
-              text: "Виды деятельности:",
-              child: CategoryListItem(
-                categories: provider.location.category,
-              )),
+          if (provider.location.category.isNotEmpty)
+            LabelWidget(
+                text: "Виды деятельности:",
+                child: CategoryListItem(
+                  categories: provider.location.category,
+                )),
           StyleHandler.y_margin,
           TextKeyValue(
               keyText: "Парковка:",
@@ -58,10 +62,12 @@ class LocationView extends StatelessWidget {
               keyText: "Доступность для маломобильных людей:",
               value: provider.location.functionLess ? "ДА" : "Нет"),
           StyleHandler.y_margin,
-          CommentForm(
-              onSaved: (text) {},
-              validatator: (text) => "",
-              sendComment: () {}),
+          BlackButton(
+            text: "Комментарии",
+            onPressed: () {
+              Get.toNamed(Path.LOCATION_COMMENT, arguments: provider.location);
+            },
+          ),
           StyleHandler.y_margin,
           LabelWidget(
             text: "Специалисты",

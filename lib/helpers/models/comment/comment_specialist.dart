@@ -7,9 +7,9 @@ class CommentSpecialist extends Comment {
   CommentSpecialist.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.specialist = Specialist.fromJson(map['specialist']);
   }
-    Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = super.toJson();
-    map['location'] = this.specialist.id;
+    Map<String, String> toJson() {
+    Map<String, String> map = super.toJson();
+    map['location'] = this.specialist.id.toString();
     return map;
   }
 }

@@ -1,40 +1,19 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location_specialist/helpers/models/base/base_provider.dart';
+import 'package:location_specialist/helpers/components/providers/base_map_provider.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/repository/location/location_repository.dart';
 import 'package:location_specialist/routes/path.dart';
 
-class MapProvider extends BaseProvider {
-  Map<int, Marker> markers = <int, Marker>{};
-  late List<Location> location = [];
-  late CameraPosition cameraPosition = new CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 20,
-  );
+class MapProvider extends BaseMapProvider {
+  late List<Location> _location = [];
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
+  List<Location> get location => _location;
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    return await Geolocator.getCurrentPosition();
+  set location(List<Location> location) {
+    _location.addAll(location);
+    this.createMarkers();
+    notifyListeners();
   }
 
   void createMarkers() {
@@ -50,19 +29,32 @@ class MapProvider extends BaseProvider {
     });
   }
 
-  Future getLocations(Position position) async {
+  int _calculateZoom(int zoom) {
+    const TILE_SIZE = 350;
+    const CIRCUMFERENCE = 40075016;
+    final scale = 1 << zoom;
+    return CIRCUMFERENCE ~/ (TILE_SIZE * scale);
+  }
+
+  Future addLocations(CameraPosition position) async {
+    var paginate = await LocationRepository().locationListMap(
+        radius: this._calculateZoom(position.zoom.toInt()),
+        longitude: position.target.longitude,
+        latitude: position.target.latitude,
+        locations:
+            this.location.map((e) => 'locations=${e.id}').toList().join('&'));
+    this.location = paginate.list;
+  }
+
+  Future getLocations(LatLng position) async {
     var paginate = await LocationRepository().locationListMap(
         latitude: position.latitude, longitude: position.longitude, radius: 5);
-    location = paginate.list;
-    this.createMarkers();
-    notifyListeners();
+    this.location = paginate.list;
   }
 
   @override
   initAsync() async {
-    Position position = await _determinePosition();
-    cameraPosition = CameraPosition(
-        target: LatLng(position.latitude, position.longitude), zoom: 10.0);
-    getLocations(position);
+    await super.initAsync();
+    getLocations(cameraPosition.target);
   }
 }

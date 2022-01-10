@@ -10,7 +10,12 @@
 // selected item's index and displays a corresponding message in the center of
 // the [Scaffold].
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:location_specialist/repository/model/request.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(const MyApp());
 
@@ -67,15 +72,37 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
+  File? file;
+  Future<String> get localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future check() async {
+    var request = await http.get(Request(
+            "media/logo/9e3651cc-60b9-11ec-be6c-0d5fab00aedd_1637868852728.png")
+        .url);
+    var file = File(await localPath + '/sd/safas/fsc/sga');
+    file.createSync(recursive: true);
+    file.writeAsBytes(request.bodyBytes);
+    setState(() {
+      this.file = file;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    check();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('BottomNavigationBar Sample'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: this.file != null ? Image.file(this.file!) : SizedBox(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:location_specialist/helpers/models/scroll_physics/always_scroll_one_top.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/text_field/stack/search_text_field.dart';
@@ -13,37 +14,30 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        StyleHandler.y_margin,
-        Adds(),
-        StyleHandler.y_margin,
-        BlackButton(
-          text: "Поиск",
-          onPressed: () {
-            Get.toNamed(Path.SEARCH);
-          },
+    return LayoutBuilder(builder: (context, constraints) {
+      return SizedBox(
+        height: Get.height -
+            Scaffold.of(context).appBarMaxHeight! -
+            kBottomNavigationBarHeight,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            StyleHandler.y_margin,
+            SingleChildScrollView(
+                physics: AlwaysScrollOneTop(), child: Adds()),
+            StyleHandler.y_margin,
+            BlackButton(
+              text: "Поиск",
+              onPressed: () {
+                Get.toNamed(Path.SEARCH);
+              },
+            ),
+            StyleHandler.y_margin,
+            Expanded(child: MainMap()),
+            StyleHandler.y_margin,
+          ],
         ),
-        /*       Hero(
-          tag: 'search',
-          child: SearchTextField(
-            hintText: "Поиск по карте",
-            onFocusChange: (val) {
-              if (val) {
-                /*            Get.toNamed(Path.SEARCH, preventDuplicates: true); */
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 100),
-                        pageBuilder: (_, __, ___) => SearchMap()));
-              }
-            },
-          ),
-        ), */
-        StyleHandler.y_margin,
-        Flexible(child: MainMap()),
-        StyleHandler.y_margin,
-      ],
-    );
+      );
+    });
   }
 }

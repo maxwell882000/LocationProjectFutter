@@ -5,6 +5,7 @@ import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'dropdown-button-style.dart';
 import 'dropdown-item.dart';
 import 'dropdown-style.dart';
+// if you select something this value will be saved
 
 class CustomDropdown<T> extends StatefulWidget {
   /// the child widget for the button, this will be ignored if text is supplied
@@ -15,7 +16,7 @@ class CustomDropdown<T> extends StatefulWidget {
   final void Function(T, int)? onChange;
 
   /// list of DropdownItems
-  final List<DropdownItem<T>>? items;
+  final List<DropdownItem<T>> items;
   final DropdownStyle dropdownStyle;
 
   /// dropdownButtonStyles passes styles to OutlineButton.styleFrom()
@@ -31,7 +32,7 @@ class CustomDropdown<T> extends StatefulWidget {
     Key? key,
     this.hideIcon = false,
     this.child = const SizedBox(),
-    @required this.items,
+    this.items = const [],
     this.dropdownStyle = const DropdownStyle(),
     this.dropdownButtonStyle = const DropdownButtonStyle(),
     this.icon = const Icon(Icons.arrow_downward),
@@ -59,10 +60,20 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
     initControllers();
   }
 
+  /* Required for setting  to helper text when initial items was changed  */
+  @override
+  void didUpdateWidget(covariant CustomDropdown<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.items.length == 0) {
+      setState(() {
+        _currentIndex = -1;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var style = widget.dropdownButtonStyle;
-    // link the overlay to the button
     return CompositedTransformTarget(
       link: this._layerLink,
       child: Container(
@@ -84,8 +95,8 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
               if (_currentIndex == -1) ...[
                 widget.child, /* helper Widget text */
               ] else ...[
-                widget.items![
-                    _currentIndex], /* When clicked will be shown this */
+                widget
+                    .items[_currentIndex], /* When clicked will be shown this */
               ],
               if (!widget.hideIcon)
                 RotationTransition(
@@ -150,7 +161,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
                           padding:
                               widget.dropdownStyle.padding ?? EdgeInsets.zero,
                           shrinkWrap: true,
-                          children: widget.items!.asMap().entries.map((item) {
+                          children: widget.items.asMap().entries.map((item) {
                             return InkWell(
                               onTap: () {
                                 setState(() => _currentIndex = item.key);

@@ -17,15 +17,21 @@ class SpecialistList extends StatelessWidget {
       child: FutureProviderCustom<SpecialistProvider>(
         create: new SpecialistProvider(),
         child: Consumer<SpecialistProvider>(
-          builder: (context, provider, child) => ListViewPaginate(
-              paginator: provider,
-              itemBuilder: (context, index) {
-                return SpecialistItem(specialist: provider.specialists[index]);
-              },
-              separatorBuilder: (context, index) {
-                return StyleHandler.y_margin;
-              },
-              itemCount: provider.specialists.length),
+          builder: (context, provider, child) => RefreshIndicator(
+            onRefresh: () async {
+            await  provider.refresh();
+            },
+            child: ListViewPaginate(
+                paginator: provider,
+                itemBuilder: (context, index) {
+                  return SpecialistItem(
+                      specialist: provider.specialists[index]);
+                },
+                separatorBuilder: (context, index) {
+                  return StyleHandler.y_margin;
+                },
+                itemCount: provider.specialists.length),
+          ),
         ),
       ),
     );

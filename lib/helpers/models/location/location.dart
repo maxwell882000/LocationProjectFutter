@@ -1,10 +1,11 @@
+import 'package:location_specialist/helpers/mixins/mix_comentable.dart';
 import 'package:location_specialist/helpers/models/base/base_model.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
-import 'package:location_specialist/helpers/models/comment/comment_location.dart';
+import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/image/image.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 
-class Location extends BaseModel {
+class Location extends BaseModel with MixComentable {
   late String country;
   late String city;
   late String district;
@@ -15,12 +16,10 @@ class Location extends BaseModel {
   late bool parking;
   late String comfort;
   late bool functionLess;
-  late List<CommentLocation> comments;
   late double reviewAvg;
   late List<Category> category;
   List<Specialist> specialist = [];
 
-  
   Location.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.country = map['country'];
     this.city = map['city'];
@@ -48,8 +47,8 @@ class Location extends BaseModel {
       'city': this.city,
       'district': this.district,
       'description': this.description,
-      'latitude': this.latitude,
-      'longitude': this.longitude,
+      'latitude': this.latitude.toString(),
+      'longitude': this.longitude.toString(),
     };
   }
 }

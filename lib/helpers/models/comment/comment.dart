@@ -5,13 +5,15 @@ import 'package:location_specialist/helpers/models/user/user.dart';
 class Comment extends BaseModel implements SerializeJsonInterface {
   late User user;
   late String comment;
-  Comment.fromJson(Map<String, dynamic> map) :super.fromJson(map) {
-    this.user = User.fromJson(map['user']);
+  late String date;
+  Comment.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
+    this.user = User.decide(map['user']);
     this.comment = map['comment'];
+    this.date = map['date'];
   }
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'user': this.user.id,
+  Map<String, String> toJson() {
+    return <String, String>{
+      'user': this.user.id.toString(),
       'comment': this.comment
     };
   }

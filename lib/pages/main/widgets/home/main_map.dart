@@ -8,24 +8,19 @@ import 'package:provider/provider.dart';
 
 class MainMap extends StatelessWidget {
   const MainMap({Key? key}) : super(key: key);
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: Get.height * 0.5,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: FutureProviderCustom<MapProvider>(
-                create: new MapProvider(),
-                child: Consumer<MapProvider>(
-                    builder: (context, provider, child) => GoogleMap(
-                        mapToolbarEnabled: false,
-                        zoomControlsEnabled: false,
-                        markers: Set<Marker>.of(provider.markers.values),
-                        initialCameraPosition: provider.cameraPosition)))));
+    return FutureProviderCustom<MapProvider>(
+        create: new MapProvider(),
+        child: Consumer<MapProvider>(
+            builder: (context, provider, child) => GoogleMap(
+                onCameraMove: (CameraPosition camera) {
+                  provider.addLocations(camera);
+                },
+                mapToolbarEnabled: false,
+                zoomControlsEnabled: false,
+                markers: Set<Marker>.of(provider.markers.values),
+                initialCameraPosition: provider.cameraPosition)));
   }
 }

@@ -1,17 +1,18 @@
+import 'package:location_specialist/helpers/mixins/mix_comentable.dart';
 import 'package:location_specialist/helpers/mixins/mix_json.dart';
 import 'package:location_specialist/helpers/models/base/base_model.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
-import 'package:location_specialist/helpers/models/comment/comment_specialist.dart';
+import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/user/user.dart';
 
-class Specialist extends BaseModel with MixJson {
+class Specialist extends BaseModel with MixJson, MixComentable {
   late String image;
   late String description;
   late User user;
   late Location location;
   late List<Category> category;
-  late List<CommentSpecialist> comments;
+
   late double reviewAvg;
   String get name => "${user.firstname} ${user.lastname}";
   String get firstCategory => "${this.category.first.categoryName}";
@@ -19,7 +20,9 @@ class Specialist extends BaseModel with MixJson {
   Specialist.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.image = map['image'];
     this.description = map['description'];
-    this.user = User.fromJson(map['user']);
+    if (map.containsKey('user')) {
+      this.user = User.fromJson(map['user']);
+    }
     this.location = Location.fromJson(map['location']);
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
@@ -33,11 +36,6 @@ class Specialist extends BaseModel with MixJson {
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
     this.reviewAvg = map['review_avg'];
-  }
-  void setCommentAndReviews(Map<String, dynamic> map) {
-    this.comments = map['comments']
-        .map<CommentSpecialist>((e) => CommentSpecialist.fromJson(e))
-        .toList();
   }
 
   Map<String, dynamic> toJson() {

@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 
 class BottomNavigationItem {
-  final String path;
+  final File file;
   final Widget body;
-  const BottomNavigationItem(this.path, this.body);
+  const BottomNavigationItem(this.file, this.body);
 }

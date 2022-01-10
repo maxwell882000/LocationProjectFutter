@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:location_specialist/helpers/components/providers/comment_provider.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
+import 'package:provider/provider.dart';
 
 class CommentForm extends StatelessWidget {
-  final Function(String?) onSaved;
-  final String Function(String?) validatator;
-  final Function sendComment;
-  const CommentForm({
+  CommentForm({
     Key? key,
-    required this.onSaved,
-    required this.validatator,
-    required this.sendComment,
   }) : super(key: key);
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BaseTextField(
-            maxLines: 3,
-            hintText: "Напишите коментарий",
-            validatator: (text) => validatator(text),
-            onSaved: (text) => onSaved(text)),
-        StyleHandler.y_margin,
-        BlackButton(
-          text: "Отправить",
-          onPressed: sendComment,
-        )
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Consumer<CommentProvider>(builder: (context, provider, child) {
+            return BaseTextField(
+                maxLines: 3,
+                hintText: "Напишите коментарий",
+                validatator: (text) =>
+                    text != "" && text != null ? null : "Введите коментарий".tr,
+                onSaved: (text) => provider.sendComment(text!));
+          }),
+          StyleHandler.y_margin,
+          BlackButton(
+            text: "Отправить",
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+              }
+            },
+          )
+        ],
+      ),
     );
   }
 }

@@ -5,12 +5,12 @@ class ReviewLocation extends Review {
   final int location;
 
   ReviewLocation(
-      {required int review, required int user, required this.location})
+      {required int review,  int user = 0, required this.location})
       : super(review: review, user: user);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = super.toJson();
-    map['location'] = this.location;
+    map['location'] = this.location.toString();
     return map;
   }
   /*  ReviewLocation.fromJson(Map<String, dynamic> map) : super.fromJson(map) {

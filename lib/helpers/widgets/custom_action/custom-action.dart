@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/text/text-lang.dart';
+import 'package:location_specialist/providers/auth_provider.dart';
+import 'package:location_specialist/routes/path.dart';
+import 'package:provider/provider.dart';
+
+class ACTION {
+  static const CHANGE_USER_DATA = 0;
+  static const RULE_OF_USAGE = 1;
+  static const ADD_LOCATION = 2;
+  static const EXIT = 3;
+}
 
 class CustomAction extends StatefulWidget {
   const CustomAction({Key? key}) : super(key: key);
@@ -13,7 +23,6 @@ class CustomAction extends StatefulWidget {
 class _CustomActionState extends State<CustomAction>
     with SingleTickerProviderStateMixin {
   bool open = false;
-
   final LayerLink _layerLink = LayerLink();
   late AnimationController _animationController;
   late Animation<double> _expandAnimation;
@@ -30,6 +39,51 @@ class _CustomActionState extends State<CustomAction>
     initControllers();
   }
 
+  actionsOnClick(int index) {
+    switch (index) {
+      case ACTION.CHANGE_USER_DATA:
+        empty();
+        break;
+      case ACTION.RULE_OF_USAGE:
+        empty();
+        break;
+      case ACTION.ADD_LOCATION:
+        closeMenu();
+        Get.toNamed(Path.LOCATION_FORM);
+        break;
+      case ACTION.EXIT:
+        logout();
+        break;
+    }
+  }
+
+  empty() {}
+
+  logout() {
+    toggleMenu();
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text("Нет")),
+                TextButton(
+                    onPressed: () {
+                      Get.back();
+                      var provider =
+                          Provider.of<AuthProvider>(context, listen: false);
+                      provider.logout();
+                    },
+                    child: Text("Да")),
+              ],
+              title: Text('Выйти'),
+              content: Text('Вы уверены что хотите выйти?'),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
@@ -37,10 +91,11 @@ class _CustomActionState extends State<CustomAction>
       child: IconButton(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         onPressed: () {
-          openButton();
+          toggleMenu();
         },
         icon: Icon(
           open ? Icons.close : Icons.menu,
+          color: Colors.black,
           size: 32,
         ),
       ),
@@ -65,7 +120,7 @@ class _CustomActionState extends State<CustomAction>
             shrinkWrap: true,
             padding: EdgeInsets.all(0),
             itemBuilder: (context, index) => TextButton(
-                onPressed: () {},
+                onPressed: () => this.actionsOnClick(index),
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: TextLang(this.items[index]))),
@@ -86,16 +141,27 @@ class _CustomActionState extends State<CustomAction>
         CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
   }
 
-  void openButton() async {
-    if (open) {
-      await _animationController.reverse();
-      this._overlayEntry.remove();
-    } else {
-      this._overlayEntry = this._createMenu();
-      Overlay.of(context)!.insert(this._overlayEntry);
-    }
+  Future closeMenu() async {
+    await _animationController.reverse();
+    this._overlayEntry.remove();
     setState(() {
-      open = !open;
+      open = false;
     });
+  }
+
+  void insertMenu() async {
+    this._overlayEntry = this._createMenu();
+    Overlay.of(context)!.insert(this._overlayEntry);
+    setState(() {
+      open = true;
+    });
+  }
+
+  void toggleMenu() async {
+    if (open) {
+      await closeMenu();
+    } else {
+      this.insertMenu();
+    }
   }
 }
