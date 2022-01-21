@@ -3,18 +3,20 @@ import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.d
 import 'package:location_specialist/routes/path.dart';
 
 class ErrorCustom {
-  late final List<Map<String, String>> errors;
+  late final List<Map> errors;
   ErrorCustom({var errors}) {
+    if (errors == null) {
+      this.errors = _DEFAULT_ERRORS;
+    }
     if (errors is String) {
       this.errors = [
         {'error': errors}
       ];
     } else if (errors is List<Map<String, String>>) {
       this.errors = errors;
-    } else if (errors is Map<String, String>) {
+    } else if (errors is Map) {
       this.errors = [errors];
     }
-    this.errors = _DEFAULT_ERRORS;
   }
 
   static const _DEFAULT_ERRORS = [

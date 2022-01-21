@@ -5,6 +5,7 @@ class User extends BaseModel {
   late String firstname;
   late String lastname;
   late String phone;
+  String? token;
   Specialist? specialist;
   User() {
     firstname = "";
@@ -28,6 +29,9 @@ class User extends BaseModel {
     this.phone = map['phone'];
     if (map.containsKey('user_specialist') && map['user_specialist'] != null) {
       this.specialist = Specialist.fromJson(map['user_specialist']);
+    }
+    if (map.containsKey("token")) {
+      this.token = map['token'];
     }
   }
 

@@ -13,16 +13,19 @@ class CategoryRepository with ApiBaseMethods {
 
   static const String prefix = "specialist/category/";
 
-  
   Future<CategoryPaginate> categoryList() async {
     Map<String, dynamic> response =
         await this.get(new Request(prefix + "list/"));
     return CategoryPaginate.fromJson(response);
   }
 
+  Future<List<Category>> categorySelectList() async {
+    var response = await this.get(new Request(prefix + "list/select/?size=0"));
+    return response['results'].map<Category>((e) => Category.select(e)).toList();
+  }
+
   Future<CategoryPaginate> categoryListPaginate(String url) async {
-    Map<String, dynamic> response =
-        await this.getPaginate(new Request(url));
+    Map<String, dynamic> response = await this.getPaginate(new Request(url));
     return CategoryPaginate.fromJson(response);
   }
 }

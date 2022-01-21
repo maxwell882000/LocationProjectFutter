@@ -1,3 +1,4 @@
+import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist_paginate.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';
 import 'package:location_specialist/repository/model/request.dart';
@@ -19,9 +20,13 @@ class SpecialistRepository with ApiBaseMethods {
   }
 
   Future<SpecialistPaginate> specialistListPaginate(String url) async {
-    Map<String, dynamic> response =
-        await this.getPaginate(new Request(url));
+    Map<String, dynamic> response = await this.getPaginate(new Request(url));
     return SpecialistPaginate.fromJson(response);
+  }
+
+  Future<Specialist> specialistCreate(Map<String, dynamic> map) async {
+    var request = await this.post(Request(prefix + "create/", data: map));
+    return Specialist.create(request);
   }
 
   Future<SpecialistPaginate> specialistListLocation(int id) {

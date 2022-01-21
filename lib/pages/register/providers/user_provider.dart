@@ -4,6 +4,7 @@ import 'package:location_specialist/helpers/models/error/error.dart';
 import 'package:location_specialist/helpers/models/user/auth.dart';
 import 'package:location_specialist/helpers/models/user/user.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
+import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/repository/auth/auth_repository.dart';
 import 'package:location_specialist/routes/path.dart';
@@ -37,7 +38,14 @@ class UserProvider extends LoadingProvider {
       AuthProvider.auth.user = await AuthRepository().createUser(user);
       Get.offAllNamed(Path.PHONE_VALIDATION);
     } on ErrorCustom catch (e) {
-      print(e.errors);
+      if (e.errors
+          .where((element) => element.containsKey('phone'))
+          .isNotEmpty) {
+        SnackbarHandler.error(title: "Ошибка", body: "Такой номер уже занят");
+        e.errors.removeRange(0, 1);
+      } else {
+        SnackbarHandler.error(title: "Ошибка", body: e.errors.toString());
+      }
     }
     loading = false;
   }

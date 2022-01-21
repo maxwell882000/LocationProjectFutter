@@ -7,6 +7,9 @@ class Category extends BaseModel implements SerializeJsonInterface {
   late String categoryName;
   late String description;
   late List<Location> location = [];
+  Category.select(Map<String, dynamic> map) : super.fromJson(map) {
+    this.categoryName = map['category_name'];
+  }
   Category.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.categoryName = map["category_name"];
     this.description = map['description'];

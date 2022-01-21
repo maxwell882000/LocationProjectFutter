@@ -49,6 +49,7 @@ class AuthRepository with ApiBaseMethods {
   Future<bool> validateCode(String code) async {
     var response =
         await this.post(new Request('auth/user/code/', data: {'code': code}));
+    print(response);
     return response['status'];
   }
 }

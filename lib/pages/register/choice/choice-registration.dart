@@ -20,7 +20,7 @@ class ChoiceRegistration extends StatelessWidget {
           RedButton(
             text: "Специалист",
             onPressed: () {
-              Get.toNamed(Path.REGISTER_SPECIALIST);
+              Get.toNamed(Path.REGISTER_USER_FIRST);
             },
           ),
           BlackButton(

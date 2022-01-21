@@ -3,7 +3,9 @@ class Path {
   static const LOGIN = "/login";
   static const REGISTER_USER = "/register-user";
   static const REGISTER_CHOOSE = "/register-choose";
+  static const CHOOSE_LOCATION = "/specialist-choose-location";
   static const REGISTER_SPECIALIST = "/register-specialist";
+  static const REGISTER_USER_FIRST = "/register-user-first";
   static const MAIN = "/main";
   static const SEARCH = "/search-new";
   static const SPECIALIST_LIST = "/specialist-search";
@@ -15,5 +17,5 @@ class Path {
   static const LOCATION_COMMENT = "/comment-location";
   static const PHONE_VALIDATION = "/phone-validation";
   static const LOCATION_FORM = "/location-create";
-  
+  static const TEST = "/test";
 }

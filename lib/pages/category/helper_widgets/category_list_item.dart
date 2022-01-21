@@ -16,6 +16,7 @@ class CategoryListItem extends StatelessWidget {
           categories.map<Widget>((e) => CategoryItemIn(category: e)).toList(),
       options: CarouselOptions(
         viewportFraction: 0.35,
+        enableInfiniteScroll: false,
         height: 40,
       ),
     );

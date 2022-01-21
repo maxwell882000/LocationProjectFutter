@@ -11,13 +11,29 @@ import 'package:provider/provider.dart';
 
 class UserRegister extends StatelessWidget {
   UserRegister({Key? key}) : super(key: key);
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
+  Widget button() {
+    return Builder(builder: (context) {
+      return BlackButton(
+        text: "ЗАРЕГИСТРИРОВАТЬСЯ",
+        onPressed: () {
+          if (formkey.currentState!.validate()) {
+            formkey.currentState!.save();
+            final provider = Provider.of<UserProvider>(context, listen: false);
+            provider.registerUser();
+          }
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserProvider>(
       create: (_) => UserProvider(),
       child: Form(
-        key: _formkey,
+        key: formkey,
         child: ScaffoldAuth<UserProvider>(children: [
           Consumer<UserProvider>(builder: (context, provider, child) {
             return BaseTextField(
@@ -59,19 +75,7 @@ class UserRegister extends StatelessWidget {
                   provider.password = text!;
                 });
           }),
-          Builder(builder: (context) {
-            return BlackButton(
-              text: "ЗАРЕГИСТРИРОВАТЬСЯ",
-              onPressed: () {
-                if (_formkey.currentState!.validate()) {
-                  _formkey.currentState!.save();
-                  final provider =
-                      Provider.of<UserProvider>(context, listen: false);
-                  provider.registerUser();
-                }
-              },
-            );
-          })
+          button()
         ]),
       ),
     );

@@ -45,7 +45,6 @@ mixin ApiBaseMethods {
 
   dynamic _responseFromClient(http.Response request) {
     dynamic response = {};
-    print(request.body);
     if (request.body.isNotEmpty) response = jsonDecode(request.body);
     if (request.statusCode == Status.HTTP_ERROR) {
       throw ErrorCustom(errors: response['errors']);
@@ -55,7 +54,7 @@ mixin ApiBaseMethods {
     } else if (request.statusCode != Status.HTTP_200 &&
         request.statusCode != Status.HTTP_201 &&
         request.statusCode != Status.HTTP_204) {
-      throw ErrorCustom();
+      throw ErrorCustom(errors: response);
     }
     return response;
   }

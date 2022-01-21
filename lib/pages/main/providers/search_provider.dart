@@ -7,14 +7,22 @@ import 'package:location_specialist/repository/location/location_repository.dart
 
 class SearchProvider extends BaseProvider {
   late TextEditingController controller;
+  bool _disposed = false;
+
+  bool get disposed => _disposed;
+
+  set disposed(bool disposed) {
+    _disposed = disposed;
+    notifyListeners();
+  }
+
   List<Location> _location = [];
 
   List<Location> get location => _location;
 
   set location(List<Location> location) {
     _location = location;
-
-    notifyListeners();
+    if (!this._disposed) notifyListeners();
   }
 
   SearchProvider() {

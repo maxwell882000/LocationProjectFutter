@@ -114,6 +114,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
     );
   }
 
+  chooseItem(item) {
+    setState(() => _currentIndex = item.key);
+  }
+
   OverlayEntry _createOverlayEntry() {
     // find the size and position of the current widget
     RenderBox renderBox = context.findRenderObject() as RenderBox;
@@ -164,7 +168,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
                           children: widget.items.asMap().entries.map((item) {
                             return InkWell(
                               onTap: () {
-                                setState(() => _currentIndex = item.key);
+                                this.chooseItem(item);
                                 widget.onChange!(item.value.value!, item.key);
                                 _toggleDropdown();
                               },

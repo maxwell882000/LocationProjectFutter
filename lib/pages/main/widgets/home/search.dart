@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 
 class SearchMap extends StatelessWidget {
   const SearchMap({Key? key}) : super(key: key);
+  onTapSearch(e) {
+    Get.offAndToNamed(Path.LOCATION_PROFILE, arguments: e);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class SearchMap extends StatelessWidget {
                       ),
                       IconButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                           icon: Icon(Icons.cancel))
                     ],
@@ -49,8 +52,8 @@ class SearchMap extends StatelessWidget {
                           children: provider.location
                               .map<Widget>((e) => ListTile(
                                     onTap: () {
-                                      Get.offAndToNamed(Path.LOCATION_PROFILE,
-                                          arguments: e);
+                                      provider.disposed = true;
+                                      onTapSearch(e);
                                     },
                                     title: Text(e.name),
                                   ))

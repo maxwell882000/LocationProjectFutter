@@ -49,16 +49,12 @@ class PhoneValidation extends StatelessWidget {
                 animationDuration: Duration(milliseconds: 300),
                 enableActiveFill: true,
                 validator: (text) {
-                  if (text == null || text == "") {
-                    SnackbarHandler.error(
-                        title: "Ошибка".tr, body: "Введите код".tr);
-                    return "";
-                  }
                   return null;
                 },
                 onSaved: (v) {
                   var provider = Provider.of<PhoneValidationProvider>(context,
                       listen: false);
+         
                   provider.code = v!;
                 },
                 onChanged: (value) {},

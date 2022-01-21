@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:location_specialist/helpers/models/icon/icon_menu.dart';
 import 'package:location_specialist/helpers/models/logo/logo.dart';
+import 'package:location_specialist/helpers/models/media/media.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';
 import 'package:location_specialist/repository/model/request.dart';
+import 'package:location_specialist/repository/model/request_file.dart';
 
 class CommonRepository with ApiBaseMethods {
   static final CommonRepository _singleton = CommonRepository._internal();
@@ -28,5 +31,21 @@ class CommonRepository with ApiBaseMethods {
   Future<Uint8List> getCommonFile(String path) async {
     final Uint8List request = await this.getFile(Request(path));
     return request;
+  }
+
+  Future<int> createImageTemp(Media media) async {
+    var response = await this.multipartPost(RequestFile(
+      "common/temp_store/",
+      bytes: media,
+    ));
+    Map<String, dynamic> map =
+        jsonDecode(await response.stream.bytesToString());
+    return map['id'];
+  }
+
+  Future<bool> deleteImageTemp(int id) async {
+    var response = await this
+        .delete(Request("common/temp_store/delete/${id.toString()}/"));
+    return true;
   }
 }

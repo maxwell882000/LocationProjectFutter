@@ -13,7 +13,7 @@ import 'package:location_specialist/helpers/widgets/future_widget/future_widget.
 class ImageMultipleCustom extends StatefulWidget {
   final Function(int) validation;
   final Future Function(Media, UniqueKey) onServer;
-  final Function(UniqueKey) onDelete;
+    final Function(UniqueKey) onDelete;
   const ImageMultipleCustom(
       {Key? key,
       required this.onDelete,

@@ -5,9 +5,9 @@ import 'package:location_specialist/repository/auth/auth_repository.dart';
 import 'package:location_specialist/routes/path.dart';
 
 class PhoneValidationProvider extends LoadingProvider {
-  late String _code;
+  late String? _code;
 
-  String get code => _code;
+  String? get code => _code;
   PhoneValidationProvider() {
     if (Get.arguments == true) {
       startSendCode();
@@ -27,7 +27,11 @@ class PhoneValidationProvider extends LoadingProvider {
   }
 
   Future confirmCode() async {
-    final response = await AuthRepository().validateCode(code);
+    print(code);
+    if (code == null || code == "") {
+      return SnackbarHandler.error(title: "Ошибка".tr, body: "Введите код".tr);
+    }
+    final response = await AuthRepository().validateCode(code!);
     if (response) {
       Get.offAllNamed(Path.MAIN);
       SnackbarHandler.success(
@@ -55,7 +59,7 @@ class PhoneValidationProvider extends LoadingProvider {
     }
   }
 
-  set code(String code) {
+  set code(String? code) {
     _code = code;
     notifyListeners();
   }
