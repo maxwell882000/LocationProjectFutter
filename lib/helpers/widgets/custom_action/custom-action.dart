@@ -7,7 +7,7 @@ import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
 
 class ACTION {
-  static const CHANGE_USER_DATA = 0;
+  static const CHANGE_PASSWORD = 0;
   static const RULE_OF_USAGE = 1;
   static const ADD_LOCATION = 2;
   static const EXIT = 3;
@@ -28,7 +28,7 @@ class _CustomActionState extends State<CustomAction>
   late Animation<double> _expandAnimation;
   late OverlayEntry _overlayEntry;
   final List<String> items = [
-    "Изменить данные",
+    "Изменить пароль",
     "Правила пользования",
     "Добавить локацию",
     "Выйти"
@@ -41,8 +41,9 @@ class _CustomActionState extends State<CustomAction>
 
   actionsOnClick(int index) {
     switch (index) {
-      case ACTION.CHANGE_USER_DATA:
-        empty();
+      case ACTION.CHANGE_PASSWORD:
+        closeMenu();
+        Get.toNamed(Path.CHANGE_PASSWORD);
         break;
       case ACTION.RULE_OF_USAGE:
         empty();

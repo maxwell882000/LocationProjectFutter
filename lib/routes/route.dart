@@ -8,6 +8,7 @@ import 'package:location_specialist/pages/location/widgets_form/location_form.da
 import 'package:location_specialist/pages/login/login.dart';
 import 'package:location_specialist/pages/main/main.dart';
 import 'package:location_specialist/pages/main/widgets/home/search.dart';
+import 'package:location_specialist/pages/password/widgets/password-change.dart';
 import 'package:location_specialist/pages/register/choice/choice-registration.dart';
 import 'package:location_specialist/pages/register/phone-validation/phone_validation.dart';
 import 'package:location_specialist/pages/register/specialist/choose-location.dart';
@@ -34,6 +35,7 @@ class Routes {
     GetPage(name: Path.SEARCH, page: () => SearchMap()),
     GetPage(name: Path.LOCATION_COMMENT, page: () => LocationComment()),
     GetPage(name: Path.PHONE_VALIDATION, page: () => PhoneValidation()),
-    GetPage(name: Path.LOCATION_FORM, page: () => LocationForm())
+    GetPage(name: Path.LOCATION_FORM, page: () => LocationForm()),
+    GetPage(name: Path.CHANGE_PASSWORD, page: () => PasswordChange())
   ];
 }

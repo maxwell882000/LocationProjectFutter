@@ -19,7 +19,7 @@ class Location extends BaseModel with MixComentable {
   late double reviewAvg;
   late List<Category> category;
   List<Specialist> specialist = [];
-
+  
   Location.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.country = map['country'];
     this.city = map['city'];

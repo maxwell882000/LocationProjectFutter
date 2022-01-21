@@ -38,8 +38,9 @@ class CommonRepository with ApiBaseMethods {
       "common/temp_store/",
       bytes: media,
     ));
-    Map<String, dynamic> map =
-        jsonDecode(await response.stream.bytesToString());
+    var re = await response.stream.bytesToString();
+    print(re);
+    Map<String, dynamic> map = jsonDecode(re);
     return map['id'];
   }
 

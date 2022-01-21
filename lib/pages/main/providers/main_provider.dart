@@ -4,6 +4,7 @@ import 'package:location_specialist/helpers/models/icon/icon_menu.dart';
 import 'package:location_specialist/pages/main/widgets/category/category_list.dart';
 import 'package:location_specialist/pages/main/widgets/home/home.dart';
 import 'package:location_specialist/pages/main/widgets/specialist/specialist_list.dart';
+import 'package:location_specialist/pages/main/widgets/user/user-edit.dart';
 import 'package:location_specialist/providers/common_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,7 @@ class MainPorivder with ChangeNotifier {
   }
 
   List<BottomNavigationItem> footer = [];
-  static const widgets = [Home(), CategoryList(), SpecialistList(), SizedBox()];
+  static final widgets = [Home(), CategoryList(), SpecialistList(), UserEdit()];
   Widget get body => footer[_index].body;
 
   List<Widget> get children => footer.map<Widget>((e) => e.body).toList();

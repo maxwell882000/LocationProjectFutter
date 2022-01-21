@@ -7,6 +7,7 @@ class User extends BaseModel {
   late String phone;
   String? token;
   Specialist? specialist;
+
   User() {
     firstname = "";
     lastname = "";
@@ -46,4 +47,7 @@ class User extends BaseModel {
       "phone": this.phone,
     };
   }
+
+
+  
 }

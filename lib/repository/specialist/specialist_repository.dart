@@ -26,7 +26,15 @@ class SpecialistRepository with ApiBaseMethods {
 
   Future<Specialist> specialistCreate(Map<String, dynamic> map) async {
     var request = await this.post(Request(prefix + "create/", data: map));
-    return Specialist.create(request);
+    return Specialist.fromJson(request);
+  }
+
+  Future<Specialist> specialistUpdate(
+      int specialistId, Map<String, dynamic> map) async {
+    print(map);
+    var request =
+        await this.put(Request(prefix + "update/$specialistId/", data: map));
+    return Specialist.fromJson(request);
   }
 
   Future<SpecialistPaginate> specialistListLocation(int id) {

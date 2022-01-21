@@ -35,10 +35,15 @@ class AuthRepository with ApiBaseMethods {
     return User.fromJson(response);
   }
 
-  Future<User> updateUser(Auth user) async {
+  Future<bool> changePassword(Map<String, String> data) async {
     var response =
-        await this.put(Request('auth/update/', data: user.toCreate()));
-    return response['token'];
+        await this.put(Request("auth/change_password/", data: data));
+    return true;
+  }
+
+  Future<User> updateUser(User user) async {
+    var response = await this.put(Request('auth/update/', data: user.toJson()));
+    return User.fromJson(response);
   }
 
   Future<bool> sendCode() async {
@@ -49,7 +54,6 @@ class AuthRepository with ApiBaseMethods {
   Future<bool> validateCode(String code) async {
     var response =
         await this.post(new Request('auth/user/code/', data: {'code': code}));
-    print(response);
     return response['status'];
   }
 }

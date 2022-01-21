@@ -9,7 +9,6 @@ class CategorySelectionProvider extends BaseProvider {
   List<Category> get category => _category;
 
   CategorySelectionProvider() {
-    initAsync();
   }
   set category(List<Category> category) {
     _category = category;

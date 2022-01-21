@@ -18,18 +18,27 @@ class Specialist extends BaseModel with MixJson, MixComentable {
   String get firstCategory => "${this.category.first.categoryName}";
   String get address => "${this.location.name}";
   Specialist.create(Map<String, dynamic> map) : super.fromJson(map) {
+    print(image);
     this.image = map['image'];
     this.description = map['description'];
+    this.setUser(map);
+  }
+    Specialist.update(Map<String, dynamic> map) : super.fromJson(map) {
+    this.image = map['image'];
+    this.description = map['description'];
+    this.setUser(map);
+  }
+
+  setUser(Map<String, dynamic> map) {
     if (map.containsKey('user')) {
       this.user = User.fromJson(map['user']);
     }
   }
+
   Specialist.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.image = map['image'];
     this.description = map['description'];
-    if (map.containsKey('user')) {
-      this.user = User.fromJson(map['user']);
-    }
+    this.setUser(map);
     this.location = Location.fromJson(map['location']);
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
@@ -38,7 +47,7 @@ class Specialist extends BaseModel with MixJson, MixComentable {
 
   Specialist.fromJsonCard(Map<String, dynamic> map) : super.fromJson(map) {
     this.image = map['image'];
-    this.user = User.fromJson(map['user']);
+    this.setUser(map);
     this.location = Location.fromJson(map['location']);
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
@@ -52,6 +61,17 @@ class Specialist extends BaseModel with MixJson, MixComentable {
       "user": this.user.toJson(),
       "category": this.toJsonList(this.category),
     };
+  }
+
+  Map<String, dynamic> toUpdate() {
+    var map = <String, dynamic>{
+      "description": this.description,
+      "location": this.location.id,
+    };
+    try {
+      map['image'] = int.parse(this.image);
+    } catch (e) {}
+    return map;
   }
 }
 /* For now it is not necessary */

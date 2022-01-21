@@ -199,13 +199,16 @@ class _CheckBoxDropDownState<T> extends State<CheckBoxDropDown<T>> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      widget.initialItems.forEach((value) {
-        _selectedTitles
-            .add(widget.items.firstWhere((element) => value == element));
-        _selectedTitlesIndex.add(widget.items.indexOf(value));
+
+    if (widget.items != []) {
+      setState(() {
+        widget.initialItems.forEach((value) {
+          _selectedTitles
+              .add(widget.items.firstWhere((element) => value == element));
+          _selectedTitlesIndex.add(widget.items.indexOf(value));
+        });
       });
-    });
+    }
   }
 
   @override
@@ -308,7 +311,7 @@ class _CheckBoxDropDownState<T> extends State<CheckBoxDropDown<T>> {
                                       padding: widget.padding,
                                       margin: widget.margin,
                                       size: widget.size,
-                                
+
                                       activeBgColor: widget.activeBgColor,
                                       inactiveIcon: widget.inactiveIcon,
                                       activeBorderColor:

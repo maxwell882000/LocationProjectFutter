@@ -70,8 +70,8 @@ class BaseTextField extends StatelessWidget {
                     : EdgeInsets.zero,
                 suffixIcon: sufixContainer,
                 suffixIconConstraints: BoxConstraints(maxWidth: 100),
-                hintText: hintText?.tr,
-                hintStyle: Theme.of(context).textTheme.bodyText1,
+                labelText: hintText?.tr,
+                labelStyle: Theme.of(context).textTheme.bodyText1,
                 border: InputBorder.none)));
   }
 }

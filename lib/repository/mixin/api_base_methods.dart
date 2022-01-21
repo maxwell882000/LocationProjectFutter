@@ -40,12 +40,20 @@ mixin ApiBaseMethods {
   Future<dynamic> post(Request requestData) async {
     var request = await http.post(requestData.url,
         body: jsonEncode(requestData.data), headers: this.headers);
-    return this._responseFromClient(request);
+    return this._responseFromClient(request, requestData: requestData.data);
   }
 
-  dynamic _responseFromClient(http.Response request) {
+  dynamic _responseFromClient(http.Response request,
+      {Map requestData = const {}}) {
     dynamic response = {};
-    if (request.body.isNotEmpty) response = jsonDecode(request.body);
+    if (request.body.isNotEmpty) {
+      try {
+        response = jsonDecode(request.body);
+      } catch (e) {
+        print("DATA ${jsonEncode(requestData)}");
+        print(request.body);
+      }
+    }
     if (request.statusCode == Status.HTTP_ERROR) {
       throw ErrorCustom(errors: response['errors']);
     } else if (request.statusCode == Status.HTTP_ERROR_403) {
@@ -71,8 +79,8 @@ mixin ApiBaseMethods {
 
   Future<dynamic> put(Request requestData) async {
     var request = await http.put(requestData.url,
-        body: requestData.data, headers: this.headers);
-    return this._responseFromClient(request);
+        body: jsonEncode(requestData.data), headers: this.headers);
+    return this._responseFromClient(request, requestData: requestData.data);
   }
 
   Future<dynamic> delete(Request requestData) async {

@@ -79,11 +79,14 @@ class SpecialistRegisterProvider extends LoadingProvider {
       Specialist specialist =
           await SpecialistRepository().specialistCreate(_formValues);
       AuthProvider.auth.user = specialist.user;
+      AuthProvider.auth.user!.specialist = specialist;
       AuthProvider.token = specialist.user.token;
       Get.offAllNamed(Path.PHONE_VALIDATION);
     } on ErrorCustom catch (e) {
       if ((e.errors
-          .where((element) => element.containsKey('user') && element['user'].containsKey('phone'))
+          .where((element) =>
+              element.containsKey('user') &&
+              element['user'].containsKey('phone'))
           .isNotEmpty)) {
         SnackbarHandler.error(title: "Ошибка", body: "Такой номер уже занят");
         e.errors.removeRange(0, 1);

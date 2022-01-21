@@ -17,5 +17,8 @@ class Path {
   static const LOCATION_COMMENT = "/comment-location";
   static const PHONE_VALIDATION = "/phone-validation";
   static const LOCATION_FORM = "/location-create";
+  static const EDIT_USER = "/user-edit";
+  static const EDIT_SPECIALIST = "/user-specialist-edit";
+  static const CHANGE_PASSWORD = "/password-change";
   static const TEST = "/test";
 }

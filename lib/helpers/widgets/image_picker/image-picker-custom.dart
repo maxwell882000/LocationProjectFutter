@@ -5,12 +5,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:location_specialist/helpers/models/media/media.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
+import 'package:location_specialist/helpers/widgets/image/image_list.dart';
 
 class ImagePickerCustom extends StatefulWidget {
   final Future Function(Media) onServer;
   final Function onDelete;
 
-  final Image? initialImage;
+  final String? initialImage;
   const ImagePickerCustom(
       {Key? key,
       required this.onDelete,
@@ -38,9 +39,12 @@ class _ImagePickerCustomState extends State<ImagePickerCustom> {
               setInitial();
               widget.onDelete();
             },
-            child: Image.file(
-              File.fromUri(Uri.file(imagePath)),
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.file(
+                File.fromUri(Uri.file(imagePath)),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         );
@@ -51,7 +55,11 @@ class _ImagePickerCustomState extends State<ImagePickerCustom> {
   setInitial() {
     setState(() {
       if (widget.initialImage != null) {
-        _image = widget.initialImage!;
+        print(widget.initialImage!);
+        _image = ImageList(
+          size: 200,
+          path: widget.initialImage!,
+        );
       } else {
         _image = initial;
       }

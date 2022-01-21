@@ -38,9 +38,7 @@ class UserProvider extends LoadingProvider {
       AuthProvider.auth.user = await AuthRepository().createUser(user);
       Get.offAllNamed(Path.PHONE_VALIDATION);
     } on ErrorCustom catch (e) {
-      if (e.errors
-          .where((element) => element.containsKey('phone'))
-          .isNotEmpty) {
+      if (e.errors.where((element) => element.containsKey('phone')  ).isNotEmpty) {
         SnackbarHandler.error(title: "Ошибка", body: "Такой номер уже занят");
         e.errors.removeRange(0, 1);
       } else {
