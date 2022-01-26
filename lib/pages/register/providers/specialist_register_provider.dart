@@ -90,6 +90,14 @@ class SpecialistRegisterProvider extends LoadingProvider {
           .isNotEmpty)) {
         SnackbarHandler.error(title: "Ошибка", body: "Такой номер уже занят");
         e.errors.removeRange(0, 1);
+      } else if (e.errors
+          .where((element) => element.containsKey('phone'))
+          .isNotEmpty) {
+        SnackbarHandler.error(
+            title: "Ошибка",
+            body: e.errors
+                .where((element) => element.containsKey('phone'))
+                .first['phone'] as String);
       } else {
         SnackbarHandler.error(title: "Ошибка", body: e.errors.toString());
       }
