@@ -15,8 +15,10 @@ class StarProvider extends BaseProvider {
 
   set selected(int selected) {
     _selected = selected;
-    repo.sendReview(selected);
-    notifyListeners();
+    if (_selected != 0) {
+      repo.sendReview(selected);
+      notifyListeners();
+    }
   }
 
   Future<String?> getReview() async {

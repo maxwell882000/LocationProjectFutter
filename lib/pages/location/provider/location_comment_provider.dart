@@ -17,7 +17,6 @@ class LocationCommentProvider
     initAsync();
   }
   Location get location => _location;
-  @override
   Future initAsync() async {
     List<Comment> comments =
         await CommentLocationRepository().getComments(location.id);
@@ -37,9 +36,11 @@ class LocationCommentProvider
 
   @override
   sendReview(int review) async {
-    Review newReview = await CommentLocationRepository()
-        .setReview(ReviewLocation(review: review, location: location.id));
-    this.review = newReview;
+    if (review != 0) {
+      Review newReview = await CommentLocationRepository()
+          .setReview(ReviewLocation(review: review, location: location.id));
+      this.review = newReview;
+    }
   }
 
   @override

@@ -18,6 +18,8 @@ class CategoryProvider extends BaseProvider implements AbstractPaginator {
 
   Future refresh() async {
     this._paginated = await CategoryRepository().categoryList();
+    this._categories = this._paginated.list;
+    notifyListeners();
   }
 
   void setLoading() {
