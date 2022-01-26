@@ -21,4 +21,5 @@ class Path {
   static const EDIT_SPECIALIST = "/user-specialist-edit";
   static const CHANGE_PASSWORD = "/password-change";
   static const TEST = "/test";
+  static const CONFIDENTIAL = "/confidential";
 }

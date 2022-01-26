@@ -46,7 +46,8 @@ class _CustomActionState extends State<CustomAction>
         Get.toNamed(Path.CHANGE_PASSWORD);
         break;
       case ACTION.RULE_OF_USAGE:
-        empty();
+        closeMenu();
+        Get.toNamed(Path.CONFIDENTIAL);
         break;
       case ACTION.ADD_LOCATION:
         closeMenu();
