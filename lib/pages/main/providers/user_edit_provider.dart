@@ -59,7 +59,8 @@ class UserEditProvider extends LoadingProvider {
 
   UserEditProvider(BuildContext context) {
     this.user = Provider.of<AuthProvider>(context, listen: false).user!;
-    this.category = user.specialist!.category.map<int>((e) => e.id).toList();
+    if (user.specialist != null)
+      this.category = user.specialist!.category.map<int>((e) => e.id).toList();
   }
 
   Future setImage(Media media) async {

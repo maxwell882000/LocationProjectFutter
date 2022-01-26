@@ -15,7 +15,7 @@ class Specialist extends BaseModel with MixJson, MixComentable {
 
   late double reviewAvg;
   String get name => "${user.firstname} ${user.lastname}";
-  String get firstCategory => "${this.category.first.categoryName}";
+  String get firstCategory => "${this.category.isNotEmpty?this.category.first.categoryName : ''}";
   String get address => "${this.location.name}";
   Specialist.create(Map<String, dynamic> map) : super.fromJson(map) {
     print(image);

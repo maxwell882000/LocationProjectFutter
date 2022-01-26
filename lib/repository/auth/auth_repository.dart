@@ -24,7 +24,6 @@ class AuthRepository with ApiBaseMethods {
 
   Future<User> getUser() async {
     var response = await this.get(Request('auth/user/'));
-    print(response);
     return User.fromJson(response);
   }
 

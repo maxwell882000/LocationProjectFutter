@@ -24,7 +24,8 @@ class LoginProvider extends LoadingProvider {
     try {
       String token = await AuthRepository().getToken(_auth.toJson());
       AuthProvider.token = token;
-      notifyListeners();  
+      Provider.of<AuthProvider>(context, listen: false).fetchUserData();
+      notifyListeners();
       Get.offNamed(Path.MAIN);
     } on ErrorCustom catch (e) {
       SnackbarHandler.error(

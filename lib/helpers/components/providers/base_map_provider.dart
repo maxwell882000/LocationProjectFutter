@@ -1,9 +1,10 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_specialist/helpers/models/base/base_provider.dart';
+import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
 
 class BaseMapProvider extends BaseProvider {
-    Map<int, Marker> markers = <int, Marker>{};
+  Map<int, Marker> markers = <int, Marker>{};
 
   late CameraPosition cameraPosition = new CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -15,28 +16,35 @@ class BaseMapProvider extends BaseProvider {
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      SnackbarHandler.error(
+          title: "Ошибка", body: "Пожалуйста включите геолакацию");
+      throw "";
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        SnackbarHandler.error(
+            title: "Ошибка", body: "Пожалуйста включите геолакацию");
+        throw "";
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      SnackbarHandler.error(
+          title: "Ошибка", body: "Пожалуйста включите геолакацию");
+      throw "";
     }
     return await Geolocator.getCurrentPosition();
   }
 
   @override
   initAsync() async {
-    Position position = await _determinePosition();
-    cameraPosition = CameraPosition(
-        target: LatLng(position.latitude, position.longitude), zoom: 10.0);
+    try {
+      Position position = await _determinePosition();
+      cameraPosition = CameraPosition(
+          target: LatLng(position.latitude, position.longitude), zoom: 10.0);
+    } catch (e) {}
   }
 }
