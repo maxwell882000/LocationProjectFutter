@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:location_specialist/helpers/models/error/error.dart';
 import 'package:location_specialist/helpers/models/error/middleware.dart';
@@ -9,6 +11,7 @@ import 'package:location_specialist/repository/model/request.dart';
 import 'package:location_specialist/repository/model/request_file.dart';
 import 'package:location_specialist/repository/model/request_files.dart';
 import 'package:location_specialist/repository/model/status.dart';
+import 'package:location_specialist/routes/path.dart';
 
 mixin ApiBaseMethods {
   Map<String, String> get headers => {
@@ -38,13 +41,18 @@ mixin ApiBaseMethods {
   }
 
   Future<dynamic> post(Request requestData) async {
-    var request = await http.post(requestData.url,
-        body: jsonEncode(requestData.data), headers: this.headers);
-    return this._responseFromClient(request, requestData: requestData.data);
+    try {
+      var request = await http.post(requestData.url,
+          body: jsonEncode(requestData.data), headers: this.headers);
+      return this._responseFromClient(request,
+          requestData: requestData.data, path: requestData.url.path);
+    } on SocketException catch (e) {
+      Get.toNamed(Path.NOT_INTERNET);
+    }
   }
 
   dynamic _responseFromClient(http.Response request,
-      {Map requestData = const {}}) {
+      {Map requestData = const {}, String path = ""}) {
     dynamic response = {};
     if (request.body.isNotEmpty) {
       try {
@@ -55,32 +63,56 @@ mixin ApiBaseMethods {
       }
     }
     if (request.statusCode == Status.HTTP_ERROR) {
+      print(response);
+      print(request.statusCode);
+      print(path);
       throw ErrorCustom(errors: response['errors']);
+    } else if (request.statusCode == Status.HTTP_ERROR_401) {
+      print(response);
+      print(request.statusCode);
+      Middleware(request.statusCode.toString()).run();
+      throw "";
     } else if (request.statusCode == Status.HTTP_ERROR_403) {
       Middleware(response['detail']).run();
       throw "";
     } else if (request.statusCode != Status.HTTP_200 &&
         request.statusCode != Status.HTTP_201 &&
         request.statusCode != Status.HTTP_204) {
+      print(response);
+      print(path);
+
+      print(request.statusCode);
       throw ErrorCustom(errors: response);
     }
     return response;
   }
 
   Future<dynamic> get(Request requestData) async {
-    var request = await http.get(requestData.url, headers: this.headers);
-    return this._responseFromClient(request);
+    try {
+      var request = await http.get(requestData.url, headers: this.headers);
+      return this._responseFromClient(request, path: requestData.url.path);
+    } on SocketException catch (e) {
+      Get.toNamed(Path.NOT_INTERNET);
+    }
   }
 
   Future<dynamic> getPaginate(Request requestData) async {
-    var request = await http.get(requestData.emptyUrl, headers: this.headers);
-    return this._responseFromClient(request);
+    try {
+      var request = await http.get(requestData.emptyUrl, headers: this.headers);
+      return this._responseFromClient(request);
+    } on SocketException catch (e) {
+      Get.toNamed(Path.NOT_INTERNET);
+    }
   }
 
   Future<dynamic> put(Request requestData) async {
-    var request = await http.put(requestData.url,
-        body: jsonEncode(requestData.data), headers: this.headers);
-    return this._responseFromClient(request, requestData: requestData.data);
+    try {
+      var request = await http.put(requestData.url,
+          body: jsonEncode(requestData.data), headers: this.headers);
+      return this._responseFromClient(request, requestData: requestData.data);
+    } on SocketException catch (e) {
+      Get.toNamed(Path.NOT_INTERNET);
+    }
   }
 
   Future<dynamic> delete(Request requestData) async {

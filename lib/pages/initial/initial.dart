@@ -7,6 +7,7 @@ import 'package:location_specialist/helpers/widgets/future_widget/future_widget.
 import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-password.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/providers/common_provider.dart';
+import 'package:location_specialist/repository/auth/auth_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:location_specialist/routes/path.dart';
 
@@ -15,9 +16,12 @@ class Initial extends StatelessWidget {
   Future<String> init(context) async {
     var provider = Provider.of<AuthProvider>(context, listen: false);
     var common = Provider.of<CommonProvider>(context, listen: false);
-    await provider.init();
+    try {
+      await provider.init();
+    } catch (Exception) {}
     await common.init();
     if (AuthProvider.isAuthorized()) {
+      await AuthRepository().getCheck();
       provider.fetchUserData();
       Get.offNamed(Path.MAIN);
     } else {

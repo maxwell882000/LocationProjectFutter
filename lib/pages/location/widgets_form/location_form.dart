@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/check_box/check-box-helper.dart';
@@ -11,7 +12,12 @@ import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_te
 import 'package:location_specialist/pages/location/provider/location_form_provider.dart';
 import 'package:location_specialist/pages/location/widgets_form/country_city_drop_down.dart';
 import 'package:location_specialist/pages/location/widgets_form/map_location_form.dart';
+import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
+
+import '../../../helpers/models/location/location.dart';
+import '../../../helpers/widgets/button/abstracts/base_button.dart';
+import '../provider/map_location_form_provider.dart';
 
 class LocationForm extends StatelessWidget {
   LocationForm({Key? key}) : super(key: key);
@@ -39,11 +45,25 @@ class LocationForm extends StatelessWidget {
                         return ImageMultipleCustom(
                           onDelete: provider.deleteImage,
                           onServer: provider.setImage,
-                          validation:provider.setOverallNumber,
+                          validation: provider.setOverallNumber,
                         );
                       }),
                       StyleHandler.y_margin,
-                      CountryCityDropDown(),
+                      Consumer<LocationFormProvider>(
+                          builder: (context, provider, child) {
+                        return BaseButton(
+                          color: Colors.grey,
+                          text: provider.city,
+                          onPressed: () async {
+                            var result = await Get.toNamed(Path.SEARCH_CITY);
+                            if (result is Location) {
+                              Provider.of<LocationFormProvider>(context,
+                                      listen: false)
+                                  .setCity(result);
+                            }
+                          },
+                        );
+                      }),
                       StyleHandler.y_margin,
                       BaseTextField(
                           hintText: "Район",
@@ -66,7 +86,7 @@ class LocationForm extends StatelessWidget {
                                     listen: false)
                                 .setLocations("function_less", isChecked);
                           },
-                          hintText: "Доступность для малообильных людей"),
+                          hintText: "Доступность для маломобильных людей"),
                       StyleHandler.y_margin,
                       BaseTextField(
                           hintText: "Описание",

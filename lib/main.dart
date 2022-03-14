@@ -14,7 +14,6 @@ Future<void> initServices() async {
     Permission.location,
     Permission.storage,
   ].request();
-  print(statuses[Permission.location]);
   await Get.putAsync(() => TranslationService().init());
 }
 

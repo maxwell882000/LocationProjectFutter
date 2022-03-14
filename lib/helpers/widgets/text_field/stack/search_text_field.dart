@@ -12,7 +12,7 @@ class SearchTextField extends StatefulWidget {
   final String? hintText;
   SearchTextField(
       {Key? key,
-      this.hintText,
+      this.hintText = "Введите Адресс",
       this.onSaved,
       this.textListener,
       this.controller,
@@ -59,7 +59,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
       child: BaseTextField(
         controller: widget.controller,
         focusNode: _focus,
-        hintText: "Поиск по карте",
+        hintText:widget.hintText,
         /*      autofocus: widget.autofocus, */
         onSaved: widget.onSaved,
         validatator: widget.validatator,

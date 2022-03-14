@@ -29,7 +29,7 @@ class _CustomActionState extends State<CustomAction>
   late OverlayEntry _overlayEntry;
   final List<String> items = [
     "Изменить пароль",
-    "Правила пользования",
+    "Политика конфиденциальности",
     "Добавить локацию",
     "Выйти"
   ];

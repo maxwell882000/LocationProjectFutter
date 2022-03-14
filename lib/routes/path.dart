@@ -22,4 +22,7 @@ class Path {
   static const CHANGE_PASSWORD = "/password-change";
   static const TEST = "/test";
   static const CONFIDENTIAL = "/confidential";
+  static const NOT_INTERNET = "/not-internet";
+  static const GEOCODING = "/geocoding";
+  static const SEARCH_CITY = "/search-city";
 }

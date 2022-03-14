@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location_specialist/helpers/models/error/error.dart';
 import 'package:location_specialist/helpers/models/image/image.dart' as image;
+import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/media/media.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
@@ -10,6 +12,15 @@ import 'package:location_specialist/repository/location/location_repository.dart
 class LocationFormProvider extends LoadingProvider {
   final Map<UniqueKey, image.Image> images = {};
   int _numberOfImages = 0;
+  String _city = "Найти город";
+
+  String get city => _city;
+
+  set city(String city) {
+    _city = city;
+    notifyListeners();
+  }
+
   final Map<String, dynamic> _fromValues = {
     'parking': false,
     'function_less': false,
@@ -42,6 +53,11 @@ class LocationFormProvider extends LoadingProvider {
     return this.images.entries.map<int>((entry) => entry.value.id).toList();
   }
 
+  void setCity(Location location) {
+    this._fromValues['city'] = location.id;
+    this.city = location.name;
+  }
+
   void setLocations(String key, dynamic value) {
     _fromValues[key] = value;
     notifyListeners();
@@ -56,7 +72,19 @@ class LocationFormProvider extends LoadingProvider {
           title: "Ошибка", body: "Подождите пока прогрузяться все фото");
     }
     this._fromValues['images'] = images;
-    await LocationRepository().createLocation(this._fromValues);
+    try {
+      await LocationRepository().createLocation(this._fromValues);
+    } on ErrorCustom catch (e) {
+      if ((e.getFirst("latitude")).isNotEmpty) {
+        SnackbarHandler.error(title: "Ошибка", body: "Выберите локацию");
+      } else {
+        SnackbarHandler.error(
+            title: "Ошибка", body: "Произошла неизвестная ошибка");
+      }
+      loading = false;
+
+      return;
+    }
     loading = false;
     Get.back();
     SnackbarHandler.success(

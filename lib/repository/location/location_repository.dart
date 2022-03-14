@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:location_specialist/helpers/models/image/image.dart';
 import 'package:location_specialist/helpers/models/location/city.dart';
 import 'package:location_specialist/helpers/models/location/country.dart';
+import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/location/location_paginate.dart';
 import 'package:location_specialist/helpers/models/media/media.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';
@@ -41,6 +42,12 @@ class LocationRepository with ApiBaseMethods {
     var response =
         await this.get(Request(prefix + "city/list?country_id=" + countryId));
     return response.map<City>((e) => City.fromJson(e)).toList();
+  }
+
+  Future<List<Location>> cityListSearch(String city) async {
+    var response =
+        await this.get(Request(prefix + "city/list/search?city=" + city));
+    return response.map<Location>((e) => Location.search(e)).toList();
   }
 
   Future<List<Country>> countryList() async {

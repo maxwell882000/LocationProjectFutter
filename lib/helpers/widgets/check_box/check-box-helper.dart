@@ -14,6 +14,7 @@ class CheckBoxHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Flexible(child: TextTitle(hintText)),
         StyleHandler.x_margin,

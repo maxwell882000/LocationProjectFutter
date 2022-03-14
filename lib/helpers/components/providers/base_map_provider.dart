@@ -7,8 +7,8 @@ class BaseMapProvider extends BaseProvider {
   Map<int, Marker> markers = <int, Marker>{};
 
   late CameraPosition cameraPosition = new CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 20,
+    target: LatLng(55.7558, 37.6173),
+    zoom: 10,
   );
 
   Future<Position> _determinePosition() async {
@@ -45,6 +45,8 @@ class BaseMapProvider extends BaseProvider {
       Position position = await _determinePosition();
       cameraPosition = CameraPosition(
           target: LatLng(position.latitude, position.longitude), zoom: 10.0);
-    } catch (e) {}
+    } catch (e) {
+
+    }
   }
 }

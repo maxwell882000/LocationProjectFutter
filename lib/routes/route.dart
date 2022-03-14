@@ -3,9 +3,12 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:location_specialist/helpers/models/confidential/confidential.dart';
 import 'package:location_specialist/pages/category/widgets/category_view.dart';
 import 'package:location_specialist/pages/confedentials/widgets/confidential_view.dart';
+import 'package:location_specialist/pages/error/widget/not_internet.dart';
 import 'package:location_specialist/pages/initial/initial.dart';
 import 'package:location_specialist/pages/location/widgets/location_comment.dart';
 import 'package:location_specialist/pages/location/widgets/location_view.dart';
+import 'package:location_specialist/pages/location/widgets_form/city_search.dart';
+import 'package:location_specialist/pages/location/widgets_form/geocoding.dart';
 import 'package:location_specialist/pages/location/widgets_form/location_form.dart';
 import 'package:location_specialist/pages/login/login.dart';
 import 'package:location_specialist/pages/main/main.dart';
@@ -39,6 +42,9 @@ class Routes {
     GetPage(name: Path.PHONE_VALIDATION, page: () => PhoneValidation()),
     GetPage(name: Path.LOCATION_FORM, page: () => LocationForm()),
     GetPage(name: Path.CHANGE_PASSWORD, page: () => PasswordChange()),
-    GetPage(name: Path.CONFIDENTIAL, page: () => ConfidentialView())
+    GetPage(name: Path.CONFIDENTIAL, page: () => ConfidentialView()),
+    GetPage(name: Path.NOT_INTERNET, page: () => NotInternet()),
+    GetPage(name: Path.GEOCODING, page: () => Geocoding()),
+    GetPage(name: Path.SEARCH_CITY, page: () => CitySearch()),
   ];
 }

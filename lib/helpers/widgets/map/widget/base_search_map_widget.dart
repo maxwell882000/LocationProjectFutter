@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
-import 'package:location_specialist/helpers/widgets/map/widget/base_search_map_widget.dart';
-
+import 'package:location_specialist/helpers/widgets/map/provider/base_search_provider.dart';
 import 'package:location_specialist/helpers/widgets/text_field/stack/search_text_field.dart';
-import 'package:location_specialist/pages/main/providers/search_provider.dart';
-import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
 
-class SearchMap extends BaseSearchMapWidget<SearchProvider> {
-  const SearchMap({Key? key}) : super(key: key, create: getProvider);
-  onTapSearch(e) {
-    Get.offAndToNamed(Path.LOCATION_PROFILE, arguments: e);
-  }
-  static SearchProvider getProvider(context) {
-    return new SearchProvider();
-  }
-/* 
+import '../../../../pages/main/providers/search_provider.dart';
+import '../../../static/style_handler.dart';
+
+abstract class BaseSearchMapWidget<T extends BaseSearchProvider>
+    extends StatelessWidget {
+  final T Function(BuildContext) create;
+  const BaseSearchMapWidget({Key? key, required this.create}) : super(key: key);
+  onTapSearch(e);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,18 +21,19 @@ class SearchMap extends BaseSearchMapWidget<SearchProvider> {
           padding: EdgeInsets.all(StyleHandler.padding * 2),
           child: Hero(
             tag: "search",
-            child: ChangeNotifierProvider<SearchProvider>(
-              create: (_) => new SearchProvider(),
+            child: ChangeNotifierProvider<T>(
+              create: create,
               child: ListView(
                 children: [
                   Row(
                     children: [
                       Flexible(
-                        child: Consumer<SearchProvider>(
+                        child: Consumer<T>(
                           builder: (context, provider, child) =>
                               SearchTextField(
                             autofocus: true,
                             controller: provider.controller,
+                            hintText: provider.hintText(),
                             textListener: () => provider.listnerText(),
                             onFocusChange: (val) {
                               if (val) {}
@@ -51,7 +48,7 @@ class SearchMap extends BaseSearchMapWidget<SearchProvider> {
                           icon: Icon(Icons.cancel))
                     ],
                   ),
-                  Consumer<SearchProvider>(
+                  Consumer<T>(
                       builder: (context, provider, child) => Column(
                           children: provider.location
                               .map<Widget>((e) => ListTile(
@@ -69,5 +66,5 @@ class SearchMap extends BaseSearchMapWidget<SearchProvider> {
         ),
       ),
     );
-  } */
+  }
 }

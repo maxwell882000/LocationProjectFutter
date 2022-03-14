@@ -8,7 +8,8 @@ import 'package:location_specialist/helpers/widgets/text/text-logo.dart';
 
 class ScaffoldAuth<T extends LoadingProvider> extends StatelessWidget {
   final List<Widget> children;
-  const ScaffoldAuth({Key? key, required this.children}) : super(key: key);
+  final AppBar? appBar;
+  const ScaffoldAuth({Key? key, required this.children, this.appBar}) : super(key: key);
   List<Widget> insertMargin() {
     List<Widget> chldrnMrgn = [];
     children.forEach((element) {
@@ -21,6 +22,7 @@ class ScaffoldAuth<T extends LoadingProvider> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       body: SafeArea(
         child: Loading<T>(
           child: Container(

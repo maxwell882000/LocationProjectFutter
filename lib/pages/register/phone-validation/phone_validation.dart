@@ -8,6 +8,7 @@ import 'package:location_specialist/helpers/widgets/button/implementations/red-b
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_auth.dart';
 import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
 import 'package:location_specialist/pages/register/providers/phone_validation_provider.dart';
+import 'package:location_specialist/routes/path.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,17 @@ class PhoneValidation extends StatelessWidget {
       child: Form(
         key: _formKey,
         child: ScaffoldAuth<PhoneValidationProvider>(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Get.offAllNamed(Path.LOGIN);
+              },
+            ),
+          ),
           children: [
             Text("Подтверждение по СМС",
                 style: Theme.of(context).textTheme.headline1,
@@ -54,7 +66,7 @@ class PhoneValidation extends StatelessWidget {
                 onSaved: (v) {
                   var provider = Provider.of<PhoneValidationProvider>(context,
                       listen: false);
-         
+
                   provider.code = v!;
                 },
                 onChanged: (value) {},
@@ -62,7 +74,7 @@ class PhoneValidation extends StatelessWidget {
               );
             }),
             Text(
-                'Убедитесь, что функция СМС-уведомления активирована, В случае проблем с получением СМС, обратитесь в ваш банк.'
+                'Убедитесь, что функция СМС-уведомления активирована, В случае проблем с получением СМС, обратитесь к вашему оператору.'
                     .tr,
                 textAlign: TextAlign.center),
             Builder(builder: (context) {

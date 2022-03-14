@@ -47,9 +47,10 @@ class SpecialistView extends StatelessWidget {
                 return CommentListWaiting(
                     comment: provider.specialist.comments);
               }),
-              if (Provider.of<AuthProvider>(context).user?.specialist == null ||
-                  Provider.of<SpecialistViewProvider>(context).specialist.id !=
-                      Provider.of<AuthProvider>(context)
+              if (Provider.of<AuthProvider>(context,listen: false)
+              .user?.specialist == null ||
+                  Provider.of<SpecialistViewProvider>(context, listen: false)
+                  .specialist.id != Provider.of<AuthProvider>(context, listen: false)
                           .user
                           ?.specialist!
                           .id) ...[

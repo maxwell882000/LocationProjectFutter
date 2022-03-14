@@ -4,6 +4,11 @@ import 'package:location_specialist/routes/path.dart';
 
 class ErrorCustom {
   late final List<Map> errors;
+
+  getFirst(String key) {
+    return errors.firstWhere((element) => element.containsKey(key));
+  }
+
   ErrorCustom({var errors}) {
     if (errors == null) {
       this.errors = _DEFAULT_ERRORS;

@@ -91,13 +91,13 @@ class SpecialistRegisterProvider extends LoadingProvider {
         SnackbarHandler.error(title: "Ошибка", body: "Такой номер уже занят");
         e.errors.removeRange(0, 1);
       } else if (e.errors
-          .where((element) => element.containsKey('phone'))
+          .where((element) => element.containsKey('phone_sms'))
           .isNotEmpty) {
         SnackbarHandler.error(
             title: "Ошибка",
             body: e.errors
-                .where((element) => element.containsKey('phone'))
-                .first['phone'] as String);
+                .where((element) => element.containsKey('phone_sms'))
+                .first['phone_sms'] as String);
       } else {
         SnackbarHandler.error(title: "Ошибка", body: e.errors.toString());
       }
