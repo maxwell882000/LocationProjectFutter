@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_provider_custom.dart';
 import 'package:location_specialist/pages/main/providers/map_provider.dart';

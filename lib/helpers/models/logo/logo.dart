@@ -14,7 +14,9 @@ class Logo extends BaseMedia {
   setLogoFromPath(String path) {
     this.pathInApp = path;
     this.logo = File(path);
-  
+    if(!this.logo.existsSync()) {
+      throw "Logo not exists";
+    }
   }
 
   Logo.fromJson(Map<String, dynamic> map) : super.fromJson(map) {

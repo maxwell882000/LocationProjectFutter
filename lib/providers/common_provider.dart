@@ -12,6 +12,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CommonProvider with ChangeNotifier {
   late SharedPreferences shared;
+  bool _startLoading = false;
+
+  bool get startLoading => _startLoading;
+
+  set startLoading(bool startLoading) {
+    _startLoading = startLoading;
+    notifyListeners();
+  }
   bool _initialLoaded = false;
   List<IconMenu> _icons = [];
 
@@ -31,11 +39,13 @@ class CommonProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // write code to catch error if there is not file
   saveLogoImage(Logo logo) async {
     String? pathInApp = shared.getString(logo.pathFromBack);
-    if (pathInApp != null) {
+    try {
+      if (pathInApp == null) throw "";
       logo.setLogoFromPath(pathInApp);
-    } else {
+    } catch (e) {
       Uint8List temp =
           await CommonRepository().getCommonFile(logo.pathFromBack);
       await logo.setLogo(temp);
@@ -46,15 +56,17 @@ class CommonProvider with ChangeNotifier {
     logoStream.sink.add(true);
     await logoStream.sink.close();
     logoStream.close();
+    print("IT WAS CLOSEEED");
   }
 
   saveIconImage(List<IconMenu> icons) async {
     for (int i = 0; i < icons.length; i++) {
       IconMenu item = icons[i];
       String? pathInApp = shared.getString(item.pathFromBack);
-      if (pathInApp != null) {
+      try  {
+        if (pathInApp == null) throw "";
         item.setImageFromPath(pathInApp);
-      } else {
+      } catch (e) {
         Uint8List temp =
             await CommonRepository().getCommonFile(item.pathFromBack);
         await item.setImage(temp);
@@ -77,9 +89,11 @@ class CommonProvider with ChangeNotifier {
 
   final StreamController<IconMenu> iconStream = StreamController<IconMenu>();
   final StreamController<bool> logoStream = StreamController<bool>();
+
   Stream<IconMenu> get iconStreaming => iconStream.stream;
 
   Future init() async {
+    this.startLoading = true;
     shared = await SharedPreferences.getInstance();
     Map<String, dynamic> response = await CommonRepository().getCommon();
     saveLogoImage(response['logo'] as Logo);

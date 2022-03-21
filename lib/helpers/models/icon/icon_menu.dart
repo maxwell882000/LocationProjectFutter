@@ -18,6 +18,9 @@ class IconMenu extends BaseMedia {
   setImageFromPath(String path) {
     this.pathInApp = path;
     this.image = File(pathInApp);
+    if(!this.image.existsSync()){
+       throw "Not exists file in Icon menu";
+    }
   }
 
   @override

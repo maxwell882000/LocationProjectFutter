@@ -25,6 +25,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.a
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,9 @@ class MyApp extends StatelessWidget {
                 headline6: TextStyle(
                     color: Color.fromRGBO(70, 67, 67, 1),
                     fontSize: 14,
-                    fontWeight: FontWeight.bold))),
+                    fontWeight: FontWeight.bold)
+            )
+        ),
         initialRoute: Routes.INITIAL,
         getPages: Routes.routes,
         localizationsDelegates: [

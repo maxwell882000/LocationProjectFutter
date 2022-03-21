@@ -16,16 +16,18 @@ class Initial extends StatelessWidget {
   Future<String> init(context) async {
     var provider = Provider.of<AuthProvider>(context, listen: false);
     var common = Provider.of<CommonProvider>(context, listen: false);
-    try {
-      await provider.init();
-    } catch (Exception) {}
-    await common.init();
-    if (AuthProvider.isAuthorized()) {
-      await AuthRepository().getCheck();
-      provider.fetchUserData();
-      Get.offNamed(Path.MAIN);
-    } else {
-      Get.offNamed(Path.LOGIN);
+    if (!common.startLoading) {
+      try {
+        await provider.init();
+      } catch (e) {}
+      await common.init();
+      if (AuthProvider.isAuthorized()) {
+        await AuthRepository().getCheck();
+        provider.fetchUserData();
+        Get.offNamed(Path.MAIN);
+      } else {
+        Get.offNamed(Path.LOGIN);
+      }
     }
     return "";
   }
