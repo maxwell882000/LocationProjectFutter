@@ -20,7 +20,8 @@ class Middleware {
     } else if (error == "5555") {
       Get.offAllNamed(Path.LOGIN, arguments: false);
       SnackbarHandler.error(
-          title: "Ошибка", body: "Ваш номер телефона не подтвержден");
+          title: "Ошибка", body: "Ваш номер телефона не подтвержден. И оператор для вашей страны не поддерживаеться." +
+          "Используйте другой номер для регистрации");
     } else if (error == Status.HTTP_ERROR_401.toString()) {
       AuthProvider.token = '';
     }

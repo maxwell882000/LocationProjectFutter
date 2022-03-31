@@ -21,8 +21,7 @@ class BaseMapProvider extends BaseProvider {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        SnackbarHandler.error(
-            title: "Ошибка", body: "Пожалуйста включите геолакацию");
+        SnackbarHandler.error(title: "Ошибка", body: "Пожалуйста включите геолакацию");
         throw "";
       }
     }
@@ -74,8 +73,6 @@ class BaseMapProvider extends BaseProvider {
       var position = await _locationPosition();
       cameraPosition = CameraPosition(
           target: LatLng(position.latitude ?? 0, position.longitude ?? 0), zoom: 10.0);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }

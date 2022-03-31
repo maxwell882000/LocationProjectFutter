@@ -8,7 +8,7 @@ class StarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(
-          this.rank, (index) => Image.asset("assets/images/star.png")).toList(),
+          this.rank, (index) => Flexible(child: Image.asset("assets/images/star.png"))).toList(),
     );
   }
 }

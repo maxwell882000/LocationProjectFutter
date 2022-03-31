@@ -54,7 +54,8 @@
 	<false/>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>media</string>
-
+    <key>NSHealthShareUsageDescription</key>
+    <string> For opening and showing files </string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Always and when in use!</string>
 

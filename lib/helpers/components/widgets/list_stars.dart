@@ -20,20 +20,11 @@ class ListStars extends StatelessWidget {
           TextTitle("Ваша оценка"),
           Row(
             children: [
-              Star(
-                mark: 1,
-              ),
-              Star(
-                mark: 2,
-              ),
-              Star(
-                mark: 3,
-              ),
-              Star(
-                mark: 4,
-              ),
-              Star(
-                mark: 5,
+              for(int i=1; i<= 5 ; i++)
+              Expanded(
+                child: Star(
+                  mark: i,
+                ),
               ),
             ],
           ),

@@ -31,7 +31,7 @@ dependencies:
   responsive_framework:
   http:
   pin_code_fields: ^7.3.0
-  google_maps_flutter: 
+  google_maps_flutter:
   carousel_slider: ^4.0.0
   flutter_localizations:
     sdk: flutter
