@@ -25,7 +25,7 @@ abstract class BaseSearchProvider extends BaseProvider {
 
   void listnerText();
   String hintText() {
-    return "Введите Адресс";
+    return "Введите Адрес";
   }
 
   @override

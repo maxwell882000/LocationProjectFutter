@@ -13,21 +13,28 @@ import 'package:location_specialist/routes/path.dart';
 
 class Initial extends StatelessWidget {
   const Initial({Key? key}) : super(key: key);
+
   Future<String> init(context) async {
+    print("INITIED");
     var provider = Provider.of<AuthProvider>(context, listen: false);
     var common = Provider.of<CommonProvider>(context, listen: false);
+    print(common.startLoading);
+
+    try {
+      print("ENETERES INIT");
+      await provider.init();
+    } catch (e) {}
+    print("GETTING COMMON");
     if (!common.startLoading) {
-      try {
-        await provider.init();
-      } catch (e) {}
       await common.init();
-      if (AuthProvider.isAuthorized()) {
-        await AuthRepository().getCheck();
-        provider.fetchUserData();
-        Get.offNamed(Path.MAIN);
-      } else {
-        Get.offNamed(Path.LOGIN);
-      }
+    }
+    if (AuthProvider.isAuthorized()) {
+      await AuthRepository().getCheck();
+      provider.fetchUserData();
+      print("GOO TO MAIN");
+      Get.offNamed(Path.MAIN);
+    } else {
+      Get.offNamed(Path.LOGIN);
     }
     return "";
   }
@@ -37,7 +44,7 @@ class Initial extends StatelessWidget {
     return Scaffold(
         body: FutureWidget(
       request: init(context),
-      child: SizedBox(),
+      child: Text("INITITED"),
     ));
   }
 }

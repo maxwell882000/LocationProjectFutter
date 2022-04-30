@@ -17,7 +17,15 @@ import 'package:provider/provider.dart';
 class SpecialistRegisterProvider extends LoadingProvider {
   final Map<String, dynamic> _formValues = {};
   Location? _location;
+  bool _customLocation = false;
 
+  bool get customLocation => _customLocation;
+
+  set customLocation(bool customLocation) {
+    _customLocation = customLocation;
+    print(_customLocation);
+    notifyListeners();
+  }
   Location? get location => _location;
 
   set location(Location? location) {
@@ -29,6 +37,7 @@ class SpecialistRegisterProvider extends LoadingProvider {
   SpecialistRegisterProvider() {
     _formValues['user'] = Get.arguments as Map;
   }
+
   setDescription(String? description) {
     _formValues["description"] = description;
   }
@@ -55,6 +64,10 @@ class SpecialistRegisterProvider extends LoadingProvider {
 
   setCategory(List ids) {
     _formValues['category'] = ids;
+  }
+
+  setCustomLocation(String ?location) {
+    _formValues['custom_location'] = location;
   }
 
   String textOfLocation() {

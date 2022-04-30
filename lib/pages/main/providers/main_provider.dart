@@ -12,6 +12,7 @@ class MainPorivder with ChangeNotifier {
   int _index = 0;
   bool _loaded = true;
   List<IconMenu> icons = [];
+
   bool get loaded => _loaded;
 
   set loaded(bool loaded) {
@@ -20,6 +21,7 @@ class MainPorivder with ChangeNotifier {
   }
 
   PageController controller = new PageController(initialPage: 0);
+
   void currentPage(int index) {
     controller.animateToPage(index,
         duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
@@ -27,6 +29,7 @@ class MainPorivder with ChangeNotifier {
   }
 
   MainPorivder(BuildContext context) {
+    print("MAIN PROVIDER");
     var provider = Provider.of<CommonProvider>(context, listen: false);
     if (!provider.iconStream.isClosed) {
       provider.iconStreaming.listen((IconMenu event) {}, onDone: () {
@@ -38,18 +41,18 @@ class MainPorivder with ChangeNotifier {
   }
 
   setFooter(var provider) {
-  
     provider.icons.forEach((event) {
       this
           .footer
           .add(BottomNavigationItem(event.image, widgets[event.type.index]));
     });
-    
+
     loaded = false;
   }
 
   List<BottomNavigationItem> footer = [];
   static final widgets = [Home(), CategoryList(), SpecialistList(), UserEdit()];
+
   Widget get body => footer[_index].body;
 
   List<Widget> get children => footer.map<Widget>((e) => e.body).toList();

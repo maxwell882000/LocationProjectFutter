@@ -11,6 +11,7 @@ class BaseMapProvider extends BaseProvider {
     target: LatLng(55.7558, 37.6173),
     zoom: 10,
   );
+
   Future<LocationData> _locationPosition() async{
     Location location = new Location();
 
@@ -35,7 +36,6 @@ class BaseMapProvider extends BaseProvider {
         throw "";
       }
     }
-
     return await location.getLocation();
   }
   // Future<Position> _determinePosition() async {

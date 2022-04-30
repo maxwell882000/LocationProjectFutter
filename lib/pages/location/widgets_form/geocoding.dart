@@ -6,6 +6,7 @@ import 'package:location_specialist/pages/location/provider/geocoding_provider.d
 
 class Geocoding extends BaseSearchMapWidget<GeocodingProvider> {
   Geocoding() : super(create: getGeocodingProvider);
+
   static GeocodingProvider getGeocodingProvider(context) {
     return new GeocodingProvider();
   }

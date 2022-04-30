@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:location_specialist/pages/location/provider/location_form_provider.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/providers/common_provider.dart';
 import 'package:location_specialist/routes/route.dart';
@@ -37,8 +38,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<CommonProvider>(
           create: (_) => CommonProvider(),
         ),
+        ChangeNotifierProvider<LocationFormProvider>(
+            create: (_) => LocationFormProvider())
       ],
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Location App',
         theme: ThemeData(
             primaryColor: Colors.white,
@@ -63,9 +67,7 @@ class MyApp extends StatelessWidget {
                 headline6: TextStyle(
                     color: Color.fromRGBO(70, 67, 67, 1),
                     fontSize: 14,
-                    fontWeight: FontWeight.bold)
-            )
-        ),
+                    fontWeight: FontWeight.bold))),
         initialRoute: Routes.INITIAL,
         getPages: Routes.routes,
         localizationsDelegates: [

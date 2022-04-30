@@ -13,8 +13,9 @@ class CountryCityDropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CountryProvider()),
-        ChangeNotifierProvider(create: (_) => CityProvider())
+        ChangeNotifierProvider<CountryProvider>(
+            create: (_) => CountryProvider()),
+        ChangeNotifierProvider<CityProvider>(create: (_) => CityProvider()),
       ],
       child: Row(
         children: [

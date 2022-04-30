@@ -339,7 +339,7 @@ class _CheckBoxDropDownState<T> extends State<CheckBoxDropDown<T>> {
                               },
                               child: widget.submitButton ??
                                   const TextLang(
-                                    'Выбрал',
+                                    'Выбрать',
                                     textStyle: TextStyle(color: Colors.white),
                                   ),
                             )

@@ -22,115 +22,140 @@ import '../provider/map_location_form_provider.dart';
 class LocationForm extends StatelessWidget {
   LocationForm({Key? key}) : super(key: key);
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldInside(
-      body: ChangeNotifierProvider<LocationFormProvider>(
-        create: (_) => LocationFormProvider(),
-        child: Builder(builder: (context) {
-          return Loading<LocationFormProvider>(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                StyleHandler.y_margin,
-                TextTitle("Добавить Локацию"),
-                StyleHandler.y_margin,
-                Flexible(
-                    child: Form(
-                  key: _key,
-                  child: ListView(
-                    children: [
-                      Consumer<LocationFormProvider>(
-                          builder: (context, provider, child) {
-                        return ImageMultipleCustom(
-                          onDelete: provider.deleteImage,
-                          onServer: provider.setImage,
-                          validation: provider.setOverallNumber,
-                        );
-                      }),
-                      StyleHandler.y_margin,
-                      Consumer<LocationFormProvider>(
-                          builder: (context, provider, child) {
-                        return BaseButton(
-                          color: Colors.grey,
-                          text: provider.city,
-                          onPressed: () async {
-                            var result = await Get.toNamed(Path.SEARCH_CITY);
-                            if (result is Location) {
-                              Provider.of<LocationFormProvider>(context,
-                                      listen: false)
-                                  .setCity(result);
-                            }
+      body: Builder(builder: (context) {
+        return Loading<LocationFormProvider>(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              StyleHandler.y_margin,
+              TextTitle("Добавить Локацию"),
+              StyleHandler.y_margin,
+              Flexible(
+                  child: Form(
+                key: _key,
+                child: ListView(
+                  children: [
+                    Consumer<LocationFormProvider>(
+                        builder: (context, provider, child) {
+                      return ImageMultipleCustom(
+                        onDelete: provider.deleteImage,
+                        onServer: provider.setImage,
+                        storeImages: provider.storeImages,
+                        validation: provider.setOverallNumber,
+                      );
+                    }),
+                    StyleHandler.y_margin,
+                    Consumer<LocationFormProvider>(
+                        builder: (context, provider, child) {
+                      return BaseButton(
+                        color: Colors.grey,
+                        text: provider.city,
+                        onPressed: () async {
+                          var result = await Get.toNamed(Path.SEARCH_CITY);
+                          if (result is Location) {
+                            Provider.of<LocationFormProvider>(context,
+                                    listen: false)
+                                .setCity(result);
+                          }
+                        },
+                      );
+                    }),
+                    StyleHandler.y_margin,
+                    Consumer<LocationFormProvider>(
+                        builder: (context, provider, child) {
+                      return BaseTextField(
+                          onChanged: (text) {
+                            Provider.of<LocationFormProvider>(context,
+                                    listen: false)
+                                .setLocations("district", text);
                           },
-                        );
-                      }),
-                      StyleHandler.y_margin,
-                      BaseTextField(
+                          initialValue: provider.fromValues['district'],
                           hintText: "Район",
                           onSaved: (text) {
                             Provider.of<LocationFormProvider>(context,
                                     listen: false)
                                 .setLocations("district", text);
-                          }),
-                      StyleHandler.y_margin,
-                      CheckBoxHelper(
-                          onPressed: (isChecked) {
+                          });
+                    }),
+                    StyleHandler.y_margin,
+                    CheckBoxHelper(
+                        onPressed: (isChecked) {
+                          Provider.of<LocationFormProvider>(context,
+                                  listen: false)
+                              .setLocations("parking", isChecked);
+                        },
+                        hintText: "Парковка"),
+                    CheckBoxHelper(
+                        onPressed: (isChecked) {
+                          Provider.of<LocationFormProvider>(context,
+                                  listen: false)
+                              .setLocations("function_less", isChecked);
+                        },
+                        hintText: "Доступность для маломобильных людей"),
+                    StyleHandler.y_margin,
+                    Consumer<LocationFormProvider>(
+                        builder: (context, provider, child) {
+                      return BaseTextField(
+                          onChanged: (text) {
                             Provider.of<LocationFormProvider>(context,
                                     listen: false)
-                                .setLocations("parking", isChecked);
+                                .setLocations("description", text);
                           },
-                          hintText: "Парковка"),
-                      CheckBoxHelper(
-                          onPressed: (isChecked) {
-                            Provider.of<LocationFormProvider>(context,
-                                    listen: false)
-                                .setLocations("function_less", isChecked);
-                          },
-                          hintText: "Доступность для маломобильных людей"),
-                      StyleHandler.y_margin,
-                      BaseTextField(
+                          initialValue: provider.fromValues['description'],
                           hintText: "Описание",
                           maxLines: 3,
                           onSaved: (text) {
                             Provider.of<LocationFormProvider>(context,
                                     listen: false)
                                 .setLocations("description", text);
-                          }),
-                      StyleHandler.y_margin,
-                      BaseTextField(
+                          });
+                    }),
+                    StyleHandler.y_margin,
+                    Consumer<LocationFormProvider>(
+                        builder: (context, provider, child) {
+                      return BaseTextField(
+                          onChanged: (text) {
+                            Provider.of<LocationFormProvider>(context,
+                                    listen: false)
+                                .setLocations("comfort", text);
+                          },
+                          initialValue: provider.fromValues['comfort'],
                           hintText: "Удобства",
                           maxLines: 3,
                           onSaved: (text) {
                             Provider.of<LocationFormProvider>(context,
                                     listen: false)
                                 .setLocations("comfort", text);
-                          }),
-                      StyleHandler.y_margin,
-                      MapLocationForm(onSelect: (lat) {
-                        Provider.of<LocationFormProvider>(context,
-                                listen: false)
-                            .setCoordinates(lat);
-                      }),
-                      StyleHandler.y_margin,
-                      BlackButton(
-                        text: "Добавить",
-                        onPressed: () {
-                          if (_key.currentState!.validate()) {
-                            _key.currentState!.save();
-                            Provider.of<LocationFormProvider>(context,
-                                    listen: false)
-                                .submit();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ))
-              ],
-            ),
-          );
-        }),
-      ),
+                          });
+                    }),
+                    StyleHandler.y_margin,
+                    MapLocationForm(onSelect: (lat) {
+                      Provider.of<LocationFormProvider>(context, listen: false)
+                          .setCoordinates(lat);
+                    }),
+                    StyleHandler.y_margin,
+                    BlackButton(
+                      text: "Добавить",
+                      onPressed: () {
+                        if (_key.currentState!.validate()) {
+                          _key.currentState!.save();
+                          Provider.of<LocationFormProvider>(context,
+                                  listen: false)
+                              .submit();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ))
+            ],
+          ),
+        );
+      }),
     );
   }
 }

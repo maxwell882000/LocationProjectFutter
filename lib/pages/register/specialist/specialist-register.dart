@@ -27,24 +27,55 @@ class SpecialistRegister extends StatelessWidget {
         child: Builder(builder: (context) {
           return ScaffoldAuth<SpecialistRegisterProvider>(children: [
             ImagePickerCustom(
-              onServer: SpecialistRegisterProvider.provider(context).setImage,
+              onServer: SpecialistRegisterProvider
+                  .provider(context)
+                  .setImage,
               onDelete:
-                  SpecialistRegisterProvider.provider(context).deleteImage,
+              SpecialistRegisterProvider
+                  .provider(context)
+                  .deleteImage,
             ),
             BaseTextField(
                 hintText: "Описание",
                 maxLines: 4,
-                onSaved: SpecialistRegisterProvider.provider(context)
+                onSaved: SpecialistRegisterProvider
+                    .provider(context)
                     .setDescription),
             Consumer<SpecialistRegisterProvider>(
                 builder: (context, provider, child) {
-              return RedButton(
-                  onPressed: provider.setLocation,
-                  text: provider.textOfLocation());
-            }),
+                  return RedButton(
+                      onPressed: provider.setLocation,
+                      text: provider.textOfLocation());
+                }),
+            // Row(
+            //   children: [
+            //     Text("Не нашли локацию ?"),
+            //     CheckBoxCustom(onPressed: (val) {
+            //       SpecialistRegisterProvider
+            //           .provider(context)
+            //           .customLocation = val;
+            //     }),
+            //   ],
+            // ),
+            // Consumer<SpecialistRegisterProvider>(
+            //     builder: (context,provider, child) {
+            //       return Visibility(
+            //         visible: provider.customLocation,
+            //         child: child!
+            //       );
+            //     },
+            //   child: BaseTextField(
+            //     onSaved: SpecialistRegisterProvider
+            //         .provider(context)
+            //         .setCustomLocation,
+            //     hintText: "Введите локацию",
+            //   ),
+            // ),
             CategorySelection(
                 onSelect:
-                    SpecialistRegisterProvider.provider(context).setCategory),
+                SpecialistRegisterProvider
+                    .provider(context)
+                    .setCategory),
             BlackButton(
               text: "ЗАРЕГИСТРИРОВАТЬСЯ",
               onPressed: () {

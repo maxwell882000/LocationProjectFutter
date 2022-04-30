@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class ScaffoldMain extends StatelessWidget {
   final Widget body;
+
   const ScaffoldMain({Key? key, required this.body}) : super(key: key);
 
   @override

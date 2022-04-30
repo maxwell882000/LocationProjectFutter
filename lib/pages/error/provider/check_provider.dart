@@ -15,7 +15,6 @@ class CheckProvider extends LoadingProvider {
       loading = false;
     } on SocketException catch (_) {
       loading = false;
-      print('not connected');
     }
   }
 }

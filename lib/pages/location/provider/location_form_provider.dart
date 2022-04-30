@@ -5,11 +5,13 @@ import 'package:location_specialist/helpers/models/error/error.dart';
 import 'package:location_specialist/helpers/models/image/image.dart' as image;
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/media/media.dart';
+import 'package:location_specialist/helpers/widgets/image_picker/image-container.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
 import 'package:location_specialist/repository/location/location_repository.dart';
 
 class LocationFormProvider extends LoadingProvider {
+  final List<ImageContainer> storeImages = [];
   final Map<UniqueKey, image.Image> images = {};
   int _numberOfImages = 0;
   String _city = "Найти город";
@@ -25,9 +27,14 @@ class LocationFormProvider extends LoadingProvider {
     'parking': false,
     'function_less': false,
   };
+  Map<String, dynamic> get fromValues => _fromValues;
+  bool checkImageAlreadyUploaded(UniqueKey key) {
+    return images[key] != null;
+  }
 
   Future setImage(Media media, UniqueKey key) async {
-    images[key] = await LocationRepository().uploadImage(media);
+    if (!checkImageAlreadyUploaded(key))
+      images[key] = await LocationRepository().uploadImage(media);
   }
 
   setOverallNumber(int number) {
@@ -63,6 +70,14 @@ class LocationFormProvider extends LoadingProvider {
     notifyListeners();
   }
 
+  clean() {
+    images.clear();
+    _numberOfImages = 0;
+    _city = "Найти город";
+
+    _fromValues.clear();
+  }
+
   Future submit() async {
     loading = true;
     var images = this.getImages();
@@ -74,6 +89,7 @@ class LocationFormProvider extends LoadingProvider {
     this._fromValues['images'] = images;
     try {
       await LocationRepository().createLocation(this._fromValues);
+      clean();
     } on ErrorCustom catch (e) {
       if ((e.getFirst("latitude")).isNotEmpty) {
         SnackbarHandler.error(title: "Ошибка", body: "Выберите локацию");

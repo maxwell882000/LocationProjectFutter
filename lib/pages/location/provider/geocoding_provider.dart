@@ -15,6 +15,8 @@ class GeocodingProvider extends BaseSearchProvider {
   debounced() async {
     if (controller.text.isNotEmpty) {
       var result = await googleGeocoding.geocoding.get(controller.text, []);
+      print("RESULTS GOTED");
+      print(result?.results);
       this.location = result?.results
               ?.where((element) =>
                   element.formattedAddress != null &&

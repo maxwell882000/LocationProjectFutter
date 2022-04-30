@@ -7,6 +7,7 @@ import 'package:location_specialist/helpers/widgets/text_field/helper/sufix-cont
 class BaseTextField extends StatelessWidget {
   final String? hintText;
   final Function(String?)? onSaved;
+  final ValueChanged<String>? onChanged;
   final String? Function(String?)? validatator;
   final String? sufixText;
   final bool isPassword;
@@ -22,6 +23,7 @@ class BaseTextField extends StatelessWidget {
   const BaseTextField(
       {Key? key,
       this.initialValue,
+      this.onChanged,
       this.maxLines = 1,
       this.onTap,
       this.controller,
@@ -64,6 +66,7 @@ class BaseTextField extends StatelessWidget {
             },
             maxLines: maxLines,
             onSaved: onSaved,
+            onChanged: onChanged,
             decoration: InputDecoration(
                 contentPadding: maxLines! > 1
                     ? EdgeInsets.symmetric(vertical: StyleHandler.padding)

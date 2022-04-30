@@ -20,6 +20,7 @@ class CommonProvider with ChangeNotifier {
     _startLoading = startLoading;
     notifyListeners();
   }
+
   bool _initialLoaded = false;
   List<IconMenu> _icons = [];
 
@@ -63,7 +64,7 @@ class CommonProvider with ChangeNotifier {
     for (int i = 0; i < icons.length; i++) {
       IconMenu item = icons[i];
       String? pathInApp = shared.getString(item.pathFromBack);
-      try  {
+      try {
         if (pathInApp == null) throw "";
         item.setImageFromPath(pathInApp);
       } catch (e) {
@@ -94,10 +95,14 @@ class CommonProvider with ChangeNotifier {
 
   Future init() async {
     this.startLoading = true;
-    shared = await SharedPreferences.getInstance();
-    Map<String, dynamic> response = await CommonRepository().getCommon();
-    saveLogoImage(response['logo'] as Logo);
-    List<IconMenu> icon = List<IconMenu>.from(response['icon']);
-    saveIconImage(icon);
+    try {
+      shared = await SharedPreferences.getInstance();
+      Map<String, dynamic> response = await CommonRepository().getCommon();
+      saveLogoImage(response['logo'] as Logo);
+      List<IconMenu> icon = List<IconMenu>.from(response['icon']);
+      saveIconImage(icon);
+    } catch (e) {
+      this.startLoading = false;
+    }
   }
 }

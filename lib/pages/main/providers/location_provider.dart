@@ -6,6 +6,7 @@ import 'package:location_specialist/pages/main/widgets/home/adds.dart';
 class LocationProvider extends BaseProvider {
   late List<Location> locations = [];
   late List<Adds> adds = [];
+
   @override
   initAsync() {}
 }

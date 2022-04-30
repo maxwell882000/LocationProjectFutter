@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sport&amp;thecity</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -11,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>location_specialist</string>
+	<string>Sport&amp;thecity</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -27,10 +29,16 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Music!</string>
 	<key>NSCameraUsageDescription</key>
 	<string>camera</string>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>This permission is not needed by the app, but it is required by an underlying API. If you see this dialog, contact us.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Always and when in use!</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Older devices need location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) location use</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>photos</string>
 	<key>UILaunchStoryboardName</key>
@@ -54,16 +62,5 @@
 	<false/>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>media</string>
-    <key>NSHealthShareUsageDescription</key>
-    <string> For opening and showing files </string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Always and when in use!</string>
-
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Can I have location always?</string>
-    <key>NSLocationUsageDescription</key>
-    <string>Older devices need location.</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>$(PRODUCT_NAME) location use</string>
 </dict>
 </plist>

@@ -32,12 +32,17 @@ mixin ApiBaseMethods {
   }
 
   Future<http.StreamedResponse> multipartPost(RequestFile requestData) async {
-    var request = http.MultipartRequest('POST', requestData.url)
-      ..fields.addAll(requestData.fileData)
-      ..files.add(await requestData.file)
-      ..headers.addAll(this.headers);
-    http.StreamedResponse response = await request.send();
-    return response;
+    try {
+      var request = http.MultipartRequest('POST', requestData.url)
+        ..fields.addAll(requestData.fileData)
+        ..files.add(await requestData.file)
+        ..headers.addAll(this.headers);
+      http.StreamedResponse response = await request.send();
+      return response;
+    } on SocketException catch (e) {
+      Get.offAllNamed(Path.NOT_INTERNET);
+      throw e;
+    }
   }
 
   Future<dynamic> post(Request requestData) async {
@@ -47,7 +52,8 @@ mixin ApiBaseMethods {
       return this._responseFromClient(request,
           requestData: requestData.data, path: requestData.url.path);
     } on SocketException catch (e) {
-      Get.toNamed(Path.NOT_INTERNET);
+      Get.offAllNamed(Path.NOT_INTERNET);
+      // throw e;
     }
   }
 
@@ -92,7 +98,7 @@ mixin ApiBaseMethods {
       var request = await http.get(requestData.url, headers: this.headers);
       return this._responseFromClient(request, path: requestData.url.path);
     } on SocketException catch (e) {
-      Get.toNamed(Path.NOT_INTERNET);
+      Get.offAllNamed(Path.NOT_INTERNET);
     }
   }
 
@@ -101,7 +107,7 @@ mixin ApiBaseMethods {
       var request = await http.get(requestData.emptyUrl, headers: this.headers);
       return this._responseFromClient(request);
     } on SocketException catch (e) {
-      Get.toNamed(Path.NOT_INTERNET);
+      Get.offAllNamed(Path.NOT_INTERNET);
     }
   }
 
@@ -111,7 +117,7 @@ mixin ApiBaseMethods {
           body: jsonEncode(requestData.data), headers: this.headers);
       return this._responseFromClient(request, requestData: requestData.data);
     } on SocketException catch (e) {
-      Get.toNamed(Path.NOT_INTERNET);
+      Get.offAllNamed(Path.NOT_INTERNET);
     }
   }
 
