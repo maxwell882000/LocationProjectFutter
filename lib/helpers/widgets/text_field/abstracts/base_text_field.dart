@@ -19,11 +19,13 @@ class BaseTextField extends StatelessWidget {
   final SufixContainer? sufixContainer;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
+  final int? maxLength;
 
   const BaseTextField(
       {Key? key,
       this.initialValue,
       this.onChanged,
+      this.maxLength,
       this.maxLines = 1,
       this.onTap,
       this.controller,
@@ -49,6 +51,7 @@ class BaseTextField extends StatelessWidget {
             controller: controller,
             initialValue: initialValue,
             autofocus: autofocus,
+            maxLength: maxLength,
             onTap: () {
               if (onTap != null) onTap!();
             },
@@ -68,6 +71,7 @@ class BaseTextField extends StatelessWidget {
             onSaved: onSaved,
             onChanged: onChanged,
             decoration: InputDecoration(
+                counterText: "",
                 contentPadding: maxLines! > 1
                     ? EdgeInsets.symmetric(vertical: StyleHandler.padding)
                     : EdgeInsets.zero,

@@ -4,8 +4,7 @@ import 'package:location_specialist/repository/confidentials/confidential_reposi
 
 class ConfidentialProvider extends BaseProvider {
   late Confidential confidential;
-  ConfidentialProvider() {
-  }
+
   @override
   initAsync() async {
     this.confidential = await ConfidentialRepository().getConfidential();

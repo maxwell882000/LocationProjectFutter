@@ -48,14 +48,24 @@ class AuthRepository with ApiBaseMethods {
     return User.fromJson(response);
   }
 
-  Future<bool> sendCode() async {
-    var response = await this.get(new Request('auth/user/code/'));
+  Future<bool> sendCode({String suffix = ""}) async {
+    var response = await this.get(new Request('auth/user/code/' + suffix));
     return response['status'];
   }
 
-  Future<bool> validateCode(String code) async {
-    var response =
-        await this.post(new Request('auth/user/code/', data: {'code': code}));
+  Future<bool> validateCode(String code, {String suffix = ""}) async {
+    var response = await this
+        .post(new Request('auth/user/code/' + suffix, data: {'code': code}));
+    return response['status'];
+  }
+
+  Future<bool> newPassword(Map<String, String> password, String phone) async {
+    final response = await this.put(
+      new Request("auth/forget_password/" + phone + "/", data: password),
+    );
+    if (response['status'] == false) {
+      throw response['error'];
+    }
     return response['status'];
   }
 }

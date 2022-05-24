@@ -61,6 +61,12 @@ class Login extends StatelessWidget {
                 Get.toNamed(Path.REGISTER_CHOOSE);
               },
             ),
+            StyleHandler.y_margin,
+            TextButton(
+                onPressed: () {
+                  Get.toNamed(Path.FORGET_PHONE);
+                },
+                child: Text("Забыли пароль ?"))
           ],
         ),
       ),

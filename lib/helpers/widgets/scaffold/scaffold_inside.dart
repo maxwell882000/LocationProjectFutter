@@ -5,11 +5,13 @@ import 'package:location_specialist/helpers/widgets/custom_action/custom-action.
 
 class ScaffoldInside extends StatelessWidget {
   final Widget body;
-  const ScaffoldInside({Key? key, required this.body}) : super(key: key);
+  final Widget? bottomSheet;
+  const ScaffoldInside({Key? key, required this.body, this.bottomSheet}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: bottomSheet,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(

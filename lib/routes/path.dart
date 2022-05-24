@@ -25,4 +25,9 @@ class Path {
   static const NOT_INTERNET = "/not-internet";
   static const GEOCODING = "/geocoding";
   static const SEARCH_CITY = "/search-city";
+  static const PAYMENT = "/payment";
+  static const SALES_TEXT = '/sales-text';
+  static const FORGET_PASSWORD = "/forget-password";
+  static const FORGET_PASSWORD_CODE_VERIFICATION = "/forget-password-code-verification";
+  static const FORGET_PHONE = "/forget-phone";
 }

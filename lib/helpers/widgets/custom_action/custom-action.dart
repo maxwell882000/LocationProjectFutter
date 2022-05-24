@@ -10,7 +10,8 @@ class ACTION {
   static const CHANGE_PASSWORD = 0;
   static const RULE_OF_USAGE = 1;
   static const ADD_LOCATION = 2;
-  static const EXIT = 3;
+  static const PAY_FOR = 3;
+  static const EXIT = 4;
 }
 
 class CustomAction extends StatefulWidget {
@@ -31,8 +32,10 @@ class _CustomActionState extends State<CustomAction>
     "Изменить пароль",
     "Политика конфиденциальности",
     "Добавить локацию",
+    "Оплата услуг",
     "Выйти"
   ];
+
   @override
   void initState() {
     super.initState();
@@ -49,11 +52,16 @@ class _CustomActionState extends State<CustomAction>
         closeMenu();
         Get.toNamed(Path.CONFIDENTIAL);
         break;
+      case ACTION.PAY_FOR:
+        closeMenu();
+        Get.toNamed(Path.PAYMENT);
+        break;
       case ACTION.ADD_LOCATION:
         closeMenu();
         Get.toNamed(Path.LOCATION_FORM);
         break;
       case ACTION.EXIT:
+        closeMenu();
         logout();
         break;
     }
@@ -62,7 +70,6 @@ class _CustomActionState extends State<CustomAction>
   empty() {}
 
   logout() {
-    toggleMenu();
     showDialog(
         context: context,
         builder: (_) => AlertDialog(

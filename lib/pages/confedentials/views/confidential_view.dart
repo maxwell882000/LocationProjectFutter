@@ -5,7 +5,8 @@ import 'package:location_specialist/helpers/widgets/scaffold/scaffold_inside.dar
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_main.dart';
 import 'package:location_specialist/helpers/widgets/text/text-lang.dart';
 import 'package:location_specialist/helpers/widgets/text/text_title.dart';
-import 'package:location_specialist/pages/confedentials/provider/confidential_repository.dart';
+import 'package:location_specialist/pages/confedentials/provider/confidential_provider.dart';
+import 'package:location_specialist/pages/confedentials/widgets/confidential_widget.dart';
 import 'package:provider/provider.dart';
 
 class ConfidentialView extends StatelessWidget {
@@ -15,22 +16,7 @@ class ConfidentialView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldInside(
       body: FutureProviderCustom<ConfidentialProvider>(
-        create: ConfidentialProvider(),
-        child: Builder(builder: (context) {
-          return ListView(
-            children: [
-              Center(
-                  child: TextTitle(Provider.of<ConfidentialProvider>(context)
-                      .confidential
-                      .header)),
-              StyleHandler.y_margin,
-              StyleHandler.y_margin,
-              TextLang(
-                  Provider.of<ConfidentialProvider>(context).confidential.body),
-            ],
-          );
-        }),
-      ),
+          create: ConfidentialProvider(), child: ConfidentialWidget()),
     );
   }
 }

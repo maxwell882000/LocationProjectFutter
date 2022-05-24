@@ -74,7 +74,7 @@ class LocationFormProvider extends LoadingProvider {
     images.clear();
     _numberOfImages = 0;
     _city = "Найти город";
-
+    storeImages.clear();
     _fromValues.clear();
   }
 
