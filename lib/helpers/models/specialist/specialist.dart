@@ -2,7 +2,6 @@ import 'package:location_specialist/helpers/mixins/mix_comentable.dart';
 import 'package:location_specialist/helpers/mixins/mix_json.dart';
 import 'package:location_specialist/helpers/models/base/base_model.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
-import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/user/user.dart';
 
@@ -10,20 +9,27 @@ class Specialist extends BaseModel with MixJson, MixComentable {
   late String image;
   late String description;
   late User user;
-  late Location location;
+  Location? location;
   late List<Category> category;
-
+  bool isDeactivated = true;
+  bool isAutoPayment = false;
   late double reviewAvg;
+
   String get name => "${user.firstname} ${user.lastname}";
-  String get firstCategory => "${this.category.isNotEmpty?this.category.first.categoryName : ''}";
-  String get address => "${this.location.name}";
+
+  String get firstCategory =>
+      "${this.category.isNotEmpty ? this.category.first.categoryName : ''}";
+
+  String get address => "${this.location?.name}";
+
   Specialist.create(Map<String, dynamic> map) : super.fromJson(map) {
     print(image);
     this.image = map['image'];
     this.description = map['description'];
     this.setUser(map);
   }
-    Specialist.update(Map<String, dynamic> map) : super.fromJson(map) {
+
+  Specialist.update(Map<String, dynamic> map) : super.fromJson(map) {
     this.image = map['image'];
     this.description = map['description'];
     this.setUser(map);
@@ -39,7 +45,11 @@ class Specialist extends BaseModel with MixJson, MixComentable {
     this.image = map['image'];
     this.description = map['description'];
     this.setUser(map);
-    this.location = Location.fromJson(map['location']);
+    if (map.containsKey("location") && map['location'] != null)
+      this.location = Location.fromJson(map['location']);
+    this.isDeactivated = map['is_deactivated'];
+
+    this.isAutoPayment = map['is_auto_payment'] ?? false;
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
     this.reviewAvg = map['review_avg'] ?? 0.0;
@@ -66,7 +76,7 @@ class Specialist extends BaseModel with MixJson, MixComentable {
   Map<String, dynamic> toUpdate() {
     var map = <String, dynamic>{
       "description": this.description,
-      "location": this.location.id,
+      "location": this.location?.id,
     };
     try {
       map['image'] = int.parse(this.image);
@@ -76,6 +86,6 @@ class Specialist extends BaseModel with MixJson, MixComentable {
 }
 /* For now it is not necessary */
 /*   late List<ReviewSpecialist> reviews; */
- /*    this.reviews = map['reviews']
+/*    this.reviews = map['reviews']
         .map<ReviewSpecialist>((e) => ReviewSpecialist.fromJson(e))
         .toList(); */

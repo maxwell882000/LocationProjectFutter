@@ -1,4 +1,3 @@
-import 'package:location_specialist/helpers/components/interfaces/service_review_interface.dart';
 import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/review/review.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';

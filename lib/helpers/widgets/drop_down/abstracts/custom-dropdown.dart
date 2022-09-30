@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 
@@ -220,9 +219,8 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
 
   ButtonStyle styleButton(style) {
     return ElevatedButton.styleFrom(
-      padding: style.padding,
+      padding: style.padding, primary: style.primaryColor,
       elevation: style.elevation,
-      primary: style.primaryColor,
       shape: style.shape,
     );
   }

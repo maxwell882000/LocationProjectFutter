@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/models/error/error.dart';
@@ -26,6 +24,7 @@ class SpecialistRegisterProvider extends LoadingProvider {
     print(_customLocation);
     notifyListeners();
   }
+
   Location? get location => _location;
 
   set location(Location? location) {
@@ -66,7 +65,7 @@ class SpecialistRegisterProvider extends LoadingProvider {
     _formValues['category'] = ids;
   }
 
-  setCustomLocation(String ?location) {
+  setCustomLocation(String? location) {
     _formValues['custom_location'] = location;
   }
 
@@ -79,10 +78,10 @@ class SpecialistRegisterProvider extends LoadingProvider {
       return SnackbarHandler.error(
           title: "Ошибка", body: "Пожалуйста загрузита автарку");
     }
-    if (!_formValues.containsKey('location')) {
-      return SnackbarHandler.error(
-          title: "Ошибка", body: "Пожалуйста выберите локацию");
-    }
+    // if (!_formValues.containsKey('location')) {
+    //   return SnackbarHandler.error(
+    //       title: "Ошибка", body: "Пожалуйста выберите локацию");
+    // }
     if (!_formValues.containsKey('category') && _formValues['category'] == []) {
       return SnackbarHandler.error(
           title: "Ошибка", body: "Пожалуйста выберите вид деятельности");

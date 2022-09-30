@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:location_specialist/helpers/models/base/base_model.dart';
 
 class Confidential extends BaseModel {

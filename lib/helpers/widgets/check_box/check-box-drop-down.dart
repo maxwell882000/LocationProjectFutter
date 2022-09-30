@@ -203,9 +203,12 @@ class _CheckBoxDropDownState<T> extends State<CheckBoxDropDown<T>> {
     if (widget.items != []) {
       setState(() {
         widget.initialItems.forEach((value) {
-          _selectedTitles
-              .add(widget.items.firstWhere((element) => value == element));
-          _selectedTitlesIndex.add(widget.items.indexOf(value));
+          var result = widget.items
+              .firstWhere((element) => value == element, orElse: () => "");
+          if (result != "") {
+            _selectedTitles.add(result);
+            _selectedTitlesIndex.add(widget.items.indexOf(value));
+          }
         });
       });
     }

@@ -3,16 +3,10 @@ import 'package:get/get.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/red-button.dart';
-import 'package:location_specialist/helpers/widgets/image_picker/image-picker-custom.dart';
-import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_auth.dart';
-import 'package:location_specialist/helpers/widgets/text/text-logo.dart';
-import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
 import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-password.dart';
 import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-phone.dart';
 import 'package:location_specialist/pages/login/providers/login_provider.dart';
-import 'package:location_specialist/providers/auth_provider.dart';
-import 'package:location_specialist/providers/common_provider.dart';
 import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
 

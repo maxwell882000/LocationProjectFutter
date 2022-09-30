@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_provider_custom.dart';
 import 'package:location_specialist/helpers/widgets/list/list_view_paginate.dart';

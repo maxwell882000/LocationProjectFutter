@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:location_specialist/helpers/models/icon/icon_menu.dart';
@@ -15,6 +14,7 @@ class CommonRepository with ApiBaseMethods {
   factory CommonRepository() {
     return _singleton;
   }
+
   CommonRepository._internal();
 
   static const String prefix = "common/app/";
@@ -39,7 +39,6 @@ class CommonRepository with ApiBaseMethods {
       bytes: media,
     ));
     var re = await response.stream.bytesToString();
-    print(re);
     Map<String, dynamic> map = jsonDecode(re);
     return map['id'];
   }

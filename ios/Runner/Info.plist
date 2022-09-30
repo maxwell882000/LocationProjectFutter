@@ -12,6 +12,10 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+    <array>
+        <string>https://sportandthecity.page.link/</string>
+    </array>
 	<key>CFBundleName</key>
 	<string>Sport&amp;thecity</string>
 	<key>CFBundlePackageType</key>
@@ -29,16 +33,26 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This permission is not needed by the app, but it is required by an underlying API. If you see this dialog, contact us.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>camera</string>
-	<key>NSAppleMusicUsageDescription</key>
-    <string>This permission is not needed by the app, but it is required by an underlying API. If you see this dialog, contact us.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Always and when in use!</string>
+	<string>$(PRODUCT_NAME) use location to detect near places where people can find
+                                        their specialists, so it becomes more comfortable for a user to search for places.
+                                         We  detect the user's location only when he returns to the main page , every time,
+                                         so the places he searches stays always updated respectively from his location</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Older devices need location.</string>
+	<string>$(PRODUCT_NAME) use location to detect near places where people can find
+                                        their specialists, so it becomes more comfortable for a user to search for places.
+                                         We  detect the user's location only when he returns to the main page , every time,
+                                         so the places he searches stays always updated respectively from his location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) location use</string>
+	<string>$(PRODUCT_NAME) use location to detect near places where people can find
+                            their specialists, so it becomes more comfortable for a user to search for places.
+                             We  detect the user's location only when he returns to the main page , every time,
+                             so the places he searches stays always updated respectively from his location
+    </string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>photos</string>
 	<key>UILaunchStoryboardName</key>
@@ -62,5 +76,7 @@
 	<false/>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>media</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>

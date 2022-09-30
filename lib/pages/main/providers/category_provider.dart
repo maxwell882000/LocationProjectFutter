@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:location_specialist/helpers/interface/abstract_paginator.dart';
 import 'package:location_specialist/helpers/models/base/base_provider.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';

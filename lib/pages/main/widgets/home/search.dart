@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/map/widget/base_search_map_widget.dart';
 
-import 'package:location_specialist/helpers/widgets/text_field/stack/search_text_field.dart';
 import 'package:location_specialist/pages/main/providers/search_provider.dart';
 import 'package:location_specialist/routes/path.dart';
-import 'package:provider/provider.dart';
 
 class SearchMap extends BaseSearchMapWidget<SearchProvider> {
   const SearchMap({Key? key}) : super(key: key, create: getProvider);

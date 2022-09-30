@@ -4,7 +4,6 @@ import 'package:location_specialist/helpers/widgets/map/provider/base_search_pro
 import 'package:location_specialist/helpers/widgets/text_field/stack/search_text_field.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../pages/main/providers/search_provider.dart';
 import '../../../static/style_handler.dart';
 
 abstract class BaseSearchMapWidget<T extends BaseSearchProvider>

@@ -6,8 +6,6 @@ import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/comment/comment_list_waiting.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_inside.dart';
 import 'package:location_specialist/pages/location/provider/location_comment_provider.dart';
-import 'package:location_specialist/pages/location/provider/location_view_provider.dart';
-import 'package:location_specialist/pages/specialist/provider/specialist_view_provider.dart';
 import 'package:provider/provider.dart';
 
 class LocationComment extends StatelessWidget {

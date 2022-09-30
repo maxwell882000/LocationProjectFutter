@@ -27,7 +27,7 @@ class LoginProvider extends LoadingProvider {
       Provider.of<AuthProvider>(context, listen: false).fetchUserData();
       notifyListeners();
       Get.offNamed(Path.MAIN);
-    } on ErrorCustom catch (e) {
+    } on ErrorCustom {
       SnackbarHandler.error(
           title: "Ошибка".tr, body: "Ваши введенные даные неверны".tr);
     }

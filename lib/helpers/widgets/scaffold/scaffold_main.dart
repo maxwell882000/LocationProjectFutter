@@ -3,6 +3,7 @@ import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/custom_action/custom-action.dart';
 import 'package:location_specialist/helpers/widgets/logo/logo_widget.dart';
 import 'package:location_specialist/pages/main/providers/main_provider.dart';
+import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class ScaffoldMain extends StatelessWidget {
@@ -21,6 +22,17 @@ class ScaffoldMain extends StatelessWidget {
             size: 50,
           )),
           actions: [CustomAction()],
+          title: Consumer<AuthProvider>(builder: (context, provider, child) {
+            return Text(
+              provider.user?.isProAccount == true
+                  ? "Про аккаунт"
+                  : provider.user?.isSpecialist == true
+                      ? "Аккаунт скрыт"
+                      : '',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
+            );
+          }),
         ),
         body: Container(
             margin: EdgeInsets.symmetric(horizontal: StyleHandler.padding * 2),

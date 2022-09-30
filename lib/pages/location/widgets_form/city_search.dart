@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location_specialist/pages/location/provider/city_search_provider.dart';
 

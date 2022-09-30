@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
 import 'package:location_specialist/helpers/widgets/image/image_list.dart';
-import 'package:location_specialist/helpers/widgets/image/image_network.dart';
 import 'package:location_specialist/routes/path.dart';
 
 class CategoryItem extends StatelessWidget {

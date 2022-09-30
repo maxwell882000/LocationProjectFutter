@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
-import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
-import 'package:location_specialist/helpers/widgets/button/implementations/red-button.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_provider_custom.dart';
 import 'package:location_specialist/helpers/widgets/list/list_view_paginate.dart';
 import 'package:location_specialist/pages/main/providers/category_provider.dart';

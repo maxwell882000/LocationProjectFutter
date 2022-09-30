@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:location_specialist/helpers/components/interfaces/service_review_interface.dart';
 import 'package:location_specialist/helpers/models/base/base_provider.dart';
 
@@ -24,6 +23,7 @@ class StarProvider extends BaseProvider {
   Future<String?> getReview() async {
     int selected = await repo.getReview();
     this.selected = selected;
+    return null;
   }
 
   getStatus(int mark) {

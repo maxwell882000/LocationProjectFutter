@@ -1,4 +1,3 @@
-import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/repository/comment/comment_repository.dart';
 
 class CommentLocationRepository extends CommentRepository {

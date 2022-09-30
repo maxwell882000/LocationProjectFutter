@@ -6,18 +6,15 @@ import 'package:location_specialist/helpers/widgets/check_box/check-box-helper.d
 import 'package:location_specialist/helpers/widgets/image_picker/image-multiple-custom.dart';
 import 'package:location_specialist/helpers/widgets/loading/widgets/loading.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_inside.dart';
-import 'package:location_specialist/helpers/widgets/scaffold/scaffold_main.dart';
 import 'package:location_specialist/helpers/widgets/text/text_title.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
 import 'package:location_specialist/pages/location/provider/location_form_provider.dart';
-import 'package:location_specialist/pages/location/widgets_form/country_city_drop_down.dart';
 import 'package:location_specialist/pages/location/widgets_form/map_location_form.dart';
 import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../../helpers/models/location/location.dart';
 import '../../../helpers/widgets/button/abstracts/base_button.dart';
-import '../provider/map_location_form_provider.dart';
 
 class LocationForm extends StatelessWidget {
   LocationForm({Key? key}) : super(key: key);

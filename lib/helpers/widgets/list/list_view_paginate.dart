@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:location_specialist/helpers/interface/abstract_paginator.dart';
-import 'package:location_specialist/helpers/models/paginator/paginator.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 
 class ListViewPaginate extends StatefulWidget {
@@ -35,7 +34,7 @@ class _ListViewPaginateState extends State<ListViewPaginate> {
   void initState() {
     super.initState();
     print(_controller.hasClients);
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
       _controller.addListener(_scrollListener);
     });
   }

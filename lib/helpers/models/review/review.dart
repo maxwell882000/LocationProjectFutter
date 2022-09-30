@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:location_specialist/helpers/interface/serialize_json_interface.dart';
-import 'package:location_specialist/helpers/models/user/user.dart';
 
 class Review implements SerializeJsonInterface {
   late int review;

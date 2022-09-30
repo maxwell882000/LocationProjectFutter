@@ -5,7 +5,6 @@ import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/review/review.dart';
 import 'package:location_specialist/helpers/models/review/review_specialist.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
-import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/repository/comment/comment_specialist_repository.dart';
 

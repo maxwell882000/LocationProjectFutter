@@ -1,84 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
+import 'package:location_specialist/helpers/models/payment/plans.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/red-button.dart';
+import 'package:location_specialist/helpers/widgets/loading/widgets/loading.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_inside.dart';
-import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
-import 'package:location_specialist/helpers/widgets/text_field/formater/card_formatter.dart';
-import 'package:location_specialist/helpers/widgets/text_field/formater/day_payment_formatter.dart';
-import 'package:location_specialist/routes/path.dart';
+import 'package:location_specialist/pages/payment/providers/plan_provider.dart';
+import 'package:provider/provider.dart';
+
 
 class Payment extends StatelessWidget {
   const Payment({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldInside(
-        bottomSheet: Padding(
-          padding: EdgeInsets.all(20),
-          child: RedButton(
-            text: "Оплатить",
-            onPressed: () {},
-          ),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset("assets/images/logo.svg"),
-            StyleHandler.y_margin,
-            StyleHandler.y_margin,
-            StyleHandler.y_margin,
-            BaseTextField(
-                maxLength: 19,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  CardFormatter(),
-                ],
-                hintText: "Номер карты",
-                onSaved: (text) {}),
-            StyleHandler.y_margin,
-            Row(
-              children: [
-                Expanded(
-                    child: BaseTextField(
-                        inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      DatePaymentFormatter()
-                    ],
-                        hintText: "Срок действия",
-                        maxLength: 5,
-                        onSaved: (text) {})),
-                StyleHandler.x_margin,
-                Expanded(
-                  child: BaseTextField(
-                    onSaved: (text) {},
-                    maxLength: 3,
-                    hintText: "CVC/CVV2",
-                  ),
-                )
-              ],
-            ),
-            StyleHandler.y_margin,
-            SizedBox(
-              height: 80,
-              child: Row(
-                children: [
-                  Flexible(
-                      child:
-                          SvgPicture.asset("assets/images/mastect_card.svg")),
-                  Flexible(child: SvgPicture.asset("assets/images/mir.svg")),
-                  Flexible(child: SvgPicture.asset("assets/images/visa.svg")),
-                ],
+    return ChangeNotifierProvider(
+        create: (_) => PlanProvider(),
+        child: Builder(builder: (context) {
+          return ScaffoldInside(
+              bottomSheet: Padding(
+                padding: EdgeInsets.all(20),
+                child: RedButton(
+                  text: "Выбрать",
+                  onPressed: () {
+                    Provider.of<PlanProvider>(context,listen: false).registerOrder();
+                  },
+                ),
               ),
-            ),
-            TextButton(
-                onPressed: () {
-                  Get.toNamed(Path.SALES_TEXT);
-                },
-                child: Text("Правила пользования")),
-          ],
-        ));
+              body: Loading<PlanProvider>(
+                child:
+                    Consumer<PlanProvider>(builder: (context, provider, child) {
+                  return ListView.builder(
+                      itemCount: provider.plan.length,
+                      itemBuilder: (context, index) {
+                        final Plan plan = provider.plan[index];
+                        return ListTile(
+                          title: Text(plan.description.toString()),
+                          onTap: () {
+                            provider.selected = index;
+                          },
+                          selected: provider.selected == index,
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Количество дней: " + plan.days.toString()),
+                              Text(
+                                plan.amount.toString(),
+                                style: TextStyle(fontSize: 20),
+                              )
+                            ],
+                          ),
+                          isThreeLine: true,
+                        );
+                      });
+                }),
+              ));
+        }));
   }
 }

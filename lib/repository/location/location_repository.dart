@@ -9,7 +9,6 @@ import 'package:location_specialist/helpers/models/media/media.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';
 import 'package:location_specialist/repository/model/request.dart';
 import 'package:location_specialist/repository/model/request_file.dart';
-import 'package:location_specialist/repository/model/request_files.dart';
 
 class LocationRepository with ApiBaseMethods {
   static final LocationRepository _singleton = LocationRepository._internal();

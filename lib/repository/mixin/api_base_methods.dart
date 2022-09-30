@@ -51,7 +51,7 @@ mixin ApiBaseMethods {
           body: jsonEncode(requestData.data), headers: this.headers);
       return this._responseFromClient(request,
           requestData: requestData.data, path: requestData.url.path);
-    } on SocketException catch (e) {
+    } on SocketException {
       Get.offAllNamed(Path.NOT_INTERNET);
       // throw e;
     }
@@ -68,7 +68,8 @@ mixin ApiBaseMethods {
         print(request.body);
       }
     }
-    if (request.statusCode == Status.HTTP_ERROR) {
+    if (request.statusCode == Status.HTTP_ERROR ||
+        (response is Map && response.containsKey("errors"))) {
       print(response);
       print(request.statusCode);
       print(path);
@@ -86,7 +87,6 @@ mixin ApiBaseMethods {
         request.statusCode != Status.HTTP_204) {
       print(response);
       print(path);
-
       print(request.statusCode);
       throw ErrorCustom(errors: response);
     }
@@ -97,7 +97,7 @@ mixin ApiBaseMethods {
     try {
       var request = await http.get(requestData.url, headers: this.headers);
       return this._responseFromClient(request, path: requestData.url.path);
-    } on SocketException catch (e) {
+    } on SocketException {
       Get.offAllNamed(Path.NOT_INTERNET);
     }
   }
@@ -106,7 +106,7 @@ mixin ApiBaseMethods {
     try {
       var request = await http.get(requestData.emptyUrl, headers: this.headers);
       return this._responseFromClient(request);
-    } on SocketException catch (e) {
+    } on SocketException {
       Get.offAllNamed(Path.NOT_INTERNET);
     }
   }
@@ -116,7 +116,7 @@ mixin ApiBaseMethods {
       var request = await http.put(requestData.url,
           body: jsonEncode(requestData.data), headers: this.headers);
       return this._responseFromClient(request, requestData: requestData.data);
-    } on SocketException catch (e) {
+    } on SocketException {
       Get.offAllNamed(Path.NOT_INTERNET);
     }
   }

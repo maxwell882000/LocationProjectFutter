@@ -3,24 +3,25 @@ import 'package:getwidget/types/gf_checkbox_type.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
 import 'package:location_specialist/helpers/widgets/check_box/check-box-drop-down.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_provider_custom.dart';
-import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
 import 'package:location_specialist/pages/register/providers/category_selection_provider.dart';
 import 'package:provider/provider.dart';
 
 class CategorySelection extends StatelessWidget {
   final List<Category> category;
   final Function(List<int>) onSelect;
+
   const CategorySelection(
       {Key? key, required this.onSelect, this.category = const []})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(category);
     return FutureProviderCustom<CategorySelectionProvider>(
       create: CategorySelectionProvider(),
       child: Consumer<CategorySelectionProvider>(
           builder: (context, provider, child) {
+        print(category.map((e) => e.categoryName).toList());
+        print(provider.category.map<String>((e) => e.categoryName).toString());
         return CheckBoxDropDown(
           selected: true,
           initialItems:

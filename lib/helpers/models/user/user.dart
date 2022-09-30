@@ -15,6 +15,15 @@ class User extends BaseModel {
   }
 
   String get name => "$firstname $lastname";
+
+  bool get isSpecialist => specialist != null;
+
+  bool get isProAccount =>
+      this.isSpecialist && this.specialist?.isDeactivated == false;
+
+  bool get isAutoPayment =>
+      this.isSpecialist && this.specialist?.isAutoPayment == true;
+
   User.decide(data) {
     if (data is int) {
       this.id = data;
@@ -47,7 +56,4 @@ class User extends BaseModel {
       "phone": this.phone,
     };
   }
-
-
-  
 }

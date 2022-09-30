@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/widgets/phone_validation/provider/base_phone_validation_provider.dart';
-import 'package:location_specialist/helpers/widgets/phone_validation/widgets/base_phone_validation.dart';
 import 'package:location_specialist/repository/auth/auth_repository.dart';
 import 'package:location_specialist/routes/path.dart';
 

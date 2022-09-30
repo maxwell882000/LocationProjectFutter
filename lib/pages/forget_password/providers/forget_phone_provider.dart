@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/repository/auth/auth_repository.dart';
 import 'package:location_specialist/routes/path.dart';
@@ -20,7 +18,7 @@ class ForgetPhoneProvider extends LoadingProvider {
   validatePhone() async {
     loading = true;
     try {
-      await AuthRepository().sendCode(suffix: phone);
+      await AuthRepository().sendCode(suffix: phone + "/");
       Get.toNamed(Path.FORGET_PASSWORD_CODE_VERIFICATION, arguments: phone);
     } catch (e) {
       SnackbarHandler.error(title: "Ошибка", body: "Не правильный номер!");

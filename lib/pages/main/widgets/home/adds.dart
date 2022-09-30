@@ -1,8 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_provider_custom.dart';
 import 'package:location_specialist/helpers/widgets/image/image_add.dart';
-import 'package:location_specialist/helpers/widgets/image/image_network.dart';
 import 'package:location_specialist/helpers/widgets/slider/custom_slider.dart';
 import 'package:location_specialist/pages/main/providers/add_provider.dart';
 import 'package:provider/provider.dart';

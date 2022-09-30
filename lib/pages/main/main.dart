@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
-import 'package:location_specialist/helpers/widgets/custom_action/custom-action.dart';
-import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_main.dart';
 import 'package:location_specialist/pages/main/providers/main_provider.dart';
 import 'package:provider/provider.dart';

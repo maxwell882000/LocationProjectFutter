@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:location_specialist/helpers/widgets/image/image_add.dart';
 
 class CustomSlider extends StatelessWidget {
   final List<Widget> items;

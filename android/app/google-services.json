@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "788370528549",
+    "project_id": "sport-and-the-city",
+    "storage_bucket": "sport-and-the-city.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788370528549:android:9b8ec53774fba1dc0fa2cc",
+        "android_client_info": {
+          "package_name": "com.location_specialist.location_specialist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788370528549-esrf4bl7r60026ns4vjsqnireffjvo61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvWRM5T5yv7G0Ss-TLEkM-9o7N4GEG1GA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788370528549-esrf4bl7r60026ns4vjsqnireffjvo61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

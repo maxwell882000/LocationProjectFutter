@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
-import 'package:location_specialist/repository/auth/auth_repository.dart';
-import 'package:location_specialist/routes/path.dart';
 
 abstract class BasePhoneValidationProvider extends LoadingProvider {
   late String? _code;

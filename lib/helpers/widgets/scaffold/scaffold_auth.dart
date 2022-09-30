@@ -4,7 +4,6 @@ import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/loading/widgets/loading.dart';
 import 'package:location_specialist/helpers/widgets/logo/logo_widget.dart';
-import 'package:location_specialist/helpers/widgets/text/text-logo.dart';
 
 class ScaffoldAuth<T extends LoadingProvider> extends StatelessWidget {
   final List<Widget> children;

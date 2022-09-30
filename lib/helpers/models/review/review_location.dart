@@ -1,4 +1,3 @@
-import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/review/review.dart';
 
 class ReviewLocation extends Review {

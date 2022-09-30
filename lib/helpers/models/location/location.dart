@@ -1,7 +1,6 @@
 import 'package:location_specialist/helpers/mixins/mix_comentable.dart';
 import 'package:location_specialist/helpers/models/base/base_model.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
-import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/image/image.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 

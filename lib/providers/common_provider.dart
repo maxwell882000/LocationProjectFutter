@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
-import 'package:location_specialist/helpers/models/base/base_media.dart';
 import 'package:location_specialist/helpers/models/icon/icon_menu.dart';
 import 'package:location_specialist/helpers/models/logo/logo.dart';
 import 'package:location_specialist/repository/common/common_repository.dart';
@@ -13,6 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CommonProvider with ChangeNotifier {
   late SharedPreferences shared;
   bool _startLoading = false;
+  bool _isSideBarOpen = false;
+
+  bool get isSideBarOpen => _isSideBarOpen;
+
+  set isSideBarOpen(bool isSideBarOpen) {
+    _isSideBarOpen = isSideBarOpen;
+    notifyListeners();
+  }
 
   bool get startLoading => _startLoading;
 

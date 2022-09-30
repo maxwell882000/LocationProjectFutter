@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:location_specialist/helpers/models/base/base_provider.dart';
 import 'package:location_specialist/helpers/models/location/city.dart';
 import 'package:location_specialist/repository/location/location_repository.dart';
 

@@ -1,4 +1,3 @@
-import 'package:location_specialist/helpers/models/category/category.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/paginator/paginator.dart';
 

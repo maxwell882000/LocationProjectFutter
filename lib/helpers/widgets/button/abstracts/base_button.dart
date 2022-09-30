@@ -18,8 +18,7 @@ class BaseButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(15),
-              primary: color,
+              padding: EdgeInsets.all(15), primary: color,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25))),
           onPressed: () => onPressed!(),

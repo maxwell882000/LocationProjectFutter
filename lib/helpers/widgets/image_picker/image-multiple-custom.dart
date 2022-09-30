@@ -1,11 +1,8 @@
-import 'dart:io';
-import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location_specialist/helpers/models/media/media.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
-import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
 import 'package:location_specialist/helpers/widgets/image_picker/image-container.dart';
 
 /* onServer will take one image at a time and will give true or false response

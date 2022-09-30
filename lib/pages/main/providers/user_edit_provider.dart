@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import 'package:location_specialist/helpers/models/error/error.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/media/media.dart';
-import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/models/user/auth.dart';
 import 'package:location_specialist/helpers/models/user/user.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
-import 'package:location_specialist/pages/register/providers/user_provider.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/repository/auth/auth_repository.dart';
 import 'package:location_specialist/repository/common/common_repository.dart';
@@ -33,7 +31,7 @@ class UserEditProvider extends LoadingProvider {
   }
 
   String textOfLocation() {
-    return this.user.specialist!.location.name;
+    return this.user.specialist!.location?.name ?? "Выберите локацию";
   }
 
   setLocation() async {
@@ -59,13 +57,16 @@ class UserEditProvider extends LoadingProvider {
 
   UserEditProvider(BuildContext context) {
     this.user = Provider.of<AuthProvider>(context, listen: false).user!;
+
     if (user.specialist != null)
       this.category = user.specialist!.category.map<int>((e) => e.id).toList();
   }
 
   Future setImage(Media media) async {
-    user.specialist!.image =
-        "${await CommonRepository().createImageTemp(media)}";
+    try {
+      user.specialist!.image =
+          "${await CommonRepository().createImageTemp(media)}";
+    } catch (e) {}
   }
 
   deleteImage() async {

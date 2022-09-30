@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/red-button.dart';
@@ -10,12 +9,12 @@ import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_te
 import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-phone.dart';
 import 'package:location_specialist/pages/main/providers/user_edit_provider.dart';
 import 'package:location_specialist/pages/register/specialist/category-selection.dart';
-import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class UserEdit extends StatelessWidget {
   UserEdit({Key? key}) : super(key: key);
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserEditProvider>(

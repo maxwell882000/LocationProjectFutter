@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 class Media {
   final String name;

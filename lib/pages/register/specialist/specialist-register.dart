@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/red-button.dart';
-import 'package:location_specialist/helpers/widgets/check_box/check-box.dart';
 import 'package:location_specialist/helpers/widgets/image_picker/image-picker-custom.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_auth.dart';
-import 'package:location_specialist/helpers/widgets/text/text-lang.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
 import 'package:location_specialist/pages/register/providers/specialist_register_provider.dart';
 import 'package:location_specialist/pages/register/specialist/category-selection.dart';
-import 'package:location_specialist/pages/register/specialist/choose-location.dart';
-import 'package:location_specialist/routes/path.dart';
 import 'package:provider/provider.dart';
 
 class SpecialistRegister extends StatelessWidget {

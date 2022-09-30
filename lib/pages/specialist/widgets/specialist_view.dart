@@ -1,71 +1,210 @@
-import 'package:flutter/material.dart';
-import 'package:location_specialist/helpers/components/providers/comment_provider.dart';
-import 'package:location_specialist/helpers/components/widgets/comment_widget.dart';
-import 'package:location_specialist/helpers/components/widgets/list_stars.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
-import 'package:location_specialist/helpers/widgets/comment/comment_list_waiting.dart';
-import 'package:location_specialist/helpers/widgets/label/label_widget.dart';
-import 'package:location_specialist/helpers/widgets/scaffold/scaffold_inside.dart';
-import 'package:location_specialist/pages/category/helper_widgets/category_list_item.dart';
-import 'package:location_specialist/pages/specialist/helper_widgets/specialist_item_base.dart';
-import 'package:location_specialist/pages/specialist/provider/specialist_view_provider.dart';
-import 'package:location_specialist/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
 
-class SpecialistView extends StatelessWidget {
-  final SpecialistViewProvider provider = new SpecialistViewProvider();
-  SpecialistView({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+
+class Animal {
+  final int id;
+  final String name;
+
+  Animal({
+    required this.id,
+    required this.name,
+  });
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({required Key key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  static List<Animal> _animals = [
+    Animal(id: 1, name: "Lion"),
+    Animal(id: 2, name: "Flamingo"),
+    Animal(id: 3, name: "Hippo"),
+    Animal(id: 4, name: "Horse"),
+    Animal(id: 5, name: "Tiger"),
+    Animal(id: 6, name: "Penguin"),
+    Animal(id: 7, name: "Spider"),
+    Animal(id: 8, name: "Snake"),
+    Animal(id: 9, name: "Bear"),
+    Animal(id: 10, name: "Beaver"),
+    Animal(id: 11, name: "Cat"),
+    Animal(id: 12, name: "Fish"),
+    Animal(id: 13, name: "Rabbit"),
+    Animal(id: 14, name: "Mouse"),
+    Animal(id: 15, name: "Dog"),
+    Animal(id: 16, name: "Zebra"),
+    Animal(id: 17, name: "Cow"),
+    Animal(id: 18, name: "Frog"),
+    Animal(id: 19, name: "Blue Jay"),
+    Animal(id: 20, name: "Moose"),
+    Animal(id: 21, name: "Gecko"),
+    Animal(id: 22, name: "Kangaroo"),
+    Animal(id: 23, name: "Shark"),
+    Animal(id: 24, name: "Crocodile"),
+    Animal(id: 25, name: "Owl"),
+    Animal(id: 26, name: "Dragonfly"),
+    Animal(id: 27, name: "Dolphin"),
+  ];
+  final _items = _animals
+      .map((animal) => MultiSelectItem<Animal>(animal, animal.name))
+      .toList();
+  //List<Animal> _selectedAnimals = [];
+  List<Animal> _selectedAnimals2 = [];
+  List<Animal> _selectedAnimals3 = [];
+  //List<Animal> _selectedAnimals4 = [];
+  List<Animal> _selectedAnimals5 = [];
+  final _multiSelectKey = GlobalKey<FormFieldState>();
+
+  @override
+  void initState() {
+    _selectedAnimals5 = _animals;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldInside(
-      body: ChangeNotifierProvider<SpecialistViewProvider>.value(
-        value: provider,
-        child: Builder(builder: (context) {
-          return ListView(
-            children: [
-              SpecialistItemBase(specialist: provider.specialist),
-              StyleHandler.y_margin,
-              LabelWidget(
-                  text: "Виды деятельности:",
-                  child: CategoryListItem(
-                    categories: provider.specialist.category,
-                  )),
-              StyleHandler.y_margin,
-              LabelWidget(
-                  text: "Описание:",
-                  child: Text(
-                    provider.specialist.description,
-                  )),
-              StyleHandler.y_margin,
-              LabelWidget(
-                  text: "Номер телефона:",
-                  child: Text(provider.specialist.user.phone)),
-              StyleHandler.y_margin,
-              Consumer<SpecialistViewProvider>(
-                  builder: (context, provider, child) {
-                return CommentListWaiting(
-                    comment: provider.specialist.comments);
-              }),
-              if (Provider.of<AuthProvider>(context,listen: false)
-              .user?.specialist == null ||
-                  Provider.of<SpecialistViewProvider>(context, listen: false)
-                  .specialist.id != Provider.of<AuthProvider>(context, listen: false)
-                          .user
-                          ?.specialist!
-                          .id) ...[
-                StyleHandler.y_margin,
-                ListStars(repo: provider),
-                StyleHandler.y_margin,
-                ChangeNotifierProvider(
-                    create: (_) => CommentProvider(
-                          provider,
-                        ),
-                    child: CommentWidget())
-              ]
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 40),
+              //################################################################################################
+              // Rounded blue MultiSelectDialogField
+              //################################################################################################
+              MultiSelectDialogField(
+                items: _items,
+                searchable: true,
+                title: Text("Animals"),
+                selectedColor: Colors.blue,
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  border: Border.all(
+                    color: Colors.blue,
+                    width: 2,
+                  ),
+                ),
+                buttonIcon: Icon(
+                  Icons.pets,
+                  color: Colors.blue,
+                ),
+                buttonText: Text(
+                  "Favorite Animals",
+                  style: TextStyle(
+                    color: Colors.blue[800],
+                    fontSize: 16,
+                  ),
+                ),
+                onConfirm: (results) {
+                  //_selectedAnimals = results;
+                },
+              ),
+              SizedBox(height: 50),
+              //################################################################################################
+              // This MultiSelectBottomSheetField has no decoration, but is instead wrapped in a Container that has
+              // decoration applied. This allows the ChipDisplay to render inside the same Container.
+              //################################################################################################
+              Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(.4),
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                    width: 2,
+                  ),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    MultiSelectBottomSheetField(
+                      initialChildSize: 0.4,
+                      listType: MultiSelectListType.LIST,
+                      searchable: true,
+                      buttonText: Text("Favorite Animals"),
+                      title: Text("Animals"),
+                      items: _items,
+                      onConfirm: (values) {
+                        print(values);
+                        _selectedAnimals2 = values as List<Animal>;
+                      },
+                      chipDisplay: MultiSelectChipDisplay(
+                        onTap: (value) {
+                          setState(() {
+                            _selectedAnimals2.remove(value);
+                          });
+                        },
+                      ),
+                    ),
+                    _selectedAnimals2.isEmpty
+                        ? Container(
+                        padding: EdgeInsets.all(10),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "None selected",
+                          style: TextStyle(color: Colors.black54),
+                        ))
+                        : Container(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 40),
+              //################################################################################################
+              // MultiSelectBottomSheetField with validators
+              //################################################################################################
+              // MultiSelectBottomSheetField<Animal>(
+              //   key: _multiSelectKey,
+              //   initialChildSize: 0.7,
+              //   maxChildSize: 0.95,
+              //   title: Text("Animals"),
+              //   buttonText: Text("Favorite Animals"),
+              //   items: _items,
+              //   searchable: true,
+              //   validator: (values) {
+              //     if (values == null || values.isEmpty) {
+              //       return "Required";
+              //     }
+              //     List<String> names = values.map((e) => e.name).toList();
+              //     if (names.contains("Frog")) {
+              //       return "Frogs are weird!";
+              //     }
+              //     return null;
+              //   },
+              //   onConfirm: (values) {
+              //     setState(() {
+              //       _selectedAnimals3 = values;
+              //     });
+              //     _multiSelectKey.currentState!.validate();
+              //   },
+              //   chipDisplay: MultiSelectChipDisplay(
+              //     onTap: (item) {
+              //       setState(() {
+              //         _selectedAnimals3.remove(item);
+              //       });
+              //       _multiSelectKey.currentState!.validate();
+              //     },
+              //   ),
+              // ),
+              SizedBox(height: 40),
+              //################################################################################################
+              // MultiSelectChipField
+              //################################################################################################
+
+              SizedBox(height: 40),
+              //################################################################################################
+              // MultiSelectDialogField with initial values
+              //################################################################################################
+
             ],
-          );
-        }),
+          ),
+        ),
       ),
     );
   }

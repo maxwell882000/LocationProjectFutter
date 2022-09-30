@@ -3,8 +3,9 @@ import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/pages/specialist/helper_widgets/specialist_item.dart';
 import 'package:provider/provider.dart';
 
-class   SpecialistFutureList extends StatelessWidget {
+class SpecialistFutureList extends StatelessWidget {
   final Future<List<Specialist>> request;
+
   const SpecialistFutureList({Key? key, required this.request})
       : super(key: key);
 

@@ -5,6 +5,7 @@ import 'package:location_specialist/routes/path.dart';
 
 class CategoryItemIn extends StatelessWidget {
   final Category category;
+
   const CategoryItemIn({Key? key, required this.category}) : super(key: key);
 
   @override
@@ -15,6 +16,9 @@ class CategoryItemIn extends StatelessWidget {
         onPressed: () {
           Get.toNamed(Path.CATEGORY_PROFILE, arguments: category);
         },
-        child: Text(this.category.categoryName));
+        child: Text(
+          this.category.categoryName,
+          overflow: TextOverflow.ellipsis,
+        ));
   }
 }

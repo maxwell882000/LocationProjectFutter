@@ -28,6 +28,12 @@ class Path {
   static const PAYMENT = "/payment";
   static const SALES_TEXT = '/sales-text';
   static const FORGET_PASSWORD = "/forget-password";
-  static const FORGET_PASSWORD_CODE_VERIFICATION = "/forget-password-code-verification";
+  static const FORGET_PASSWORD_CODE_VERIFICATION =
+      "/forget-password-code-verification";
   static const FORGET_PHONE = "/forget-phone";
+  static const INSTRUCTIONS = "/instructions";
+  static const DYNAMIC = "/dynamic";
+  static const SUCCESS_PAYMENT = "/success_payment";
+  static const FAIL_PAYMENT = "/fail_payment";
+  static const WAITING_PAYMENT = "/waiting_payment";
 }

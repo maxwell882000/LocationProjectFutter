@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/button/implementations/black-button.dart';
-import 'package:location_specialist/helpers/widgets/comment/comment_form.dart';
-import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
 import 'package:location_specialist/helpers/widgets/image/image_add.dart';
 import 'package:location_specialist/helpers/widgets/label/label_widget.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_inside.dart';
-import 'package:location_specialist/helpers/widgets/scaffold/scaffold_main.dart';
 import 'package:location_specialist/helpers/widgets/slider/custom_slider.dart';
 import 'package:location_specialist/helpers/widgets/text/text_key_value.dart';
-import 'package:location_specialist/helpers/widgets/text/text_title.dart';
 import 'package:location_specialist/pages/category/helper_widgets/category_list_item.dart';
 import 'package:location_specialist/pages/location/provider/location_view_provider.dart';
 import 'package:location_specialist/pages/specialist/helper_widgets/specialist_future_list.dart';

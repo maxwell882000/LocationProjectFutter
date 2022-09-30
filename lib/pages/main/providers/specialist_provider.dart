@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:location_specialist/helpers/interface/abstract_paginator.dart';
 import 'package:location_specialist/helpers/models/base/base_provider.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
@@ -8,7 +7,9 @@ import 'package:location_specialist/repository/specialist/specialist_repository.
 class SpecialistProvider extends BaseProvider implements AbstractPaginator {
   late SpecialistPaginate _paginate = new SpecialistPaginate();
   List<Specialist> _specialists = [];
+
   List<Specialist> get specialists => _specialists;
+
   SpecialistPaginate get paginate => _paginate;
 
   set paginate(SpecialistPaginate paginate) {
@@ -19,7 +20,11 @@ class SpecialistProvider extends BaseProvider implements AbstractPaginator {
 
   @override
   initAsync() async {
-    this.paginate = await SpecialistRepository().specialistList();
+    try {
+      this.paginate = await SpecialistRepository().specialistList();
+    }catch(e, statcktrace){
+      print(statcktrace);
+    }
   }
 
   Future refresh() async {

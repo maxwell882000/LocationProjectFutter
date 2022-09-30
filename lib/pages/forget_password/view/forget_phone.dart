@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:location_specialist/helpers/widgets/scaffold/scaffold_auth.dart';
-import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
 import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-phone.dart';
 import 'package:location_specialist/pages/forget_password/providers/forget_phone_provider.dart';
 import 'package:provider/provider.dart';

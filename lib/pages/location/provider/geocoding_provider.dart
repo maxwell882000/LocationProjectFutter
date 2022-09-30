@@ -1,6 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:google_geocoding/google_geocoding.dart';
-import 'package:location_specialist/helpers/components/providers/base_map_provider.dart';
 import 'package:location_specialist/helpers/models/location/location.dart' as L;
 import 'package:location_specialist/helpers/widgets/map/provider/base_search_provider.dart';
 

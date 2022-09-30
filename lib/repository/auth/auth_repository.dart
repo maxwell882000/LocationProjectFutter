@@ -24,6 +24,8 @@ class AuthRepository with ApiBaseMethods {
 
   Future<User> getUser() async {
     var response = await this.get(Request('auth/user/'));
+    print("DIACTIVATED !!!");
+    // print(response['user_specialist']['is_deactivated']);
     return User.fromJson(response);
   }
 

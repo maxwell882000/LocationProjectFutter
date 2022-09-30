@@ -1,5 +1,4 @@
 import 'package:location_specialist/helpers/models/review/review.dart';
-import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 
 class ReviewSpecialist extends Review {
   final int specialist;

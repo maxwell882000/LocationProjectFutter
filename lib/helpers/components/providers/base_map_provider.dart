@@ -22,7 +22,7 @@ class BaseMapProvider extends BaseProvider {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        SnackbarHandler.error(title: "Ошибка", body: "Пожалуйста включите геолакацию");
+        SnackbarHandler.error(title: "Ошибка", body: "Пожалуйста включите геолокацию");
         throw "";
       }
     }
@@ -32,7 +32,7 @@ class BaseMapProvider extends BaseProvider {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
         SnackbarHandler.error(
-            title: "Ошибка", body: "Пожалуйста включите геолакацию");
+            title: "Ошибка", body: "Пожалуйста включите геолокацию");
         throw "";
       }
     }

@@ -1,15 +1,11 @@
 import 'package:get/get.dart';
-import 'package:location_specialist/helpers/components/interfaces/service_review_interface.dart';
 import 'package:location_specialist/helpers/models/base/base_provider.dart';
 import 'package:location_specialist/helpers/models/comment/comment.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/review/review.dart';
-import 'package:location_specialist/helpers/models/review/review_location.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist_paginate.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
-import 'package:location_specialist/repository/comment/comment_location_repository.dart';
-import 'package:location_specialist/repository/location/location_repository.dart';
 import 'package:location_specialist/repository/specialist/specialist_repository.dart';
 
 class LocationProviderView extends BaseProvider {

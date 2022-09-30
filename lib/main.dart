@@ -5,12 +5,15 @@ import 'package:location_specialist/pages/location/provider/location_form_provid
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/providers/common_provider.dart';
 import 'package:location_specialist/routes/route.dart';
+import 'package:location_specialist/services/dynamic_link_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'services/translation_service.dart';
 
 Future<void> initServices() async {
+  await DynamicLinkService.instance.initializeFirebase();
+
   Map<Permission, PermissionStatus> statuses = await [
     Permission.location,
     Permission.storage,

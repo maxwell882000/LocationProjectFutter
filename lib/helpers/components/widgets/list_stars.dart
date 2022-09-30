@@ -3,9 +3,7 @@ import 'package:location_specialist/helpers/components/interfaces/service_review
 import 'package:location_specialist/helpers/components/providers/start_provider.dart';
 import 'package:location_specialist/helpers/components/widgets/star.dart';
 import 'package:location_specialist/helpers/widgets/future_widget/future_provider_custom.dart';
-import 'package:location_specialist/helpers/widgets/future_widget/future_widget.dart';
 import 'package:location_specialist/helpers/widgets/text/text_title.dart';
-import 'package:provider/provider.dart';
 
 class ListStars extends StatelessWidget {
   final ServiceReviewInterface repo;

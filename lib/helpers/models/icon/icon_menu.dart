@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:location_specialist/helpers/models/base/base_media.dart';
-import 'package:location_specialist/helpers/models/base/base_model.dart';
 
 class IconMenu extends BaseMedia {
   late File image;

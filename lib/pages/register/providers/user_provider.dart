@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:location_specialist/helpers/models/error/error.dart';
 import 'package:location_specialist/helpers/models/user/auth.dart';
-import 'package:location_specialist/helpers/models/user/user.dart';
 import 'package:location_specialist/helpers/widgets/loading/providers/loading_provider.dart';
 import 'package:location_specialist/helpers/widgets/snackbars/snackbar_handler.dart';
 import 'package:location_specialist/providers/auth_provider.dart';

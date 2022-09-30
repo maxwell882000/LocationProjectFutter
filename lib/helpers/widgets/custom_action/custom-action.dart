@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location_specialist/helpers/static/style_handler.dart';
 import 'package:location_specialist/helpers/widgets/text/text-lang.dart';
 import 'package:location_specialist/providers/auth_provider.dart';
 import 'package:location_specialist/routes/path.dart';
@@ -11,7 +10,8 @@ class ACTION {
   static const RULE_OF_USAGE = 1;
   static const ADD_LOCATION = 2;
   static const PAY_FOR = 3;
-  static const EXIT = 4;
+  static const INSTRUCTION = 4;
+  static const EXIT = 5;
 }
 
 class CustomAction extends StatefulWidget {
@@ -33,8 +33,10 @@ class _CustomActionState extends State<CustomAction>
     "Политика конфиденциальности",
     "Добавить локацию",
     "Оплата услуг",
+    'Инструкции',
     "Выйти"
   ];
+  final String DECLINE_SUB = "Отменить подписку";
 
   @override
   void initState() {
@@ -60,6 +62,10 @@ class _CustomActionState extends State<CustomAction>
         closeMenu();
         Get.toNamed(Path.LOCATION_FORM);
         break;
+      case ACTION.INSTRUCTION:
+        closeMenu();
+        Get.toNamed(Path.INSTRUCTIONS);
+        break;
       case ACTION.EXIT:
         closeMenu();
         logout();
@@ -68,6 +74,52 @@ class _CustomActionState extends State<CustomAction>
   }
 
   empty() {}
+
+  Widget showTextOfMenu(context, index) {
+    final user = Provider.of<AuthProvider>(context, listen: false).user;
+
+    if (index == ACTION.PAY_FOR) {
+      if (user?.isSpecialist == false) {
+        return SizedBox();
+      } else if (user?.isAutoPayment == true) {
+        return text(askAboutDeclineSub, DECLINE_SUB);
+      }
+    }
+
+    return text(() => this.actionsOnClick(index), this.items[index]);
+  }
+
+  askAboutDeclineSub() {
+    closeMenu();
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text("Отменить подписку"),
+              content: Text("Вы уверены что хотите отменить подписку ?"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text("Нет")),
+                TextButton(
+                    onPressed: () {
+                      Get.back();
+                      var provider =
+                          Provider.of<AuthProvider>(context, listen: false);
+                      provider.deactivateSub();
+                    },
+                    child: Text("Да")),
+              ],
+            ));
+    // show dialog and decline subscription
+  }
+
+  TextButton text(Function function, String text) {
+    return TextButton(
+        onPressed: () => function(),
+        child: Align(alignment: Alignment.centerLeft, child: TextLang(text)));
+  }
 
   logout() {
     showDialog(
@@ -128,11 +180,7 @@ class _CustomActionState extends State<CustomAction>
           child: ListView.separated(
             shrinkWrap: true,
             padding: EdgeInsets.all(0),
-            itemBuilder: (context, index) => TextButton(
-                onPressed: () => this.actionsOnClick(index),
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextLang(this.items[index]))),
+            itemBuilder: showTextOfMenu,
             itemCount: this.items.length,
             separatorBuilder: (context, index) => const SizedBox(
               height: 2,
@@ -150,9 +198,17 @@ class _CustomActionState extends State<CustomAction>
         CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
   }
 
-  Future closeMenu() async {
+  Future removeOverlay() async {
     await _animationController.reverse();
-    this._overlayEntry.remove();
+    try {
+      this._overlayEntry.remove();
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  Future closeMenu() async {
+    await removeOverlay();
     setState(() {
       open = false;
     });
@@ -164,6 +220,12 @@ class _CustomActionState extends State<CustomAction>
     setState(() {
       open = true;
     });
+  }
+
+  @override
+  void dispose() {
+    removeOverlay();
+    super.dispose();
   }
 
   void toggleMenu() async {

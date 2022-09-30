@@ -29,10 +29,10 @@ class CommentWidget extends StatelessWidget {
               return BaseTextField(
                   controller: _controller,
                   maxLines: 3,
-                  hintText: "Напишите коментарий",
+                  hintText: "Напишите комментарий",
                   validatator: (text) => text != "" && text != null
                       ? null
-                      : "Введите коментарий".tr,
+                      : "Введите комментарий".tr,
                   onSaved: (text) => provider.sendComment(text!));
             }),
             StyleHandler.y_margin,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location_specialist/helpers/static/style_handler.dart';
-import 'package:location_specialist/helpers/widgets/check_box/check-box.dart';
+import 'package:location_specialist/helpers/widgets/check_box/multi-select-custom.dart';
 import 'package:location_specialist/helpers/widgets/text/text_title.dart';
 
 class CheckBoxHelper extends StatelessWidget {

@@ -6,6 +6,7 @@ import 'package:location_specialist/pages/main/widgets/home/home.dart';
 import 'package:location_specialist/pages/main/widgets/specialist/specialist_list.dart';
 import 'package:location_specialist/pages/main/widgets/user/user-edit.dart';
 import 'package:location_specialist/providers/common_provider.dart';
+import 'package:location_specialist/services/dynamic_link_service.dart';
 import 'package:provider/provider.dart';
 
 class MainPorivder with ChangeNotifier {
@@ -29,7 +30,7 @@ class MainPorivder with ChangeNotifier {
   }
 
   MainPorivder(BuildContext context) {
-    print("MAIN PROVIDER");
+    DynamicLinkService.instance.activateDynamicLink();
     var provider = Provider.of<CommonProvider>(context, listen: false);
     if (!provider.iconStream.isClosed) {
       provider.iconStreaming.listen((IconMenu event) {}, onDone: () {
