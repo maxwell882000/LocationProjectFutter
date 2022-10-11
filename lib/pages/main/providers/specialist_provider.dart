@@ -22,7 +22,7 @@ class SpecialistProvider extends BaseProvider implements AbstractPaginator {
   initAsync() async {
     try {
       this.paginate = await SpecialistRepository().specialistList();
-    }catch(e, statcktrace){
+    } catch (e, statcktrace) {
       print(statcktrace);
     }
   }
@@ -39,8 +39,14 @@ class SpecialistProvider extends BaseProvider implements AbstractPaginator {
   @override
   bool get next => this.paginate.next.isEmpty;
 
+  setLoading() {
+    this.paginate.setLoading();
+    notifyListeners();
+  }
+
   @override
   void nextPage() async {
+    setLoading();
     this.paginate =
         await SpecialistRepository().specialistListPaginate(paginate.next);
   }

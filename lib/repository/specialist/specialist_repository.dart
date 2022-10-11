@@ -6,9 +6,11 @@ import 'package:location_specialist/repository/model/request.dart';
 class SpecialistRepository with ApiBaseMethods {
   static final SpecialistRepository _singleton =
       SpecialistRepository._internal();
+
   factory SpecialistRepository() {
     return _singleton;
   }
+
   SpecialistRepository._internal();
 
   static const String prefix = "specialist/";
@@ -25,6 +27,7 @@ class SpecialistRepository with ApiBaseMethods {
   }
 
   Future<Specialist> specialistCreate(Map<String, dynamic> map) async {
+    print(map);
     var request = await this.post(Request(prefix + "create/", data: map));
     return Specialist.fromJson(request);
   }

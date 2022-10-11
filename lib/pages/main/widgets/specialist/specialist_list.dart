@@ -18,7 +18,8 @@ class SpecialistList extends StatelessWidget {
         child: Consumer<SpecialistProvider>(
           builder: (context, provider, child) => RefreshIndicator(
             onRefresh: () async {
-            await  provider.refresh();
+              print("CLICKED");
+              await provider.refresh();
             },
             child: ListViewPaginate(
                 paginator: provider,

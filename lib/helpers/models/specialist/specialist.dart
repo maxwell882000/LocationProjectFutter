@@ -2,6 +2,7 @@ import 'package:location_specialist/helpers/mixins/mix_comentable.dart';
 import 'package:location_specialist/helpers/mixins/mix_json.dart';
 import 'package:location_specialist/helpers/models/base/base_model.dart';
 import 'package:location_specialist/helpers/models/category/category.dart';
+import 'package:location_specialist/helpers/models/category/client_category.dart';
 import 'package:location_specialist/helpers/models/location/location.dart';
 import 'package:location_specialist/helpers/models/user/user.dart';
 
@@ -11,6 +12,12 @@ class Specialist extends BaseModel with MixJson, MixComentable {
   late User user;
   Location? location;
   late List<Category> category;
+  late int height;
+  late int weight;
+  late String dateOfBirth;
+  late String education;
+  late String experience;
+  late List<ClientCategory> clientCategory;
   bool isDeactivated = true;
   bool isAutoPayment = false;
   late double reviewAvg;
@@ -50,6 +57,17 @@ class Specialist extends BaseModel with MixJson, MixComentable {
     this.isDeactivated = map['is_deactivated'];
 
     this.isAutoPayment = map['is_auto_payment'] ?? false;
+    print(map["client_categories"]);
+    if (map.containsKey("client_categories") &&
+        map['client_categories'] != null)
+      this.clientCategory = map['client_categories']
+          .map<ClientCategory>((e) => ClientCategory.fromJson(e))
+          .toList();
+    this.height = map['height'] ?? 0;
+    this.weight = map['weight'] ?? 0;
+    this.dateOfBirth = map['date_of_birth'] ?? "";
+    this.education = map['education'] ?? "";
+    this.experience = map['experience'] ?? "";
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
     this.reviewAvg = map['review_avg'] ?? 0.0;
@@ -76,6 +94,11 @@ class Specialist extends BaseModel with MixJson, MixComentable {
   Map<String, dynamic> toUpdate() {
     var map = <String, dynamic>{
       "description": this.description,
+      "education": this.education,
+      "experience": this.experience,
+      "height": this.height,
+      "weight": this.weight,
+      "date_of_birth": this.dateOfBirth,
       "location": this.location?.id,
     };
     try {

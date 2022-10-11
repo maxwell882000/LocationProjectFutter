@@ -6,9 +6,11 @@ import 'package:location_specialist/helpers/widgets/image_picker/image-picker-cu
 import 'package:location_specialist/helpers/widgets/loading/widgets/loading.dart';
 import 'package:location_specialist/helpers/widgets/text/text_title.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
+import 'package:location_specialist/helpers/widgets/text_field/implementations/date_pick.dart';
 import 'package:location_specialist/helpers/widgets/text_field/implementations/text-field-phone.dart';
 import 'package:location_specialist/pages/main/providers/user_edit_provider.dart';
 import 'package:location_specialist/pages/register/specialist/category-selection.dart';
+import 'package:location_specialist/pages/register/specialist/category_client_selection.dart';
 import 'package:provider/provider.dart';
 
 class UserEdit extends StatelessWidget {
@@ -99,6 +101,36 @@ class UserEdit extends StatelessWidget {
                         onSaved: Provider.of<UserEditProvider>(context)
                             .setDescription),
                     StyleHandler.y_margin,
+                    BaseTextField(
+                        hintText: "Образование",
+                        maxLines: 4,
+                        initialValue: Provider.of<UserEditProvider>(context)
+                            .user
+                            .specialist!
+                            .education,
+                        validatator: (text) {
+                          return text != null || text == ""
+                              ? null
+                              : "Обязательное поле";
+                        },
+                        onSaved: Provider.of<UserEditProvider>(context)
+                            .setEducation),
+                    StyleHandler.y_margin,
+                    BaseTextField(
+                        hintText: "Опыт работы",
+                        maxLines: 4,
+                        initialValue: Provider.of<UserEditProvider>(context)
+                            .user
+                            .specialist!
+                            .experience,
+                        validatator: (text) {
+                          return text != null || text == ""
+                              ? null
+                              : "Обязательное поле";
+                        },
+                        onSaved: Provider.of<UserEditProvider>(context)
+                            .setExperience),
+                    StyleHandler.y_margin,
                     Consumer<UserEditProvider>(
                         builder: (context, provider, child) {
                       return RedButton(
@@ -106,13 +138,66 @@ class UserEdit extends StatelessWidget {
                           text: provider.textOfLocation());
                     }),
                     StyleHandler.y_margin,
-                    CategorySelection(
-                        category: Provider.of<UserEditProvider>(context)
-                            .user
-                            .specialist!
-                            .category,
-                        onSelect:
-                            Provider.of<UserEditProvider>(context).setCategory),
+                    Consumer<UserEditProvider>(
+                        builder: (context, provider, child) {
+                      return BaseTextField(
+                          hintText: "Вес",
+                          initialValue: Provider.of<UserEditProvider>(context)
+                              .user
+                              .specialist!
+                              .weight
+                              .toString(),
+                          validatator: (text) {
+                            return text != null || text == ""
+                                ? null
+                                : "Вес обязательное поле";
+                          },
+                          onSaved: provider.setWeight);
+                    }),
+                    StyleHandler.y_margin,
+                    Consumer<UserEditProvider>(
+                        builder: (context, provider, child) {
+                      return BaseTextField(
+                          hintText: "Рост",
+                          initialValue: Provider.of<UserEditProvider>(context)
+                              .user
+                              .specialist!
+                              .height
+                              .toString(),
+                          validatator: (text) {
+                            return text != null || text == ""
+                                ? null
+                                : "Рост обязательное поле";
+                          },
+                          onSaved: provider.setHeight);
+                    }),
+                    StyleHandler.y_margin,
+                    Consumer<UserEditProvider>(
+                      builder: (context, provider, child) {
+                        return DatePick(
+                            textEditingController: provider.dateController,
+                            onSaved: provider.setDate);
+                      },
+                    ),
+                    StyleHandler.y_margin,
+                    Consumer<UserEditProvider>(
+                        builder: (context, provider, child) {
+                      return CategorySelection(
+                          category: () => provider.user.specialist!.category
+                              .map<String>((e) => e.categoryName)
+                              .toList(),
+                          onSelect: provider.setCategory);
+                    }),
+                    StyleHandler.y_margin,
+                    Consumer<UserEditProvider>(
+                        builder: (context, provider, child) {
+                      return CategoryClientSelection(
+                        category: () => provider.user.specialist!.clientCategory
+                            .map<String>((e) => e.name)
+                            .toList(),
+                        onSelect: provider.setClientCategories,
+                      );
+                    }),
                   ],
                   StyleHandler.y_margin,
                   Builder(builder: (context) {

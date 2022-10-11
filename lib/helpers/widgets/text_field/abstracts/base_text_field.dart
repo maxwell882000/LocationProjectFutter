@@ -13,8 +13,11 @@ class BaseTextField extends StatelessWidget {
   final bool isPassword;
   final bool autofocus;
   final TextEditingController? controller;
+  final String? prefixText;
   final String? initialValue;
+  final bool readOnly;
   final FocusNode? focusNode;
+  final Icon? icon;
   final Function? onTap;
   final SufixContainer? sufixContainer;
   final List<TextInputFormatter>? inputFormatters;
@@ -25,7 +28,10 @@ class BaseTextField extends StatelessWidget {
       {Key? key,
       this.initialValue,
       this.onChanged,
+      this.icon,
+      this.prefixText,
       this.maxLength,
+      this.readOnly = false,
       this.maxLines = 1,
       this.onTap,
       this.controller,
@@ -53,7 +59,7 @@ class BaseTextField extends StatelessWidget {
             autofocus: autofocus,
             maxLength: maxLength,
             onTap: () {
-              if (onTap != null) onTap!();
+              if (onTap != null) onTap!(context, controller);
             },
             inputFormatters: inputFormatters,
             focusNode: this.focusNode,
@@ -69,9 +75,12 @@ class BaseTextField extends StatelessWidget {
             },
             maxLines: maxLines,
             onSaved: onSaved,
+            readOnly: readOnly,
             onChanged: onChanged,
             decoration: InputDecoration(
                 counterText: "",
+                icon: icon,
+                prefixText: prefixText,
                 contentPadding: maxLines! > 1
                     ? EdgeInsets.symmetric(vertical: StyleHandler.padding)
                     : EdgeInsets.zero,

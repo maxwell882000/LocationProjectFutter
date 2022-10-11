@@ -14,7 +14,9 @@ import 'package:provider/provider.dart';
 
 class SpecialistRegisterProvider extends LoadingProvider {
   final Map<String, dynamic> _formValues = {};
+  final TextEditingController editingController = new TextEditingController();
   Location? _location;
+
   bool _customLocation = false;
 
   bool get customLocation => _customLocation;
@@ -41,6 +43,26 @@ class SpecialistRegisterProvider extends LoadingProvider {
     _formValues["description"] = description;
   }
 
+  setExperience(String? experience) {
+    _formValues["experience"] = experience;
+  }
+
+  setEducation(String? education) {
+    _formValues["education"] = education;
+  }
+
+  setDateOfBirth(String? dateOfBirth) {
+    _formValues["date_of_birth"] = dateOfBirth;
+  }
+
+  setHeight(String? height) {
+    _formValues["height"] = int.parse(height ?? "0");
+  }
+
+  setWeight(String? weight) {
+    _formValues["weight"] = int.parse(weight ?? "0");
+  }
+
   Future setImage(Media media) async {
     _formValues['image'] = await CommonRepository().createImageTemp(media);
   }
@@ -61,12 +83,20 @@ class SpecialistRegisterProvider extends LoadingProvider {
     }
   }
 
+  setClientCategory(List ids) {
+    _formValues['client_categories'] = ids;
+  }
+
   setCategory(List ids) {
     _formValues['category'] = ids;
   }
 
   setCustomLocation(String? location) {
     _formValues['custom_location'] = location;
+  }
+
+  String? get dateOfBirth {
+    return _formValues['date_of_birth'];
   }
 
   String textOfLocation() {

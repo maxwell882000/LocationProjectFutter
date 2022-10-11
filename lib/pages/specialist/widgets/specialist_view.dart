@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -15,6 +14,7 @@ class Animal {
 class MyHomePage extends StatefulWidget {
   MyHomePage({required Key key, required this.title}) : super(key: key);
   final String title;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -52,9 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
   final _items = _animals
       .map((animal) => MultiSelectItem<Animal>(animal, animal.name))
       .toList();
+
   //List<Animal> _selectedAnimals = [];
   List<Animal> _selectedAnimals2 = [];
   List<Animal> _selectedAnimals3 = [];
+
   //List<Animal> _selectedAnimals4 = [];
   List<Animal> _selectedAnimals5 = [];
   final _multiSelectKey = GlobalKey<FormFieldState>();
@@ -145,12 +147,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     _selectedAnimals2.isEmpty
                         ? Container(
-                        padding: EdgeInsets.all(10),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "None selected",
-                          style: TextStyle(color: Colors.black54),
-                        ))
+                            padding: EdgeInsets.all(10),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "None selected",
+                              style: TextStyle(color: Colors.black54),
+                            ))
                         : Container(),
                   ],
                 ),
@@ -201,7 +203,6 @@ class _MyHomePageState extends State<MyHomePage> {
               //################################################################################################
               // MultiSelectDialogField with initial values
               //################################################################################################
-
             ],
           ),
         ),

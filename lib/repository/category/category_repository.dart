@@ -1,10 +1,12 @@
 import 'package:location_specialist/helpers/models/category/category.dart';
 import 'package:location_specialist/helpers/models/category/category_paginate.dart';
+import 'package:location_specialist/helpers/models/category/client_category.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';
 import 'package:location_specialist/repository/model/request.dart';
 
 class CategoryRepository with ApiBaseMethods {
   static final CategoryRepository _singleton = CategoryRepository._internal();
+
   factory CategoryRepository() {
     return _singleton;
   }
@@ -21,7 +23,16 @@ class CategoryRepository with ApiBaseMethods {
 
   Future<List<Category>> categorySelectList() async {
     var response = await this.get(new Request(prefix + "list/select/?size=0"));
-    return response['results'].map<Category>((e) => Category.select(e)).toList();
+    return response['results']
+        .map<Category>((e) => Category.select(e))
+        .toList();
+  }
+
+  Future<List<ClientCategory>> categoryClientSelectList() async {
+    var response = await this.get(new Request(prefix + "client/list/select/"));
+    return response
+        .map<ClientCategory>((e) => ClientCategory.fromJson(e))
+        .toList();
   }
 
   Future<CategoryPaginate> categoryListPaginate(String url) async {

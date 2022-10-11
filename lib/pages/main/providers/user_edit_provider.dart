@@ -17,6 +17,8 @@ import 'package:provider/provider.dart';
 class UserEditProvider extends LoadingProvider {
   User user = new Auth.empty();
   List<int> category = [];
+  TextEditingController dateController = TextEditingController();
+  List<int> clientCategory = [];
 
   set location(Location? location) {
     if (location != null) {
@@ -55,11 +57,26 @@ class UserEditProvider extends LoadingProvider {
     user.specialist!.description = text!;
   }
 
+  setExperience(String? text) {
+    user.specialist!.experience = text!;
+  }
+
+  setEducation(String? text) {
+    user.specialist!.education = text!;
+  }
+
   UserEditProvider(BuildContext context) {
     this.user = Provider.of<AuthProvider>(context, listen: false).user!;
 
-    if (user.specialist != null)
+    if (user.specialist != null) {
       this.category = user.specialist!.category.map<int>((e) => e.id).toList();
+      this.clientCategory =
+          user.specialist!.clientCategory.map<int>((e) => e.id).toList();
+      this.dateController.text = user.specialist!.dateOfBirth;
+      print(user.specialist!.clientCategory
+          .map<String>((e) => e.name)
+          .toList());
+    }
   }
 
   Future setImage(Media media) async {
@@ -79,6 +96,22 @@ class UserEditProvider extends LoadingProvider {
     this.category = ids;
   }
 
+  setDate(String? text) {
+    user.specialist!.dateOfBirth = text!;
+  }
+
+  setClientCategories(List<int> ids) {
+    this.clientCategory = ids;
+  }
+
+  setHeight(String? height) {
+    if (height != "") user.specialist!.height = int.parse(height ?? "0");
+  }
+
+  setWeight(String? weight) {
+    if (weight != "") user.specialist!.weight = int.parse(weight ?? "0");
+  }
+
   updateProfile(BuildContext context) async {
     loading = true;
     try {
@@ -87,6 +120,7 @@ class UserEditProvider extends LoadingProvider {
         Map<String, dynamic> map = user.specialist!.toUpdate();
         map['user'] = user.toJson();
         map['category'] = category;
+        map['client_categories'] = clientCategory;
         var specialist = (await SpecialistRepository()
             .specialistUpdate(user.specialist!.id, map));
         this.user = specialist.user;
