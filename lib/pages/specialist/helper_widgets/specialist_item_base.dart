@@ -33,14 +33,14 @@ class SpecialistItemBase extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(child: TextTitle(specialist.name)),
-                  Flexible(
-                    child: Text(
-                      specialist.address,
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  // Flexible(
+                  //   child: Text(
+                  //     specialist.address,
+                  //     style: TextStyle(
+                  //       fontSize: 12,
+                  //     ),
+                  //   ),
+                  // ),
                   ...actions,
                 ],
               )),

@@ -42,7 +42,8 @@ class MyApp extends StatelessWidget {
           create: (_) => CommonProvider(),
         ),
         ChangeNotifierProvider<LocationFormProvider>(
-            create: (_) => LocationFormProvider())
+            create: (_) => LocationFormProvider()
+        )
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

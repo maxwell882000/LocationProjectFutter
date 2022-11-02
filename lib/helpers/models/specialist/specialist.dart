@@ -11,6 +11,7 @@ class Specialist extends BaseModel with MixJson, MixComentable {
   late String description;
   late User user;
   Location? location;
+  List<Location> manyLocations = [];
   late List<Category> category;
   late int height;
   late int weight;
@@ -28,6 +29,13 @@ class Specialist extends BaseModel with MixJson, MixComentable {
       "${this.category.isNotEmpty ? this.category.first.categoryName : ''}";
 
   String get address => "${this.location?.name}";
+
+  String textOfLocation({String seperator = " | "}) {
+    List<Location> location = this.manyLocations;
+    return location.length == 0
+        ? "Выберите локацию"
+        : location.map((e) => e.name).toList().join(seperator);
+  }
 
   Specialist.create(Map<String, dynamic> map) : super.fromJson(map) {
     print(image);
@@ -54,6 +62,12 @@ class Specialist extends BaseModel with MixJson, MixComentable {
     this.setUser(map);
     if (map.containsKey("location") && map['location'] != null)
       this.location = Location.fromJson(map['location']);
+    print(map);
+    if (map.containsKey("many_location") && map['many_location'] != null) {
+      this.manyLocations = map['many_location']
+          .map<Location>((value) => Location.fromJson(value))
+          .toList();
+    }
     this.isDeactivated = map['is_deactivated'];
 
     this.isAutoPayment = map['is_auto_payment'] ?? false;
@@ -99,7 +113,7 @@ class Specialist extends BaseModel with MixJson, MixComentable {
       "height": this.height,
       "weight": this.weight,
       "date_of_birth": this.dateOfBirth,
-      "location": this.location?.id,
+      "many_location": this.manyLocations.map((e) => e.id).toList(),
     };
     try {
       map['image'] = int.parse(this.image);

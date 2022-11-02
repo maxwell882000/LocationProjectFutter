@@ -8,6 +8,7 @@ class TextFieldPhone extends BaseTextField {
           hintText: "Телефон",
           initialValue: initialValue?.replaceAll("+7", ""),
           prefixText: "+7",
+          keyboardType: TextInputType.phone,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           validatator: (text) {
             RegExp regExp = new RegExp(r"^(\+\d*|\d*)$");

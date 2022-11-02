@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 class SpecialistRegisterProvider extends LoadingProvider {
   final Map<String, dynamic> _formValues = {};
   final TextEditingController editingController = new TextEditingController();
-  Location? _location;
+  List<Location> _location = [];
 
   bool _customLocation = false;
 
@@ -27,11 +27,11 @@ class SpecialistRegisterProvider extends LoadingProvider {
     notifyListeners();
   }
 
-  Location? get location => _location;
+  List<Location> get location => _location;
 
-  set location(Location? location) {
+  set location(List<Location> location) {
     _location = location;
-    _formValues['location'] = _location!.id;
+    _formValues['many_location'] = location.map((e) => e.id).toList();
     notifyListeners();
   }
 
@@ -77,9 +77,10 @@ class SpecialistRegisterProvider extends LoadingProvider {
   }
 
   setLocation() async {
-    var object = await Get.toNamed(Path.CHOOSE_LOCATION);
+    var object = await Get.toNamed(Path.SELECT_MULTIPLE_LOCATIONS,
+        arguments: this.location);
     if (object != null) {
-      this.location = object as Location?;
+      this.location = object as List<Location>;
     }
   }
 
@@ -100,7 +101,9 @@ class SpecialistRegisterProvider extends LoadingProvider {
   }
 
   String textOfLocation() {
-    return this._location == null ? "Найти локацию" : this._location!.name;
+    return this._location.length == 0
+        ? "Выберите локацию"
+        : this._location.map((e) => e.name).toList().join(" | ");
   }
 
   registerSpecialist() async {

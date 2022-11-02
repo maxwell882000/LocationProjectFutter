@@ -4,6 +4,7 @@ class Path {
   static const REGISTER_USER = "/register-user";
   static const REGISTER_CHOOSE = "/register-choose";
   static const CHOOSE_LOCATION = "/specialist-choose-location";
+  static const SELECT_MULTIPLE_LOCATIONS = "/specialist-choose-many-locations";
   static const REGISTER_SPECIALIST = "/register-specialist";
   static const REGISTER_USER_FIRST = "/register-user-first";
   static const MAIN = "/main";

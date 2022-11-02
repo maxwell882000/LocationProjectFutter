@@ -68,6 +68,7 @@ class SpecialistRegister extends StatelessWidget {
                 builder: (context, provider, child) {
               return BaseTextField(
                   hintText: "Вес",
+                  keyboardType: TextInputType.number,
                   validatator: (text) {
                     return text != null || text == ""
                         ? null
@@ -79,6 +80,7 @@ class SpecialistRegister extends StatelessWidget {
                 builder: (context, provider, child) {
               return BaseTextField(
                   hintText: "Рост",
+                  keyboardType: TextInputType.number,
                   validatator: (text) {
                     return text != null || text == ""
                         ? null

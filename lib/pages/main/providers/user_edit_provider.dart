@@ -20,12 +20,12 @@ class UserEditProvider extends LoadingProvider {
   TextEditingController dateController = TextEditingController();
   List<int> clientCategory = [];
 
-  set location(Location? location) {
-    if (location != null) {
-      user.specialist!.location = location;
-      notifyListeners();
-    }
+  set location(List<Location> location) {
+    user.specialist!.manyLocations = location;
+    notifyListeners();
   }
+
+  List<Location> get location => user.specialist!.manyLocations;
 
   set phone(String phone) {
     user.phone = phone;
@@ -33,13 +33,14 @@ class UserEditProvider extends LoadingProvider {
   }
 
   String textOfLocation() {
-    return this.user.specialist!.location?.name ?? "Выберите локацию";
+    return this.user.specialist!.textOfLocation();
   }
 
   setLocation() async {
-    var object = await Get.toNamed(Path.CHOOSE_LOCATION);
+    var object = await Get.toNamed(Path.SELECT_MULTIPLE_LOCATIONS,
+        arguments: this.location);
     if (object != null) {
-      this.location = object as Location?;
+      this.location = object as List<Location>;
     }
   }
 
@@ -73,9 +74,8 @@ class UserEditProvider extends LoadingProvider {
       this.clientCategory =
           user.specialist!.clientCategory.map<int>((e) => e.id).toList();
       this.dateController.text = user.specialist!.dateOfBirth;
-      print(user.specialist!.clientCategory
-          .map<String>((e) => e.name)
-          .toList());
+      print(
+          user.specialist!.clientCategory.map<String>((e) => e.name).toList());
     }
   }
 

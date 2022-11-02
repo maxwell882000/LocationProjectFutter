@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:location_specialist/helpers/models/specialist/specialist.dart';
 import 'package:location_specialist/helpers/models/specialist/specialist_paginate.dart';
 import 'package:location_specialist/repository/mixin/api_base_methods.dart';
@@ -34,7 +36,9 @@ class SpecialistRepository with ApiBaseMethods {
 
   Future<Specialist> specialistUpdate(
       int specialistId, Map<String, dynamic> map) async {
-    print(map);
+    print(r"afsfaf'afssaf'");
+    String str = json.encode(map);
+    print(str);
     var request =
         await this.put(Request(prefix + "update/$specialistId/", data: map));
     return Specialist.fromJson(request);

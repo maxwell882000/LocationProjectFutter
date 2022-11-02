@@ -19,6 +19,7 @@ class BaseTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final Icon? icon;
   final Function? onTap;
+  final TextInputType? keyboardType;
   final SufixContainer? sufixContainer;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
@@ -31,6 +32,7 @@ class BaseTextField extends StatelessWidget {
       this.icon,
       this.prefixText,
       this.maxLength,
+      this.keyboardType,
       this.readOnly = false,
       this.maxLines = 1,
       this.onTap,
@@ -75,6 +77,7 @@ class BaseTextField extends StatelessWidget {
             },
             maxLines: maxLines,
             onSaved: onSaved,
+            keyboardType: keyboardType,
             readOnly: readOnly,
             onChanged: onChanged,
             decoration: InputDecoration(

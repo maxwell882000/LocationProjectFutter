@@ -79,8 +79,7 @@ class SpecialistView extends StatelessWidget {
                       provider.specialist.height.toString(),
                     )),
               ],
-              if (provider.specialist.dateOfBirth != "")
-              ...[
+              if (provider.specialist.dateOfBirth != "") ...[
                 StyleHandler.y_margin,
                 LabelWidget(
                     text: "Дата рождения:",
@@ -92,6 +91,14 @@ class SpecialistView extends StatelessWidget {
               LabelWidget(
                   text: "Номер телефона:",
                   child: Text(provider.specialist.user.phone)),
+              if (provider.specialist.manyLocations.isNotEmpty)...[
+                StyleHandler.y_margin,
+                LabelWidget(
+                    text: "Местоположения",
+                    child: Text(
+                        provider.specialist.textOfLocation(seperator: "\n"))),
+              ],
+
               StyleHandler.y_margin,
               Consumer<SpecialistViewProvider>(
                   builder: (context, provider, child) {

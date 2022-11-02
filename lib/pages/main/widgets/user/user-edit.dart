@@ -4,6 +4,7 @@ import 'package:location_specialist/helpers/widgets/button/implementations/black
 import 'package:location_specialist/helpers/widgets/button/implementations/red-button.dart';
 import 'package:location_specialist/helpers/widgets/image_picker/image-picker-custom.dart';
 import 'package:location_specialist/helpers/widgets/loading/widgets/loading.dart';
+import 'package:location_specialist/helpers/widgets/location/widget/select_locations.dart';
 import 'package:location_specialist/helpers/widgets/text/text_title.dart';
 import 'package:location_specialist/helpers/widgets/text_field/abstracts/base_text_field.dart';
 import 'package:location_specialist/helpers/widgets/text_field/implementations/date_pick.dart';
@@ -12,6 +13,8 @@ import 'package:location_specialist/pages/main/providers/user_edit_provider.dart
 import 'package:location_specialist/pages/register/specialist/category-selection.dart';
 import 'package:location_specialist/pages/register/specialist/category_client_selection.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../helpers/models/location/location.dart';
 
 class UserEdit extends StatelessWidget {
   UserEdit({Key? key}) : super(key: key);

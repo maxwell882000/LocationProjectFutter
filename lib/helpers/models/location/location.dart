@@ -20,16 +20,19 @@ class Location extends BaseModel with MixComentable {
   String? _name;
 
   List<Specialist> specialist = [];
+
   Location.search(Map<String, dynamic> map) {
     this.id = map['id'];
     this.city = map['city'];
     this.country = map['country']['country'];
     this.district = "";
   }
+
   Location.gecoding(
       {required String name, required this.latitude, required this.longitude}) {
     this._name = name;
   }
+
   Location.fromJson(Map<String, dynamic> map) : super.fromJson(map) {
     this.country = map['country'];
     this.city = map['city'];
@@ -45,6 +48,7 @@ class Location extends BaseModel with MixComentable {
     this.category =
         map['category'].map<Category>((e) => Category.fromJson(e)).toList();
   }
+
   String get name =>
       this._name ??
       (this.district != ""

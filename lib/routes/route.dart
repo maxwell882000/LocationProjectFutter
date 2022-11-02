@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:location_specialist/dynamic_link.dart';
+import 'package:location_specialist/helpers/widgets/location/widget/select_locations.dart';
 import 'package:location_specialist/pages/category/widgets/category_view.dart';
 import 'package:location_specialist/pages/confedentials/views/confidential_view.dart';
 import 'package:location_specialist/pages/confedentials/views/instructions_view.dart';
@@ -67,6 +68,7 @@ class Routes {
     GetPage(name: Path.FORGET_PHONE, page: () => ForgetPhone()),
     GetPage(name: Path.SUCCESS_PAYMENT, page: () => SuccessPayment()),
     GetPage(name: Path.FAIL_PAYMENT, page: () => FailPayment()),
-    GetPage(name: Path.WAITING_PAYMENT, page: () => WaitingPayment())
+    GetPage(name: Path.WAITING_PAYMENT, page: () => WaitingPayment()),
+    GetPage(name: Path.SELECT_MULTIPLE_LOCATIONS, page: () => SelectLocations())
   ];
 }
